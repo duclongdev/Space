@@ -3,18 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/doan/Space/app/src/main/res/drawable/gender_background_selector.xml" value="0.121" />
-        <entry key="..\:/doan/Space/app/src/main/res/drawable/gender_checked_background.xml" value="0.121" />
-        <entry key="..\:/doan/Space/app/src/main/res/drawable/gender_text_selector.xml" value="0.121" />
-        <entry key="..\:/doan/Space/app/src/main/res/drawable/gender_unchecked_background.xml" value="0.121" />
-        <entry key="..\:/doan/Space/app/src/main/res/drawable/gradient_background.xml" value="0.121" />
-        <entry key="..\:/doan/Space/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/doan/Space/app/src/main/res/layout/activity_space_register.xml" value="0.1" />
-        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_enter_age.xml" value="0.264" />
-        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_enter_email.xml" value="0.10989583333333333" />
-        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_enter_gender.xml" value="0.2" />
-        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_enter_name.xml" value="0.10625" />
-        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_enter_password.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/activity_space_register.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_enter_age.xml" value="0.1" />
       </map>
     </option>
   </component>
