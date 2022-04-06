@@ -101,22 +101,4 @@
         android:textSize="20sp"
         >
     </android.widget.Button>
-    <LinearLayout
-        android:layout_marginTop="80dp"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account?"
-            android:textColor="@color/white"/>
-        <TextView
-            android:layout_marginLeft="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign up"
-            android:textColor="@color/custom"
-            android:textStyle="bold"/>
-    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

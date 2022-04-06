@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "609302993573",
+    "project_id": "space-app-faff9",
+    "storage_bucket": "space-app-faff9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609302993573:android:6f54a35bf4cfe8b75b0b4c",
+        "android_client_info": {
+          "package_name": "com.example.space"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609302993573-o0l97ktj4g04kccr45j26tl61m6ki09g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.space",
+            "certificate_hash": "c8bbf4a92d13d5a38c41ee3ef64483e7ce84d383"
+          }
+        },
+        {
+          "client_id": "609302993573-u0csm86mqjk1bbg98132ko147v0g5h7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAktiL4aeUYN7nivOIBlj4vqKzB3anFJQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609302993573-u0csm86mqjk1bbg98132ko147v0g5h7h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
