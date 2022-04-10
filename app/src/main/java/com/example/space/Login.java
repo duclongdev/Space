@@ -3,6 +3,7 @@ package com.example.space;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class Login extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +146,10 @@ public class Login extends AppCompatActivity {
     }
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        progressDialog=new ProgressDialog(this,R.style.MyAlertDialogStyle);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Waiting for loading...");
+        progressDialog.show();
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -151,6 +157,7 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            progressDialog.hide();
                         } else {
                             updateUI(null);
                         }

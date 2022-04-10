@@ -94,6 +94,7 @@
                 android:text="Continue with Google"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_margin="10dp"/>
         </LinearLayout>
     </LinearLayout>

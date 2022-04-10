@@ -1,5 +1,6 @@
 package com.example.space.register;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.concurrent.Executor;
 
 public class EnterName extends Fragment {
-
+    private ProgressDialog progressDialog;
     Button done_backToLogin;
     private RegisterViewModel model;
     EditText enterName;
@@ -121,7 +122,10 @@ public class EnterName extends Fragment {
     private void createAccount(String email, String password) {
         String name=model.getName().getValue();
         String age=model.getAge().getValue();
-        Toast.makeText(getActivity(),email,Toast.LENGTH_LONG).show();
+        progressDialog=new ProgressDialog(requireActivity(),R.style.MyAlertDialogStyle);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Waiting for loading...");
+        progressDialog.show();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -129,7 +133,7 @@ public class EnterName extends Fragment {
                         if (task.isSuccessful()) {
                             User users=new User(name,age,email);
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).setValue(users);
-                            Log.d(TAG, "createUserWithEmail:success");
+                            progressDialog.hide();
                         } else {
 
                         }

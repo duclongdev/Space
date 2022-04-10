@@ -60,7 +60,7 @@
         android:id="@+id/done_backToLogin"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:text="Next"
+        android:text="Done"
         android:background="@drawable/background_btn"
         android:textAllCaps="false"
         android:textColor="@color/white"

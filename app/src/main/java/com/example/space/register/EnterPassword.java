@@ -25,8 +25,8 @@ public class EnterPassword extends Fragment {
 
 
     Button next_enterBirthday;
-    EditText enterPassword;
-    TextInputLayout enterPasswordLayout;
+    EditText enterPassword,enterConfirmPassword;
+    TextInputLayout enterPasswordLayout,enterConfirmPasswordLayout;
     boolean check = true;
     private RegisterViewModel model;
     NavController navController;
@@ -64,13 +64,38 @@ public class EnterPassword extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                if(enterPassword.getText().toString().length() < 8){
+                    enterPasswordLayout.setError("At least 8 characters");
+                }
+                else {
+                    enterPasswordLayout.setError("");
+                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(check==false && enterPassword.getText().toString().length() >= 8)
-                    enterPasswordLayout.setError("");
+
+            }
+        });
+        enterConfirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(enterConfirmPassword.getText().toString().length() < 8){
+                    enterConfirmPasswordLayout.setError("At least 8 characters");
+                }
+                else {
+                    enterConfirmPasswordLayout.setError("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
     }
@@ -81,17 +106,19 @@ public class EnterPassword extends Fragment {
         next_enterBirthday = view.findViewById(R.id.next_enterBirthday);
         navController = Navigation.findNavController(view);
         enterPassword = view.findViewById(R.id.enterPassword);
+        enterConfirmPassword=view.findViewById(R.id.enterConfirmPassword);
         enterPasswordLayout = view.findViewById(R.id.enterPasswordLayout);
+        enterConfirmPasswordLayout=view.findViewById(R.id.enterConfirmPasswordLayout);
     }
 
     private void checkPassword()
     {
-        if(enterPassword.getText().toString().length() < 8)
+        if(!enterPassword.getText().toString().equals(enterConfirmPassword.getText().toString()))
         {
-            enterPasswordLayout.setError("At least 8 characters");
+            enterConfirmPasswordLayout.setError("Your password and confirm password must match.");
             check = false;
         }else {
-            model.getPassWord().setValue(enterPassword.getText().toString());
+            model.getPassWord().setValue(enterPassword.getText().toString().trim());
             navController.navigate(R.id.action_enterPassword_to_enterAge);
         }
     }

@@ -86,7 +86,7 @@ public class EnterEmail extends Fragment {
             check = false;
         }
         else{
-            model.getEmail().setValue(enterEmail.getText().toString());
+            model.getEmail().setValue(enterEmail.getText().toString().trim());
             navController.navigate(R.id.action_enterEmail_to_enterPassword);
         }
 

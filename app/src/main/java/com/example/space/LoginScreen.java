@@ -3,6 +3,7 @@ package com.example.space;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,14 +50,20 @@ public class LoginScreen extends AppCompatActivity {
     private void reload() {
     }
     private void SignIn(String email,String password){
+        progressDialog=new ProgressDialog(this,R.style.MyAlertDialogStyle);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Waiting for loading...");
+        progressDialog.show();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            progressDialog.hide();
                             Toast.makeText(LoginScreen.this, "thành công", Toast.LENGTH_SHORT).show();
                         } else {
+                            progressDialog.hide();
+                            Toast.makeText(LoginScreen.this, "thất bại", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
