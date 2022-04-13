@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Space">
         <activity
-            android:name=".Detail"
+            android:name=".Forgotpass"
+            android:exported="false" />
+        <activity
+            android:name=".Home"
             android:exported="false" />
 
         <meta-data

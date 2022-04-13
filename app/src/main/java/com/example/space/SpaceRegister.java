@@ -22,7 +22,6 @@ public class SpaceRegister extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
     public boolean onSupportNavigateUp()
     {
         return navController.navigateUp() || super.onSupportNavigateUp();

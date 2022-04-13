@@ -105,8 +105,6 @@ public class Login extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
     private void handleFacebookAccessToken(AccessToken token) {
-
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -169,11 +167,7 @@ public class Login extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     private void updateUI(FirebaseUser currentUser) {
-        Intent intent=new Intent(Login.this,Detail.class);
-        Bundle bundle=new Bundle();
-        String name=currentUser.getDisplayName();
-        bundle.putString("key1",name);
-        intent.putExtra("data",bundle);
+        Intent intent=new Intent(Login.this,Home.class);
         startActivity(intent);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.space.register;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.space.Home;
+import com.example.space.LoginScreen;
 import com.example.space.R;
 import com.example.space.model.RegisterViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -134,6 +137,8 @@ public class EnterName extends Fragment {
                             User users=new User(name,age,email);
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).setValue(users);
                             progressDialog.hide();
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            updateUI(currentUser);
                         } else {
 
                         }
@@ -142,5 +147,7 @@ public class EnterName extends Fragment {
     }
 
     private void updateUI(FirebaseUser user) {
+        Intent intent=new Intent(requireActivity(), Home.class);
+        startActivity(intent);
     }
 }
