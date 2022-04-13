@@ -48,7 +48,7 @@
         android:layout_height="260dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="25dp"
-        android:src="@drawable/justin_bieber"/>
+        android:src="@drawable/logo_fb"/>
 
     <TextView
         android:id="@+id/name"
@@ -92,7 +92,7 @@
                 android:id="@+id/btnfavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/heart"/>
+                android:src="@drawable/ic_baseline_cloud_download_24"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -139,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/suffle"
+            android:src="@drawable/ic_baseline_shuffle_24"
             android:background="@android:color/transparent"
             />
         <LinearLayout
@@ -151,7 +151,8 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/back"
+                android:src="@drawable/ic_baseline_skip_previous_24"
+                android:scaleType="fitCenter"
                 android:background="@android:color/transparent"/>
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/play"
@@ -159,7 +160,6 @@
                 android:layout_height="59dp"
                 android:src="@drawable/ic_baseline_pause_24"
                 app:fabCustomSize="59dp"
-                android:background="@drawable/gradient"
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="#FFFFFF"
                 />
@@ -168,7 +168,8 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/next"
+                android:src="@drawable/ic_baseline_skip_next_24"
+                android:scaleType="fitCenter"
                 android:background="@android:color/transparent"/>
         </LinearLayout>
 
@@ -178,7 +179,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:src="@drawable/replay" />
+            android:src="@drawable/ic_baseline_repeat_24"
+            android:scaleType="center"/>
     </LinearLayout>
 
 </LinearLayout>
