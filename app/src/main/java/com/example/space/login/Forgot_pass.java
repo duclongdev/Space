@@ -32,7 +32,7 @@ public class Forgot_pass extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_forgot_pass, container, false);
-
+        Init(v);
         return v;
     }
     private void Init(View v){

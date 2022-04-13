@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,10 +39,13 @@ public class Sign_in extends Fragment {
     private Button btn_sign_in;
     private TextInputLayout email_layout;
     private TextInputLayout pass_layout;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_sign_in, container, false);
+        Init(v);
         return v;
     }
     private void Init(View v){
@@ -64,7 +68,7 @@ public class Sign_in extends Fragment {
         forget_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NavHostFragment.findNavController(Sign_in.this).navigate(R.id.action_sign_in_to_forgot_pass);
             }
         });
         email.addTextChangedListener(new TextWatcher() {

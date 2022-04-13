@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,8 @@ public class Method_Sign_in extends Fragment {
         Init(v);
         return v;
     }
+
+
     private void Init(View v){
         btn_SI=v.findViewById(R.id.btn_SI);
         btn_SU=v.findViewById(R.id.btn_SU);
@@ -71,14 +74,14 @@ public class Method_Sign_in extends Fragment {
         btn_SI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NavHostFragment.findNavController(Method_Sign_in.this).navigate(R.id.action_method_Sign_in_to_sign_in);
             }
         });
         //sự kiện nút đăng nhập bằng tài khoản account
         btn_SU.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NavHostFragment.findNavController(Method_Sign_in.this).navigate(R.id.action_method_Sign_in_to_enterEmail);
             }
         });
         //đăng nhập bằng facebook
