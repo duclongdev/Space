@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/enterEmail">
+
+    <fragment
+        android:id="@+id/enterEmail"
+        android:name="com.example.space.register.EnterEmail"
+        android:label="@string/Email"
+        tools:layout="@layout/fragment_enter_email" >
+        <action
+            android:id="@+id/action_enterEmail_to_enterPassword"
+            app:destination="@id/enterPassword"
+            app:popUpTo="@id/enterPassword"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterPassword"
+        android:name="com.example.space.register.EnterPassword"
+        android:label="@string/Password"
+        tools:layout="@layout/fragment_enter_password" >
+        <action
+            android:id="@+id/action_enterPassword_to_enterAge"
+            app:destination="@id/enterAge"
+            app:popUpTo="@id/enterAge"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterAge"
+        android:name="com.example.space.register.EnterAge"
+        android:label="@string/Birthday"
+        tools:layout="@layout/fragment_enter_age" >
+        <action
+            android:id="@+id/action_enterAge_to_enterGender"
+            app:destination="@id/enterGender"
+            app:popUpTo="@id/enterGender"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterGender"
+        android:name="com.example.space.register.EnterGender"
+        android:label="@string/Gender"
+        tools:layout="@layout/fragment_enter_gender" >
+        <action
+            android:id="@+id/action_enterGender_to_enterName"
+            app:destination="@id/enterName"
+            app:popUpTo="@id/enterName"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterName"
+        android:name="com.example.space.register.EnterName"
+        android:label="@string/Name"
+        tools:layout="@layout/fragment_enter_name" />
+</navigation>

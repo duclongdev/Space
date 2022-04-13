@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Space</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="Birthday">Birthday</string>
+    <string name="Gender">Gender</string>
+    <string name="Name">Name</string>
+    <string name="facebook_app_id">524617992374083</string>
+    <string name="fb_login_protocol_scheme">fb524617992374083</string>
+    <string name="facebook_client_token">7a8f720932b5f81eaddf860910b0f46c</string>
 </resources>

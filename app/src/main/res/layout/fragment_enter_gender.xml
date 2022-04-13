@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".register.EnterGender"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/background">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What's your gender?"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Be true to yourself"
+        android:layout_centerHorizontal="true"
+        android:textColor="#BBBCC1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.01" />
+
+    <RadioGroup
+        android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/gender"
+        app:layout_constraintBottom_toTopOf="@+id/next_enterName"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.254"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:layout_editor_absoluteX="16dp" >
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_marginBottom="10dp"
+            android:layout_width="150dp"
+            android:gravity="center"
+            android:checked="true"
+            android:textColor="@drawable/gender_text_selector"
+            android:layout_height="wrap_content"
+            android:button="@android:color/transparent"
+            android:background="@drawable/gender_background_selector"
+            android:text="Male"/>
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/gender_background_selector"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="Female"
+            android:textColor="@drawable/gender_text_selector" />
+        <RadioButton
+            android:id="@+id/other"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gender_background_selector"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="Other"
+            android:layout_gravity="center"
+            android:textColor="@drawable/gender_text_selector" />
+
+    </RadioGroup>
+
+    <android.widget.Button
+        android:id="@+id/next_enterName"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/background_btn"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.684" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

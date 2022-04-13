@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyDatePicker" >
+        <!-- Text color -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!-- Divider color -->
+        <item name="colorControlNormal">@color/custom</item>
+    </style>
+    <style name="myEditTextLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextColor">@color/custom</item>
+        <item name="boxStrokeColor">@color/custom</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="android:textColorHint">@color/grey</item>
+    </style>
+    <style name="myEditText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textCursorDrawable">@drawable/background_btn</item>
+    </style>
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/background</item>
+        <item name="colorAccent">@color/custom</item>
+    </style>
+</resources>
