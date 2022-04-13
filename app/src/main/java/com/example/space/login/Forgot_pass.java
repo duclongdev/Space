@@ -3,7 +3,9 @@ package com.example.space.login;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,6 +31,16 @@ public class Forgot_pass extends Fragment {
     private FirebaseAuth auth;
     private ImageButton btn_back;
     @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_forgot_pass, container, false);
@@ -44,7 +56,7 @@ public class Forgot_pass extends Fragment {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NavHostFragment.findNavController(Forgot_pass.this).navigate(R.id.action_forgot_pass_to_sign_in);
             }
         });
         email.addTextChangedListener(new TextWatcher() {

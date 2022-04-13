@@ -1,11 +1,14 @@
 package com.example.space.login;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -54,12 +57,25 @@ public class Method_Sign_in extends Fragment {
     private LinearLayout btn_SU;
     private LinearLayout btn_gg;
     private LinearLayout btn_fb;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_method__sign_in, container, false);
         Init(v);
+
         return v;
     }
 
@@ -71,6 +87,7 @@ public class Method_Sign_in extends Fragment {
         btn_fb=v.findViewById(R.id.btn_fb);
         mAuth = FirebaseAuth.getInstance();
         //sự kiện nút đăng ký
+
         btn_SI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
