@@ -184,6 +184,7 @@ public class Method_Sign_in extends Fragment {
     }
     //cập nhật lại giao diện
     private void updateUI(FirebaseUser currentUser) {
-
+        Intent intent=new Intent(requireActivity(),Home.class);
+        startActivity(intent);
     }
 }
