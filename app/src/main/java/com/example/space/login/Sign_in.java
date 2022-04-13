@@ -71,7 +71,7 @@ public class Sign_in extends Fragment {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NavHostFragment.findNavController(Sign_in.this).navigate(R.id.action_sign_in_to_method_Sign_in);
             }
         });
         // chuyển đến màn hình quên mật khẩu
