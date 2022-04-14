@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Space">
         <activity
+            android:name=".search.Search"
+            android:exported="false" />
+        <activity
             android:name=".Forgotpass"
             android:exported="false" />
         <activity
