@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/enterEmail">
+    app:startDestination="@id/method_Sign_in">
 
     <fragment
         android:id="@+id/enterEmail"
@@ -54,4 +54,41 @@
         android:name="com.example.space.register.EnterName"
         android:label="@string/Name"
         tools:layout="@layout/fragment_enter_name" />
+    <fragment
+        android:id="@+id/method_Sign_in"
+        android:name="com.example.space.login.Method_Sign_in"
+        android:label="fragment_method__sign_in"
+        tools:layout="@layout/fragment_method__sign_in" >
+        <action
+            android:id="@+id/action_method_Sign_in_to_enterEmail"
+            app:destination="@id/enterEmail" />
+        <action
+            android:id="@+id/action_method_Sign_in_to_sign_in"
+            app:destination="@id/sign_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/sign_in"
+        android:name="com.example.space.login.Sign_in"
+        android:label="Sign in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_sign_in_to_forgot_pass"
+            app:destination="@id/forgot_pass" />
+        <action
+            android:id="@+id/action_sign_in_to_method_Sign_in"
+            app:destination="@id/method_Sign_in"
+            app:popUpTo="@id/method_Sign_in"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgot_pass"
+        android:name="com.example.space.login.Forgot_pass"
+        android:label="Forgot password"
+        tools:layout="@layout/fragment_forgot_pass" >
+        <action
+            android:id="@+id/action_forgot_pass_to_sign_in"
+            app:destination="@id/sign_in"
+            app:popUpTo="@id/sign_in"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
