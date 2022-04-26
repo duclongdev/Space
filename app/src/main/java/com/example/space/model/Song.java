@@ -1,9 +1,8 @@
 package com.example.space.model;
 
+import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import javax.annotation.Generated;
 
 @Generated("jsonschema2pojo")
 public class Song {
@@ -11,9 +10,9 @@ public class Song {
 @SerializedName("idSong")
 @Expose
 private String idSong;
-@SerializedName("idArtist")
+@SerializedName("name")
 @Expose
-private String idArtist;
+private String name;
 @SerializedName("idTheme")
 @Expose
 private String idTheme;
@@ -44,12 +43,12 @@ public void setIdSong(String idSong) {
 this.idSong = idSong;
 }
 
-public String getIdArtist() {
-return idArtist;
+public String getName() {
+return name;
 }
 
-public void setIdArtist(String idArtist) {
-this.idArtist = idArtist;
+public void setName(String name) {
+this.name = name;
 }
 
 public String getIdTheme() {
