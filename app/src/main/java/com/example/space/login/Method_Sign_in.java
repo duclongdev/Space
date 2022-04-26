@@ -1,14 +1,11 @@
 package com.example.space.login;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -19,9 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.space.Home;
-import com.example.space.Login;
-import com.example.space.LoginScreen;
-import com.example.space.MainActivity;
 import com.example.space.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;

@@ -17,11 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.example.space.Forgotpass;
 import com.example.space.Home;
-import com.example.space.LoginScreen;
 import com.example.space.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,11 +28,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
 public class Sign_in extends Fragment {
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
     private ImageButton btn_back;
-    private Button forget_pass;
+    private TextView forget_pass;
     private EditText email;
     private EditText password;
     private Button btn_sign_in;
