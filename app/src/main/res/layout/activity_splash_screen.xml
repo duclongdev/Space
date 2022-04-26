@@ -7,11 +7,11 @@
     tools:context=".SplashScreen"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:background="#383E56">
+    android:background="#212121">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:src="@drawable/logo"
         android:layout_gravity="center_horizontal"/>
 
