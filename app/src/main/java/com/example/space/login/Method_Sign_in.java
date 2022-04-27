@@ -72,8 +72,6 @@ public class Method_Sign_in extends Fragment {
 
         return v;
     }
-
-
     private void Init(View v){
         btn_SI=v.findViewById(R.id.btn_SI);
         btn_SU=v.findViewById(R.id.btn_SU);
