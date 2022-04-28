@@ -3,6 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/activity_forgotpass.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/activity_home.xml" value="0.15353260869565216" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/activity_music_player.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/activity_search.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/activity_splash_screen.xml" value="0.15353260869565216" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/content_main.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_enter_age.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_enter_gender.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_enter_name.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_enter_password.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_favorite_screen.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_home_screen.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_method__sign_in.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_search_screen.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_user_screen.xml" value="0.25" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.184" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/background.xml" value="0.1595" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/background_btn.xml" value="0.1595" />
