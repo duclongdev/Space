@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/home"
+    <item android:id="@+id/homeScreen"
         android:title=""
         android:icon="@drawable/icon_home"/>
-    <item android:id="@+id/search"
+    <item android:id="@+id/searchScreen"
         android:title=""
         android:icon="@drawable/icon_search"/>
-    <item android:id="@+id/favorite"
+    <item android:id="@+id/favoriteScreen"
         android:title=""
         android:icon="@drawable/icon_heart"/>
-    <item android:id="@+id/user"
+    <item android:id="@+id/userScreen"
         android:title=""
         android:icon="@drawable/icon_user"/>
 </menu>
