@@ -88,4 +88,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     //Recycle View
     implementation "androidx.recyclerview:recyclerview:1.2.1"
+    //pelete
+    implementation "androidx.palette:palette:1.0.0"
 }

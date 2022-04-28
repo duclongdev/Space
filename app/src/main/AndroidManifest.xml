@@ -23,6 +23,7 @@
             android:exported="false" />
         <activity
             android:name=".Home"
+            android:theme="@style/Theme.Space.NoActionBar"
             android:exported="false" />
 
         <meta-data

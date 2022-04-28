@@ -30,14 +30,19 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_enter_gender.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_enter_name.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_enter_password.xml" value="0.17552083333333332" />
+        <entry key="..\:/doan/Space/app/src/main/res/drawable-anydpi/ic_more_op.xml" value="0.1935" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/background_btn.xml" value="0.193" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/background_btn_fb.xml" value="0.193" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/background_btn_gg.xml" value="0.193" />
+        <entry key="..\:/doan/Space/app/src/main/res/drawable/background_effect.xml" value="0.1935" />
+        <entry key="..\:/doan/Space/app/src/main/res/drawable/collapsing_background.xml" value="0.2825" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/custum_btn_login.xml" value="0.193" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/gender_background_selector.xml" value="0.193" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/gender_checked_background.xml" value="0.193" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/gender_unchecked_background.xml" value="0.193" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/gradient_background.xml" value="0.193" />
+        <entry key="..\:/doan/Space/app/src/main/res/drawable/playlist_img_background.xml" value="0.15" />
+        <entry key="..\:/doan/Space/app/src/main/res/drawable/playlist_img_background_top.xml" value="0.193" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/ripple_effect.xml" value="0.193" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/transition_indicator.xml" value="0.1" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_forgotpass.xml" value="0.25" />
@@ -45,9 +50,11 @@
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_login_screen.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/activity_search.xml" value="0.18541666666666667" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_space_register.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_splash_screen.xml" value="0.18541666666666667" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/adv_item.xml" value="0.18541666666666667" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/bottom_sheet_song_option.xml" value="0.3625" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/content_main.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_enter_email.xml" value="0.18541666666666667" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_enter_gender.xml" value="0.18541666666666667" />
@@ -56,14 +63,17 @@
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_favorite_screen.xml" value="0.18541666666666667" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_home_screen.xml" value="0.2" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_method__sign_in.xml" value="0.10989583333333333" />
-        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_playlist_screen.xml" value="0.3625" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_playlist_screen.xml" value="0.33" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_search_screen.xml" value="0.18541666666666667" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_sign_in.xml" value="0.10989583333333333" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_user_screen.xml" value="0.18541666666666667" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/play_list_item.xml" value="0.33" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/playlist_category_item.xml" value="0.33" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/song_item.xml" value="0.5" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/song_more_option_item.xml" value="0.3625" />
         <entry key="..\:/doan/Space/app/src/main/res/menu/bottom_menu.xml" value="0.18541666666666667" />
         <entry key="..\:/doan/Space/app/src/main/res/menu/nav_graph_home.xml" value="0.3625" />
+        <entry key="..\:/doan/Space/app/src/main/res/menu/playlist_menu.xml" value="0.75" />
         <entry key="..\:/doan/Space/app/src/main/res/mipmap-anydpi-v26/ic_logo_round.xml" value="0.181" />
       </map>
     </option>
