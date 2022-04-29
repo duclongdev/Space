@@ -3,26 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav"
-    app:startDestination="@id/homeScreen">
+    app:startDestination="@id/navigation3">
 
-    <fragment
-        android:id="@+id/homeScreen"
-        android:name="com.example.space.HomeScreen"
-        android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
-    <fragment
-        android:id="@+id/searchScreen"
-        android:name="com.example.space.search.SearchScreen"
-        android:label="fragment_search_screen"
-        tools:layout="@layout/fragment_search_screen" />
-    <fragment
-        android:id="@+id/userScreen"
-        android:name="com.example.space.UserScreen"
-        android:label="fragment_user_screen"
-        tools:layout="@layout/fragment_user_screen" />
-    <fragment
-        android:id="@+id/favoriteScreen"
-        android:name="com.example.space.FavoriteScreen"
-        android:label="fragment_favorite_screen"
-        tools:layout="@layout/fragment_favorite_screen" />
+    <navigation android:id="@+id/navigation3"
+        app:startDestination="@id/homeScreen">
+        <fragment
+            android:id="@+id/homeScreen"
+            android:name="com.example.space.HomeScreen"
+            android:label="fragment_home_screen"
+            tools:layout="@layout/fragment_home_screen" />
+    </navigation>
+    <navigation android:id="@+id/navigation4"
+        app:startDestination="@id/searchScreen">
+        <fragment
+            android:id="@+id/searchScreen"
+            android:name="com.example.space.search.SearchScreen"
+            android:label="fragment_search_screen"
+            tools:layout="@layout/fragment_search_screen" />
+        <fragment
+            android:id="@+id/searchDetail2"
+            android:name="com.example.space.search.searchDetail"
+            android:label="fragment_search_detail"
+            tools:layout="@layout/fragment_search_detail" >
+            <action
+                android:id="@+id/action_searchDetail2_to_detailTheme22"
+                app:destination="@id/detailTheme2" />
+        </fragment>
+        <fragment
+            android:id="@+id/detailTheme2"
+            android:name="com.example.space.detailTheme"
+            android:label="fragment_detail_theme"
+            tools:layout="@layout/fragment_detail_theme" />
+    </navigation>
+    <navigation android:id="@+id/navigation5"
+        app:startDestination="@id/favoriteScreen">
+        <fragment
+            android:id="@+id/favoriteScreen"
+            android:name="com.example.space.FavoriteScreen"
+            android:label="fragment_favorite_screen"
+            tools:layout="@layout/fragment_favorite_screen" />
+    </navigation>
+    <navigation android:id="@+id/navigation6"
+        app:startDestination="@id/userScreen">
+        <fragment
+            android:id="@+id/userScreen"
+            android:name="com.example.space.UserScreen"
+            android:label="fragment_user_screen"
+            tools:layout="@layout/fragment_user_screen" />
+    </navigation>
 </navigation>
