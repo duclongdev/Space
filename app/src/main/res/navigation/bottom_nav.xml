@@ -9,7 +9,7 @@
         app:startDestination="@id/homeScreen">
         <fragment
             android:id="@+id/homeScreen"
-            android:name="com.example.space.HomeScreen"
+            android:name="com.example.space.home.HomeScreen"
             android:label="fragment_home_screen"
             tools:layout="@layout/fragment_home_screen" />
     </navigation>
@@ -19,7 +19,11 @@
             android:id="@+id/searchScreen"
             android:name="com.example.space.search.SearchScreen"
             android:label="fragment_search_screen"
-            tools:layout="@layout/fragment_search_screen" />
+            tools:layout="@layout/fragment_search_screen" >
+            <action
+                android:id="@+id/action_searchScreen_to_detailTheme2"
+                app:destination="@id/detailTheme2" />
+        </fragment>
         <fragment
             android:id="@+id/searchDetail2"
             android:name="com.example.space.search.searchDetail"
