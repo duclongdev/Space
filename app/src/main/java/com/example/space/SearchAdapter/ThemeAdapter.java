@@ -41,7 +41,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder>{
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_searchScreen_to_detailTheme2);
+                Navigation.findNavController(view).navigate(R.id.action_searchScreen_to_detailTheme);
             }
         });
     }
