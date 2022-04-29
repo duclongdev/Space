@@ -9,7 +9,7 @@
         app:startDestination="@id/homeScreen">
         <fragment
             android:id="@+id/homeScreen"
-            android:name="com.example.space.home.HomeScreen"
+            android:name="com.example.space.HomeScreen"
             android:label="fragment_home_screen"
             tools:layout="@layout/fragment_home_screen" />
     </navigation>
@@ -21,20 +21,16 @@
             android:label="fragment_search_screen"
             tools:layout="@layout/fragment_search_screen" >
             <action
-                android:id="@+id/action_searchScreen_to_detailTheme2"
-                app:destination="@id/detailTheme2" />
+                android:id="@+id/action_searchScreen_to_detailTheme"
+                app:destination="@id/detailTheme" />
         </fragment>
         <fragment
             android:id="@+id/searchDetail2"
             android:name="com.example.space.search.searchDetail"
             android:label="fragment_search_detail"
-            tools:layout="@layout/fragment_search_detail" >
-            <action
-                android:id="@+id/action_searchDetail2_to_detailTheme22"
-                app:destination="@id/detailTheme2" />
-        </fragment>
+            tools:layout="@layout/fragment_search_detail" />
         <fragment
-            android:id="@+id/detailTheme2"
+            android:id="@+id/detailTheme"
             android:name="com.example.space.detailTheme"
             android:label="fragment_detail_theme"
             tools:layout="@layout/fragment_detail_theme" />
