@@ -28,9 +28,9 @@ private String idBanner;
 @SerializedName("titleSong")
 @Expose
 private String titleSong;
-@SerializedName("linkImage")
+@SerializedName("linkImageS")
 @Expose
-private String linkImage;
+private String linkImageS;
 @SerializedName("linkMp3")
 @Expose
 private String linkMp3;
@@ -92,11 +92,11 @@ this.titleSong = titleSong;
 }
 
 public String getLinkImage() {
-return linkImage;
+return linkImageS;
 }
 
 public void setLinkImage(String linkImage) {
-this.linkImage = linkImage;
+this.linkImageS = linkImage;
 }
 
 public String getLinkMp3() {

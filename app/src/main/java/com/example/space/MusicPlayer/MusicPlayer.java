@@ -7,9 +7,14 @@ import static com.example.space.MainActivity.mangsong;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -25,12 +30,15 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.space.R;
 import com.example.space.Service.MediaService;
 import com.example.space.model.Song;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -49,6 +57,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     static ArrayList<Song> ListSongs = new ArrayList<>();
     private Thread playThread, prevThread, nextThread;
     MediaService mediaService;
+    ArrayList<Integer> listPlay;
     public MusicPlayer() {
         // Required empty public constructor
     }
@@ -96,7 +105,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             @Override
             public void onClick(View view) {
                 if(!mediaService.isLooping()){
-                    btnloop.setImageResource(R.drawable.ic_baseline_shuffle_24);
+                    btnloop.setImageResource(R.drawable.ic_baseline_repeat_black_24);
                     mediaService.setLooping(true);
                 }
                 else {
@@ -109,22 +118,22 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         shuffle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(ImageViewCompat.getImageTintList(shuffle).getDefaultColor() == (int) R.color.white)
-//                    DrawableCompat.setTint(shuffle.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.black));
-//                else{
-//                    DrawableCompat.setTint(shuffle.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.white));
-//                }
-//                random(ListSongs.size(), 0, ListSongs.size()-1);
+                if(shuffle.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_baseline_shuffle_24).getConstantState())
+                    shuffle.setImageResource(R.drawable.ic_baseline_shuffle_black_24);
+                else{
+                    shuffle.setImageResource(R.drawable.ic_baseline_shuffle_24);
+                }
+                random(ListSongs.size(), 0, ListSongs.size()-1);
             }
         });
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(favorite.getDrawable().getConstantState() == getDrawable(R.drawable.ic_heart_regular).getConstantState())
-//                    favorite.setImageResource(R.drawable.ic_heart_solid);
-//                else{
-//                    favorite.setImageResource(R.drawable.ic_heart_regular);
-//                }
+                if(favorite.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_heart_outline).getConstantState())
+                    favorite.setImageResource(R.drawable.ic_heart_red);
+                else{
+                    favorite.setImageResource(R.drawable.ic_heart_outline);
+                }
             }
         });
         return view;
@@ -208,7 +217,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             name.setText(ListSongs.get(currentindex).getTitleSong());
 //            author.setText(ListSongs.get(currentindex).getIdArtist());
             ovTime.setText(createTime(mediaService.getDuration()));
-            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+//            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+            setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -221,7 +231,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 }
             });
 //            mediaService.OnCompleted();
-            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
+//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
+//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
             play.setImageResource(R.drawable.ic_baseline_pause_24);
 //            mediaService.start();
         } else {
@@ -238,7 +249,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             name.setText(ListSongs.get(currentindex).getTitleSong());
 //            author.setText(ListSongs.get(currentindex).getIdArtist());
             ovTime.setText(createTime(mediaService.getDuration()));
-            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+//            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+            setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -250,7 +262,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                     handler.postDelayed(this, 1000);
                 }
             });
-            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
+//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
+//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
             play.setImageResource(R.drawable.ic_baseline_pause_24);
 //            mediaService.OnCompleted();
         }
@@ -271,7 +284,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             name.setText(ListSongs.get(currentindex).getTitleSong());
 //            author.setText(ListSongs.get(currentindex).getIdArtist());
             ovTime.setText(createTime(mediaService.getDuration()));
-            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+//            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+            setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -290,7 +304,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                     handler.postDelayed(this, 1000);
                 }
             });
-            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
+//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
+//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
             play.setImageResource(R.drawable.ic_baseline_pause_24);
 //            mediaService.OnCompleted();
 //            mediaService.start();
@@ -306,7 +321,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(currentindex).getTitleSong());
 //            author.setText(ListSongs.get(currentindex).getIdArtist());
-            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+//            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+            setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -325,7 +341,6 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                     handler.postDelayed(this, 1000);
                 }
             });
-            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
             play.setImageResource(R.drawable.ic_baseline_pause_24);
 //            mediaService.OnCompleted();
         }
@@ -363,7 +378,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
 
                 }
             });
-            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
+
             mediaService.start();
         }
     }
@@ -385,6 +400,11 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
 
     private void getIntentMethod() {
         ListSongs = mangsong;
+        listPlay = new ArrayList<>();
+        for(int i = 0; i < ListSongs.size(); i++)
+        {
+            listPlay.add(i);
+        }
         if (mediaService != null) {
             mediaService.stop();
             mediaService.release();
@@ -409,7 +429,24 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         noti = view.findViewById(R.id.btnMore);
         imageView = view.findViewById(R.id.image);
     }
+    void setImage_showNotification(){
+        Glide.with(this)
+                .asBitmap()
+                .load(ListSongs.get(currentindex).getLinkImage())
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        imageView.setImageBitmap(resource);
+                        BitmapDrawable drawable  = (BitmapDrawable) imageView.getDrawable();
+                        mediaService.showNotification(R.drawable.ic_baseline_pause_24, drawable);
+//                        paletteGenerator(drawable);
+                    }
 
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
+    }
     public String createTime(int millis) {
         StringBuffer buf = new StringBuffer();
 //        int hours = (int) (millis / (1000 * 60 * 60));
@@ -429,12 +466,14 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         MediaService.myBinder binder = (MediaService.myBinder) iBinder;
         mediaService = binder.getService();
-//        mediaService.setCallback((ActionPlaying) this);
+        mediaService.setCallback((ActionPlaying) this);
         seekBar.setMax(mediaService.getDuration());
         ovTime.setText(createTime(mediaService.getDuration()));
         name.setText(ListSongs.get(currentindex).getTitleSong());
+        setImage_showNotification();
+        mediaService.setLooping(false);
 //        author.setText(ListSongs.get(currentindex).getIdArtist());
-        Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+//        Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
 //        mediaService.OnCompleted();
 //        mediaService.OnPrepared();
 //        mediaService.showNotification(R.drawable.ic_baseline_pause_24);

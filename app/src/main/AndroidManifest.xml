@@ -3,8 +3,10 @@
     package="com.example.space">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:name=".MusicPlayer.ApplicationClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
@@ -59,6 +61,20 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".Service.MediaService"
+            android:enabled="true" />
+
+        <receiver
+            android:name=".MusicPlayer.NotificationReciver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="NEXT" />
+                <action android:name="PREVIOUS" />
+                <action android:name="PLAY" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -8,9 +8,9 @@ import android.os.Build;
 
 public class ApplicationClass extends Application {
     public static final String CHANNEL_ID = "CHANNEL_MUSIC_APP";
-    public  static final String ACTION_PREV = "PREVIOUS";
-    public  static final String ACTION_NEXT = "NEXT";
-    public  static final String ACTION_PLAY = "PLAY";
+    public static final String ACTION_PREV = "PREVIOUS";
+    public static final String ACTION_NEXT = "NEXT";
+    public static final String ACTION_PLAY = "PLAY";
 
     @Override
     public void onCreate() {

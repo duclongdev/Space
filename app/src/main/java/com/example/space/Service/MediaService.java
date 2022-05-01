@@ -207,6 +207,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
             Log.e("Lopp", "Lopp");
             actionPlaying.playClick();
             actionPlaying.playClick();
+            setLooping(true);
         }
 //        OnCompleted();
 //        if(actionPlaying != null) {
@@ -301,7 +302,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
 //                .setOnlyAlertOnce(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .build();
-        startForeground(6,notification.build());
+        startForeground(11,notification.build());
     }
 
     public Bitmap getBitmapFromURL(String src) {
