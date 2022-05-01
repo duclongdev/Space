@@ -20,7 +20,7 @@ import java.util.List;
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private Context mContext;
     private List<Song> list_song;
-    public SongAdapter(Context mContext, List<Song> list_genre) {
+    public SongAdapter(Context mContext, List<Song> list_song) {
         this.mContext = mContext;
         this.list_song = list_song;
     }
@@ -35,7 +35,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(mContext).load(list_song.get(position).getLinkImage()).centerCrop().into(holder.imageView);
+        Glide.with(mContext).load(list_song.get(position).getLinkImageS()).centerCrop().into(holder.imageView);
         holder.t_s.setText(list_song.get(position).getTitleSong());
         holder.a_s.setText(list_song.get(position).getName());
     }
@@ -50,9 +50,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         private TextView t_s,a_s;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.i_s);
-            t_s=itemView.findViewById(R.id.t_s);
-            a_s=itemView.findViewById(R.id.a_s);
+            imageView=itemView.findViewById(R.id.imageS);
+            t_s=itemView.findViewById(R.id.title);
+            a_s=itemView.findViewById(R.id.artist);
         }
     }
 }
