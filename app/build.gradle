@@ -83,4 +83,16 @@ dependencies {
 
     //Palette
     implementation 'androidx.palette:palette:1.0.0'
+    //Slide Show
+    implementation 'me.relex:circleindicator:2.1.6'
+    //CardView
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    //Recycle View
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    //pelete
+    implementation "androidx.palette:palette:1.0.0"
+    //roundedimageview
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    //circleimageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

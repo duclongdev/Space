@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeScreen">
+    android:background="@color/background"
+    tools:context=".home.HomeScreen">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home" />
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingStart="@dimen/padding_start_home"
+            android:layout_marginTop="@dimen/margin_top_home"
+            android:paddingEnd="@dimen/padding_start_home"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hello Name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Let’s listen to coolthing today"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/current"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:scaleType="centerCrop"
+                android:layout_alignParentEnd="true"
+                android:background="@color/background"
+                android:src="@drawable/history" />
 
-</FrameLayout>
+            <ImageButton
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_toLeftOf="@id/current"
+                android:background="@color/background"
+                android:layout_marginEnd="@dimen/margin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/setting" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/advertise_slide"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/slide_show_size"
+                android:padding="@dimen/padding_start_home" />
+
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/transition_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/CircleIndicator3_height"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/margin"
+                app:ci_drawable="@drawable/transition_indicator" />
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/AllPlayList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
