@@ -18,7 +18,7 @@ public class UserFragment extends Fragment {
         // Required empty public constructor
     }
     Button btn;
-    int position = 2;
+    int position = 5;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

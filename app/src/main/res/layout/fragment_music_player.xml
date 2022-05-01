@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".MusicPlayer.MusicPlayer"
     android:background="#1D1F31"
+    android:id="@+id/linearlayout"
     android:paddingTop="30dp">
 
     <LinearLayout

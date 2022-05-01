@@ -8,14 +8,17 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.palette.graphics.Palette;
 
 import android.os.Handler;
 import android.os.IBinder;
@@ -25,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,6 +36,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.space.MusicPlayer.MoreBottomSheet.IClickItemMoreListener;
+import com.example.space.MusicPlayer.MoreBottomSheet.More_Item;
+import com.example.space.MusicPlayer.MoreBottomSheet.MyBottomSheetMoreFragment;
 import com.example.space.R;
 import com.example.space.Service.MediaService;
 import com.example.space.model.Song;
@@ -39,6 +46,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 
@@ -46,9 +54,10 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
 
     ImageButton prev, next, btnloop, shuffle;
     TextView curTime, ovTime, name, author;
-    FloatingActionButton play, noti;
+    FloatingActionButton play, noti, more;
     SeekBar seekBar;
     ImageView favorite, imageView;
+    LinearLayout layout;
     private Runnable runnable;
     private MediaController mediaController;
     private AudioManager audioManager;
@@ -134,6 +143,26 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 else{
                     favorite.setImageResource(R.drawable.ic_heart_outline);
                 }
+            }
+        });
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<More_Item> list = new ArrayList<>();
+                list.add(new More_Item("Like", R.drawable.ic_baseline_pause_24));
+                list.add(new More_Item("Hide", R.drawable.ic_baseline_shuffle_24));
+                list.add(new More_Item("Like this song", R.drawable.ic_baseline_skip_previous_24));
+                list.add(new More_Item("Add to Playlist"));
+                list.add(new More_Item("View Artists"));
+                list.add(new More_Item("Share"));
+                list.add(new More_Item("Sleep timer"));
+                MyBottomSheetMoreFragment myBottomSheetMoreFragment = new MyBottomSheetMoreFragment(list,  new IClickItemMoreListener() {
+                    @Override
+                    public void Clickitem(More_Item item_object) {
+
+                    }
+                }, imageView.getDrawable(), name.getText().toString(), author.getText().toString());
+                myBottomSheetMoreFragment.show(getActivity().getSupportFragmentManager(), myBottomSheetMoreFragment.getTag());
             }
         });
         return view;
@@ -428,6 +457,53 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         shuffle = view.findViewById(R.id.shuffle);
         noti = view.findViewById(R.id.btnMore);
         imageView = view.findViewById(R.id.image);
+        more = view.findViewById(R.id.btnMore);
+        layout = view.findViewById(R.id.linearlayout);
+    }
+    public void createPaletteSync(Bitmap bitmap) {
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(@Nullable Palette palette) {
+                Palette.Swatch swatch = palette.getDominantSwatch();
+                Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
+                if (swatch != null) {
+//                    layout.setBackgroundResource(R.drawable.main_bg);
+                    GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
+                            new int[]{ swatch.getRgb(), darkMutedSwatch.getRgb(),darkMutedSwatch.getRgb()});
+                    layout.setBackground(gradientDrawable);
+                    name.setTextColor(swatch.getTitleTextColor());
+                    author.setTextColor(swatch.getBodyTextColor());
+                } else {
+//                    layout.setBackgroundResource(R.drawable.main_bg);
+                    GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
+                            new int[]{0xff000000, 0xff000000});
+                    layout.setBackground(gradientDrawable);
+                    name.setTextColor(swatch.getTitleTextColor());
+                    author.setTextColor(swatch.getBodyTextColor());
+                }
+            }
+        });
+//        Palette palette = Palette.from(bitmap).generate();
+//        return palette;
+    }
+    private void paletteGenerator(BitmapDrawable drawable) {
+        Bitmap bitmap = drawable.getBitmap();
+        createPaletteSync(bitmap);
+//        Palette palette = createPaletteSync(bitmap);
+//        Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+//        Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
+//        if(vibrantSwatch != null)
+//        {
+//            int bgColor = vibrantSwatch.getRgb();
+//            layout.setBackgroundColor(bgColor);
+//            getWindow().setStatusBarColor(bgColor);
+//        }else if(darkMutedSwatch != null){
+//            int bgColor = vibrantSwatch.getRgb();
+//            layout.setBackgroundColor(bgColor);
+//        }else{
+//            layout.setBackgroundColor(Color.WHITE);
+//        }
+
     }
     void setImage_showNotification(){
         Glide.with(this)
@@ -439,7 +515,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                         imageView.setImageBitmap(resource);
                         BitmapDrawable drawable  = (BitmapDrawable) imageView.getDrawable();
                         mediaService.showNotification(R.drawable.ic_baseline_pause_24, drawable);
-//                        paletteGenerator(drawable);
+                        paletteGenerator(drawable);
                     }
 
                     @Override
@@ -471,7 +547,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         ovTime.setText(createTime(mediaService.getDuration()));
         name.setText(ListSongs.get(currentindex).getTitleSong());
         setImage_showNotification();
-        mediaService.setLooping(false);
+//        mediaService.setLooping(false);
 //        author.setText(ListSongs.get(currentindex).getIdArtist());
 //        Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
 //        mediaService.OnCompleted();
