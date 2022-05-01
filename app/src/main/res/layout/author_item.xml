@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/click_song_list_of_author"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/padding_start_home"
+    android:layout_marginBottom="@dimen/margin_bot_category"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/author_img"
+        android:layout_width="@dimen/playlist_size"
+        android:layout_height="@dimen/playlist_size"
+        android:background="@drawable/ripple_effect"
+        android:scaleType="centerCrop" />
+    <TextView
+        android:id="@+id/author_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size" />
+</LinearLayout>
