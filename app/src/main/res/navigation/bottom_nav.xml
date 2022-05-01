@@ -9,9 +9,26 @@
         app:startDestination="@id/homeScreen">
         <fragment
             android:id="@+id/homeScreen"
-            android:name="com.example.space.HomeScreen"
+            android:name="com.example.space.home.HomeScreen"
             android:label="fragment_home_screen"
-            tools:layout="@layout/fragment_home_screen" />
+            tools:layout="@layout/fragment_home_screen" >
+            <action
+                android:id="@+id/action_homeScreen_to_playlistScreen"
+                app:destination="@id/playlistScreen"
+                app:popUpTo="@id/playlistScreen"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/playlistScreen"
+            android:name="com.example.space.detailPlayllist.PlaylistScreen"
+            android:label="fragment_playlist_screen"
+            tools:layout="@layout/fragment_playlist_screen" >
+            <action
+                android:id="@+id/action_playlistScreen_self"
+                app:destination="@id/playlistScreen"
+                app:popUpTo="@id/playlistScreen"
+                app:popUpToInclusive="true" />
+        </fragment>
     </navigation>
     <navigation android:id="@+id/navigation4"
         app:startDestination="@id/searchScreen">

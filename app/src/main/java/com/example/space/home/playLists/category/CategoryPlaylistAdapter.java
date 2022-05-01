@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.space.R;
+import com.example.space.home.playLists.playlist.PlayList;
 import com.example.space.home.playLists.playlist.PlayListAdapter;
 import com.example.space.myInterface.IClickPlayList;
 
@@ -21,13 +22,14 @@ import java.util.List;
 
 public class CategoryPlaylistAdapter extends RecyclerView.Adapter<CategoryPlaylistAdapter.CategoryViewHolder> {
 
-    public CategoryPlaylistAdapter( Fragment fragment) {
-//        this.categoryPlaylistList = categoryPlaylistList;
+    public CategoryPlaylistAdapter( Fragment fragment, IClickPlayList iClickPlayList) {
         this.fragment = fragment;
+        this.iClickPlayList = iClickPlayList;
     }
 
     private List<CategoryPlaylist> categoryPlaylistList;
     private Fragment fragment;
+    private IClickPlayList iClickPlayList;
 
 
     @NonNull
@@ -53,9 +55,8 @@ public class CategoryPlaylistAdapter extends RecyclerView.Adapter<CategoryPlayli
 
         PlayListAdapter playListAdapter = new PlayListAdapter(fragment, new IClickPlayList() {
             @Override
-            public void onClickPlayList(int id) {
-                Toast.makeText(fragment.getContext(), "id: "+ id, Toast.LENGTH_SHORT).show();
-                //NavHostFragment.findNavController(fragment).navigate(R.id.action_homeScreen_to_playlistScreen);
+            public void onClickPlayList(PlayList playList) {
+                iClickPlayList.onClickPlayList(playList);
             }
         });
         playListAdapter.getData(categoryPlaylist.getListPlayLists());

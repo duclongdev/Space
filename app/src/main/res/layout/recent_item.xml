@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/clickPlayList"
+    android:id="@+id/click_recent_song_list"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/padding_start_home"
@@ -9,15 +9,15 @@
     android:orientation="vertical">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/playList_img"
-        android:layout_width="@dimen/playlist_size"
-        android:layout_height="@dimen/playlist_size"
+        android:id="@+id/recent_song_list_img"
+        android:layout_width="@dimen/recent_song_list_size"
+        android:layout_height="@dimen/recent_song_list_size"
         android:background="@drawable/ripple_effect"
         android:scaleType="centerCrop"
         app:riv_corner_radius="@dimen/corner_playlist" />
 
     <TextView
-        android:id="@+id/playList_name"
+        android:id="@+id/recent_song_list_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"

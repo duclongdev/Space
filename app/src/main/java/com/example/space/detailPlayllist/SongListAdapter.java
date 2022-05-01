@@ -63,7 +63,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongVi
         holder.moreOptionSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickOption.onClickOptionOnSongItem(song.getId());
+                iClickOption.onClickOptionOnSongItem(song.getUrl(), song.getName(), song.getAuthor());
             }
         });
     }

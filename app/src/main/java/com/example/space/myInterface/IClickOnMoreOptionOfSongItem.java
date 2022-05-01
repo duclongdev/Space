@@ -1,5 +1,5 @@
 package com.example.space.myInterface;
 
 public interface IClickOnMoreOptionOfSongItem {
-    void onClickOptionOnSongItem(int id);
+    void onClickOptionOnSongItem(String url, String name, String author);
 }

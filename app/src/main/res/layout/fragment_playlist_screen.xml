@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:fitsSystemWindows="true"
     tools:context=".detailPlayllist.PlaylistScreen">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/size_playlist_img"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.MyApplication.AppBarOverlay">
 
@@ -23,70 +24,94 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
-
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/detail_PL_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                android:src="@drawable/mtv_avt"
                 app:layout_collapseMode="parallax"
-                android:src="@drawable/mtp"/>
+                app:riv_corner_radius_bottom_left="@dimen/corner_radius_playlist_img"
+                app:riv_corner_radius_bottom_right="@dimen/corner_radius_playlist_img" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_gravity="top"
-                android:background="@drawable/playlist_img_background_top"/>
+                android:background="@drawable/playlist_img_background_top" />
 
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="200dp"
                 android:layout_gravity="bottom"
-                android:background="@drawable/playlist_img_background">
-
-<!--                <LinearLayout-->
-<!--                    android:paddingStart="30dp"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_height="wrap_content">-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:textSize="36dp"-->
-<!--                        android:text="Sơn tùng MTP"-->
-<!--                        android:textColor="@color/white"/>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:textSize="26dp"-->
-<!--                        android:text="10k yêu thích"-->
-<!--                        />-->
-<!--                </LinearLayout>-->
-            </LinearLayout>
+                android:background="@drawable/playlist_img_background" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:padding="10dp"
-        android:id="@+id/list_song"
-        android:background="@color/background"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
-
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:id="@+id/hihi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/detail_PL_title"
+                android:layout_marginTop="@dimen/margin_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_title"
+                android:gravity="center"
+                android:text="Những bài hát hay nhất của MTP"/>
+            <TextView
+                android:layout_marginBottom="@dimen/margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/text_size"
+                android:gravity="center"
+                android:text="12 bài hát - bởi Space"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/margin"
+                android:textSize="@dimen/text_size"
+                android:text="Bài hát >"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_song"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:background="@color/background" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="@dimen/margin_top_home"
+                android:id="@+id/suggest_playlist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:background="@color/background" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="19dp"
+        android:layout_marginEnd="@dimen/margin"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_media_play" />
