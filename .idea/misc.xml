@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/drawable-anydpi/ic_more_op.xml" value="0.227" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/drawable/ic_baseline_shuffle_24.xml" value="0.227" />
         <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/drawable/main_bg.xml" value="0.227" />
         <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/activity_music_player.xml" value="0.18478260869565216" />

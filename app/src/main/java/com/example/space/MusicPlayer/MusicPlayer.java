@@ -62,7 +62,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     private MediaController mediaController;
     private AudioManager audioManager;
     private Handler handler = new Handler();
-    int currentindex = 0;
+    int currentindex = 0, position;
     static ArrayList<Song> ListSongs = new ArrayList<>();
     private Thread playThread, prevThread, nextThread;
     MediaService mediaService;
@@ -80,6 +80,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
 //        currentindex = intent.getIntExtra("position",0);
         currentindex = getArguments().getInt("data"); // đây là thứ bạn cần :D
         getIntentMethod();
+        position = listPlay.get(currentindex);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -128,11 +129,19 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             @Override
             public void onClick(View view) {
                 if(shuffle.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_baseline_shuffle_24).getConstantState())
+                {
                     shuffle.setImageResource(R.drawable.ic_baseline_shuffle_black_24);
-                else{
-                    shuffle.setImageResource(R.drawable.ic_baseline_shuffle_24);
+                    listPlay = random(ListSongs.size(), 0, ListSongs.size()-1);
+                    currentindex = listPlay.indexOf(position);
                 }
-                random(ListSongs.size(), 0, ListSongs.size()-1);
+                else{
+                    currentindex = position;
+                    shuffle.setImageResource(R.drawable.ic_baseline_shuffle_24);
+                    listPlay.clear();
+                    for(int i = 0; i < ListSongs.size(); i++){
+                        listPlay.add(i);
+                    }
+                }
             }
         });
         favorite.setOnClickListener(new View.OnClickListener() {
@@ -238,15 +247,16 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             else {
                 currentindex = ListSongs.size() - 1;
             }
+            position = listPlay.get(currentindex);
             seekBar.setProgress(0);
             mediaService.stop();
             mediaService.release();
-            mediaService.createMediaPlayer(currentindex);
+            mediaService.createMediaPlayer(position);
             seekBar.setMax(mediaService.getDuration());
-            name.setText(ListSongs.get(currentindex).getTitleSong());
-//            author.setText(ListSongs.get(currentindex).getIdArtist());
+            name.setText(ListSongs.get(position).getTitleSong());
+//            author.setText(ListSongs.get(position).getIdArtist());
             ovTime.setText(createTime(mediaService.getDuration()));
-//            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+//            Glide.with(this).load(ListSongs.get(position).getLinkImage()).into(imageView);
             setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -270,15 +280,16 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             else {
                 currentindex = ListSongs.size() - 1;
             }
+            position = listPlay.get(currentindex);
             seekBar.setProgress(0);
             mediaService.stop();
             mediaService.release();
-            mediaService.createMediaPlayer(currentindex);
+            mediaService.createMediaPlayer(position);
             seekBar.setMax(mediaService.getDuration());
-            name.setText(ListSongs.get(currentindex).getTitleSong());
-//            author.setText(ListSongs.get(currentindex).getIdArtist());
+            name.setText(ListSongs.get(position).getTitleSong());
+//            author.setText(ListSongs.get(position).getIdArtist());
             ovTime.setText(createTime(mediaService.getDuration()));
-//            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+//            Glide.with(this).load(ListSongs.get(position).getLinkImage()).into(imageView);
             setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -308,12 +319,13 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             else {
                 currentindex = 0;
             }
-            mediaService.createMediaPlayer(currentindex);
+            position = listPlay.get(currentindex);
+            mediaService.createMediaPlayer(position);
             seekBar.setMax(mediaService.getDuration());
-            name.setText(ListSongs.get(currentindex).getTitleSong());
-//            author.setText(ListSongs.get(currentindex).getIdArtist());
+            name.setText(ListSongs.get(position).getTitleSong());
+//            author.setText(ListSongs.get(position).getIdArtist());
             ovTime.setText(createTime(mediaService.getDuration()));
-//            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+//            Glide.with(this).load(ListSongs.get(position).getLinkImage()).into(imageView);
             setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -346,11 +358,12 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             else {
                 currentindex = 0;
             }
-            mediaService.createMediaPlayer(currentindex);
+            position = listPlay.get(currentindex);
+            mediaService.createMediaPlayer(position);
             seekBar.setMax(mediaService.getDuration());
-            name.setText(ListSongs.get(currentindex).getTitleSong());
-//            author.setText(ListSongs.get(currentindex).getIdArtist());
-//            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
+            name.setText(ListSongs.get(position).getTitleSong());
+//            author.setText(ListSongs.get(position).getIdArtist());
+//            Glide.with(this).load(ListSongs.get(position).getLinkImage()).into(imageView);
             setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -434,12 +447,13 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         {
             listPlay.add(i);
         }
+        Log.e("random", String.valueOf(listPlay));
         if (mediaService != null) {
             mediaService.stop();
             mediaService.release();
         }
         Intent intent = new Intent(getActivity(), MediaService.class);
-        intent.putExtra("servicePosition", currentindex);
+        intent.putExtra("servicePosition", position);
         getActivity().startService(intent);
     }
 
@@ -455,7 +469,6 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         name = view.findViewById(R.id.name);
         author = view.findViewById(R.id.author);
         shuffle = view.findViewById(R.id.shuffle);
-        noti = view.findViewById(R.id.btnMore);
         imageView = view.findViewById(R.id.image);
         more = view.findViewById(R.id.btnMore);
         layout = view.findViewById(R.id.linearlayout);
@@ -508,7 +521,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     void setImage_showNotification(){
         Glide.with(this)
                 .asBitmap()
-                .load(ListSongs.get(currentindex).getLinkImage())
+                .load(ListSongs.get(position).getLinkImage())
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -545,7 +558,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         mediaService.setCallback((ActionPlaying) this);
         seekBar.setMax(mediaService.getDuration());
         ovTime.setText(createTime(mediaService.getDuration()));
-        name.setText(ListSongs.get(currentindex).getTitleSong());
+        name.setText(ListSongs.get(position).getTitleSong());
         setImage_showNotification();
 //        mediaService.setLooping(false);
 //        author.setText(ListSongs.get(currentindex).getIdArtist());
