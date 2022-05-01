@@ -52,16 +52,30 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_song.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_theme.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/menu/bottom_menu.xml" value="0.17552083333333332" />
+        <entry key="..\:/doan/Space/app/src/main/res/drawable/bottom_sheet_layout.xml" value="0.207" />
+        <entry key="..\:/doan/Space/app/src/main/res/drawable/playlist_img_background.xml" value="0.207" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_forgotpass.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_login_screen.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/activity_search.xml" value="0.21481481481481482" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_space_register.xml" value="0.25" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/author_item.xml" value="0.18541666666666667" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/bottom_sheet_song_option.xml" value="0.3727891156462585" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/content_main.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_enter_password.xml" value="0.2" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_home_screen.xml" value="0.1" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_method__sign_in.xml" value="0.10989583333333333" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_playlist_screen.xml" value="0.25" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/fragment_sign_in.xml" value="0.10989583333333333" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/play_list_item.xml" value="0.18541666666666667" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/playlist_category_item.xml" value="0.20364583333333333" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/recent_item.xml" value="0.18541666666666667" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/song_item.xml" value="0.5" />
+        <entry key="..\:/doan/Space/app/src/main/res/layout/song_option_item.xml" value="0.33" />
+        <entry key="..\:/doan/Space/app/src/main/res/menu/bottom_menu.xml" value="0.18541666666666667" />
+        <entry key="..\:/doan/Space/app/src/main/res/menu/playlist_menu.xml" value="0.6010362694300518" />
       </map>
     </option>
   </component>

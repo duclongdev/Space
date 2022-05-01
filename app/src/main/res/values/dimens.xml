@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_big_title">24sp</dimen>
+    <dimen name="padding_start_home">10dp</dimen>
+    <dimen name="margin">20dp</dimen>
+    <dimen name="margin_top_home">30dp</dimen>
+    <dimen name="horizontal_margin">8dp</dimen>
+    <dimen name="margin_end_song_item">10dp</dimen>
+    <dimen name="recent_song_list_size">100dp</dimen>
+    <dimen name="margin_title"> 30dp</dimen>
+    <dimen name="margin_bot_category">30dp</dimen>
+    <dimen name="corner_radius_playlist_img">45dp</dimen>
+    <dimen name="playlist_size">130dp</dimen>
+    <dimen name="CircleIndicator3_height">40dp</dimen>
+    <dimen name="corner_playlist">5dp</dimen>
+    <dimen name="corner_item_song">10dp</dimen>
+    <dimen name="icon_song_option_size">30dp</dimen>
+    <dimen name="icon_size">25dp</dimen>
+    <dimen name="song_item_size">50dp</dimen>
+    <dimen name="division_height">0.25dp</dimen>
+    <dimen name="size_playlist_img">300dp</dimen>
+    <dimen name="slide_show_size">250dp</dimen>
+</resources>
