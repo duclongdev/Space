@@ -168,7 +168,23 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
             mediaPlayer.setDataSource(Songs.get(position).getLinkMp3());
             mediaPlayer.setOnPreparedListener(this);
             mediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void createMediaPlayer(int position, boolean isloop) {
+        Log.e("b", "b");
+        mediaPlayer = new MediaPlayer();
+//        Log.e("media1", String.valueOf(mediaPlayer));
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        this.position = position;
 
+//        mediaPlayer = MediaPlayer.create(getBaseContext(),Songs.get(position).getFile());
+        try {
+            mediaPlayer.setDataSource(Songs.get(position).getLinkMp3());
+            mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setLooping(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -205,9 +221,8 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
         }
         else{
             Log.e("Lopp", "Lopp");
+//            actionPlaying.playClick();
             actionPlaying.playClick();
-            actionPlaying.playClick();
-            setLooping(true);
         }
 //        OnCompleted();
 //        if(actionPlaying != null) {

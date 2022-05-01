@@ -67,6 +67,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     private Thread playThread, prevThread, nextThread;
     MediaService mediaService;
     ArrayList<Integer> listPlay;
+    boolean isloop = false;
     public MusicPlayer() {
         // Required empty public constructor
     }
@@ -117,10 +118,12 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 if(!mediaService.isLooping()){
                     btnloop.setImageResource(R.drawable.ic_baseline_repeat_black_24);
                     mediaService.setLooping(true);
+                    isloop = true;
                 }
                 else {
                     btnloop.setImageResource(R.drawable.ic_baseline_repeat_24);
                     mediaService.setLooping(false);
+                    isloop = false;
                 }
 
             }
@@ -251,7 +254,11 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             seekBar.setProgress(0);
             mediaService.stop();
             mediaService.release();
-            mediaService.createMediaPlayer(position);
+            if(!isloop)
+                mediaService.createMediaPlayer(position);
+            else {
+                mediaService.createMediaPlayer(position, true);
+            }
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(position).getTitleSong());
 //            author.setText(ListSongs.get(position).getIdArtist());
@@ -284,7 +291,11 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             seekBar.setProgress(0);
             mediaService.stop();
             mediaService.release();
-            mediaService.createMediaPlayer(position);
+            if(!isloop)
+                mediaService.createMediaPlayer(position);
+            else {
+                mediaService.createMediaPlayer(position, true);
+            }
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(position).getTitleSong());
 //            author.setText(ListSongs.get(position).getIdArtist());
@@ -320,7 +331,11 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 currentindex = 0;
             }
             position = listPlay.get(currentindex);
-            mediaService.createMediaPlayer(position);
+            if(!isloop)
+                mediaService.createMediaPlayer(position);
+            else {
+                mediaService.createMediaPlayer(position, true);
+            }
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(position).getTitleSong());
 //            author.setText(ListSongs.get(position).getIdArtist());
@@ -359,7 +374,11 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 currentindex = 0;
             }
             position = listPlay.get(currentindex);
-            mediaService.createMediaPlayer(position);
+            if(!isloop)
+                mediaService.createMediaPlayer(position);
+            else {
+                mediaService.createMediaPlayer(position, true);
+            }
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(position).getTitleSong());
 //            author.setText(ListSongs.get(position).getIdArtist());
