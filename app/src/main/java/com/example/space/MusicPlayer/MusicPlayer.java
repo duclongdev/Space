@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.palette.graphics.Palette;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -68,6 +69,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     MediaService mediaService;
     ArrayList<Integer> listPlay;
     boolean isloop = false;
+    boolean isPlaying = true;
+    private CountDownTimer countDownTimer;
     public MusicPlayer() {
         // Required empty public constructor
     }
@@ -164,14 +167,14 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 list.add(new More_Item("Like", R.drawable.ic_baseline_pause_24));
                 list.add(new More_Item("Hide", R.drawable.ic_baseline_shuffle_24));
                 list.add(new More_Item("Like this song", R.drawable.ic_baseline_skip_previous_24));
+                list.add(new More_Item("Sleep time"));
                 list.add(new More_Item("Add to Playlist"));
                 list.add(new More_Item("View Artists"));
                 list.add(new More_Item("Share"));
-                list.add(new More_Item("Sleep timer"));
                 MyBottomSheetMoreFragment myBottomSheetMoreFragment = new MyBottomSheetMoreFragment(list,  new IClickItemMoreListener() {
                     @Override
                     public void Clickitem(More_Item item_object) {
-
+                        SolveBottomSheet(item_object);
                     }
                 }, imageView.getDrawable(), name.getText().toString(), author.getText().toString());
                 myBottomSheetMoreFragment.show(getActivity().getSupportFragmentManager(), myBottomSheetMoreFragment.getTag());
@@ -179,6 +182,30 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         });
         return view;
     }
+
+    private void SolveBottomSheet(More_Item item_object) {
+        switch (item_object.getTitle()){
+            case "Like":
+                break;
+            case "Hide" :
+                break;
+            case "Sleep time":
+                countDownTimer = new CountDownTimer(10000, 1000) {
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        playClick();
+                    }
+                };
+                countDownTimer.start();
+                break;
+        }
+    }
+
     @Override
     public void onResume() {
         Intent intent = new Intent(getActivity(), MediaService.class);
@@ -244,85 +271,44 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     }
 
     public void prevClick() {
-        if (mediaService.isPlaying()) {
             if (currentindex > 0)
                 currentindex--;
             else {
                 currentindex = ListSongs.size() - 1;
             }
-            position = listPlay.get(currentindex);
-            seekBar.setProgress(0);
-            mediaService.stop();
-            mediaService.release();
-            if(!isloop)
-                mediaService.createMediaPlayer(position);
-            else {
-                mediaService.createMediaPlayer(position, true);
-            }
-            seekBar.setMax(mediaService.getDuration());
-            name.setText(ListSongs.get(position).getTitleSong());
-//            author.setText(ListSongs.get(position).getIdArtist());
-            ovTime.setText(createTime(mediaService.getDuration()));
-//            Glide.with(this).load(ListSongs.get(position).getLinkImage()).into(imageView);
-            setImage_showNotification();
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mediaService != null) {
-                        int mCurrentPosition = mediaService.getCurrentPosition();
-                        seekBar.setProgress(mCurrentPosition);
-                        curTime.setText(createTime(mCurrentPosition));
-                    }
-                    handler.postDelayed(this, 1000);
-                }
-            });
-//            mediaService.OnCompleted();
-//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
-//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
-            play.setImageResource(R.drawable.ic_baseline_pause_24);
-//            mediaService.start();
-        } else {
-            if (currentindex > 0)
-                currentindex--;
-            else {
-                currentindex = ListSongs.size() - 1;
-            }
-            position = listPlay.get(currentindex);
-            seekBar.setProgress(0);
-            mediaService.stop();
-            mediaService.release();
-            if(!isloop)
-                mediaService.createMediaPlayer(position);
-            else {
-                mediaService.createMediaPlayer(position, true);
-            }
-            seekBar.setMax(mediaService.getDuration());
-            name.setText(ListSongs.get(position).getTitleSong());
-//            author.setText(ListSongs.get(position).getIdArtist());
-            ovTime.setText(createTime(mediaService.getDuration()));
-//            Glide.with(this).load(ListSongs.get(position).getLinkImage()).into(imageView);
-            setImage_showNotification();
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mediaService != null) {
-                        int mCurrentPosition = mediaService.getCurrentPosition();
-                        seekBar.setProgress(mCurrentPosition);
-                        curTime.setText(createTime(mCurrentPosition));
-                    }
-                    handler.postDelayed(this, 1000);
-                }
-            });
-//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
-//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
-            play.setImageResource(R.drawable.ic_baseline_pause_24);
-//            mediaService.OnCompleted();
+            UpdatePlay();
+    }
+
+    private void UpdatePlay() {
+        position = listPlay.get(currentindex);
+        seekBar.setProgress(0);
+        mediaService.stop();
+        mediaService.release();
+        if(!isloop)
+            mediaService.createMediaPlayer(position);
+        else {
+            mediaService.createMediaPlayer(position, true);
         }
+        seekBar.setMax(mediaService.getDuration());
+        name.setText(ListSongs.get(position).getTitleSong());
+        ovTime.setText(createTime(mediaService.getDuration()));
+        play.setImageResource(R.drawable.ic_baseline_pause_24);
+        setImage_showNotification(true);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mediaService != null) {
+                    int mCurrentPosition = mediaService.getCurrentPosition();
+                    seekBar.setProgress(mCurrentPosition);
+                    curTime.setText(createTime(mCurrentPosition));
+                }
+                handler.postDelayed(this, 1000);
+            }
+        });
     }
 
     @Override
     public void nextClick() {
-        if (mediaService.isPlaying()) {
 //            mediaService.stop();
             mediaService.reset();
             if (currentindex < ListSongs.size() - 1)
@@ -330,81 +316,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             else {
                 currentindex = 0;
             }
-            position = listPlay.get(currentindex);
-            if(!isloop)
-                mediaService.createMediaPlayer(position);
-            else {
-                mediaService.createMediaPlayer(position, true);
-            }
-            seekBar.setMax(mediaService.getDuration());
-            name.setText(ListSongs.get(position).getTitleSong());
-//            author.setText(ListSongs.get(position).getIdArtist());
-            ovTime.setText(createTime(mediaService.getDuration()));
-//            Glide.with(this).load(ListSongs.get(position).getLinkImage()).into(imageView);
-            setImage_showNotification();
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mediaService != null) {
-                        int mCurrentPosition = mediaService.getCurrentPosition();
-//                        int duration = mediaService.getDuration();
-                        seekBar.setProgress(mCurrentPosition);
-                        seekBar.setMax(mediaService.getDuration());
-
-//                        Log.e("duration", String.valueOf(duration));
-//                        Log.e("mduration", String.valueOf(mCurrentPosition));
-//                        if(mCurrentPosition > mediaService.getDuration())
-//                            mediaService.OnCompleted();
-                        curTime.setText(createTime(mCurrentPosition));
-                    }
-                    handler.postDelayed(this, 1000);
-                }
-            });
-//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
-//            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
-            play.setImageResource(R.drawable.ic_baseline_pause_24);
-//            mediaService.OnCompleted();
-//            mediaService.start();
-        } else {
-//            mediaService.stop();
-            mediaService.reset();
-            if (currentindex < ListSongs.size() - 1)
-                currentindex++;
-            else {
-                currentindex = 0;
-            }
-            position = listPlay.get(currentindex);
-            if(!isloop)
-                mediaService.createMediaPlayer(position);
-            else {
-                mediaService.createMediaPlayer(position, true);
-            }
-            seekBar.setMax(mediaService.getDuration());
-            name.setText(ListSongs.get(position).getTitleSong());
-//            author.setText(ListSongs.get(position).getIdArtist());
-//            Glide.with(this).load(ListSongs.get(position).getLinkImage()).into(imageView);
-            setImage_showNotification();
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (mediaService != null) {
-                        int mCurrentPosition = mediaService.getCurrentPosition();
-                        int duration = mediaService.getDuration();
-                        seekBar.setMax(duration);
-                        seekBar.setProgress(mCurrentPosition);
-//                        Log.e("duration", String.valueOf(duration));
-//                        Log.e("mduration", String.valueOf(mCurrentPosition));
-
-//                        if(mCurrentPosition > mediaService.getDuration())
-//                            mediaService.OnCompleted();
-                        curTime.setText(createTime(mCurrentPosition));
-                    }
-                    handler.postDelayed(this, 1000);
-                }
-            });
-            play.setImageResource(R.drawable.ic_baseline_pause_24);
-//            mediaService.OnCompleted();
-        }
+            UpdatePlay();
     }
 
     public void playClick() {
@@ -412,6 +324,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
             mediaService.pause();
             seekBar.setMax(mediaService.getDuration());
+            setImage_showNotification(true);
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -423,10 +336,10 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                     handler.postDelayed(this, 1000);
                 }
             });
-            mediaService.showNotification(R.drawable.ic_baseline_play_arrow_24);
         } else {
             play.setImageResource(R.drawable.ic_baseline_pause_24);
             seekBar.setMax(mediaService.getDuration());
+            setImage_showNotification(false);
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -466,7 +379,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         {
             listPlay.add(i);
         }
-        Log.e("random", String.valueOf(listPlay));
+        position = listPlay.get(currentindex);
         if (mediaService != null) {
             mediaService.stop();
             mediaService.release();
@@ -537,7 +450,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
 //        }
 
     }
-    void setImage_showNotification(){
+    void setImage_showNotification(boolean isPlaying){
         Glide.with(this)
                 .asBitmap()
                 .load(ListSongs.get(position).getLinkImage())
@@ -546,7 +459,10 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         imageView.setImageBitmap(resource);
                         BitmapDrawable drawable  = (BitmapDrawable) imageView.getDrawable();
-                        mediaService.showNotification(R.drawable.ic_baseline_pause_24, drawable);
+                        if(!isPlaying)
+                            mediaService.showNotification(R.drawable.ic_baseline_pause_24, drawable);
+                        else
+                            mediaService.showNotification(R.drawable.ic_baseline_play_arrow_24, drawable);
                         paletteGenerator(drawable);
                     }
 
@@ -578,14 +494,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         seekBar.setMax(mediaService.getDuration());
         ovTime.setText(createTime(mediaService.getDuration()));
         name.setText(ListSongs.get(position).getTitleSong());
-        setImage_showNotification();
-//        mediaService.setLooping(false);
-//        author.setText(ListSongs.get(currentindex).getIdArtist());
-//        Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
-//        mediaService.OnCompleted();
-//        mediaService.OnPrepared();
-//        mediaService.showNotification(R.drawable.ic_baseline_pause_24);
-        Log.e("a", "a");
+        setImage_showNotification(false);
     }
 
     @Override
