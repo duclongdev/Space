@@ -23,4 +23,6 @@ public interface Dataservice {
     Call<List<Advertisement>> getBanner();
     @GET("artist.php")
     Call<List<Artist>> getArtist();
+    @GET("genre.php")
+    Call<List<Genre>> getGenre();
 }

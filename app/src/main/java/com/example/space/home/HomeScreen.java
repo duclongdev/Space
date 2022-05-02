@@ -50,6 +50,7 @@ public class HomeScreen extends Fragment {
     private List<Advertisement> advList;
     private List<Artist> artistList;
     private List<Theme> themeList;
+    private List<Genre> genreList;
     private CategoryPlaylistAdapter categoryPlaylistAdapter;
     private List<CategoryPlaylist> categoryPlaylists;
     private Dataservice dataservice;
@@ -140,6 +141,7 @@ public class HomeScreen extends Fragment {
     private void LoadAllDataForCategory() {
         loadArtistCategory();
         loadThemeCategory();
+        loadGenreCategory();
         setSlideShow();
     }
 
@@ -178,6 +180,29 @@ public class HomeScreen extends Fragment {
 
             @Override
             public void onFailure(Call<List<Artist>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void loadGenreCategory() {
+        genreList = new ArrayList<>();
+        List<PlayList> playLists = new ArrayList<>();
+        Call<List<Genre>> call = dataservice.getGenre();
+        call.enqueue(new Callback<List<Genre>>() {
+            @Override
+            public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
+                genreList.addAll(response.body());
+                for (Genre genre : genreList) {
+                    playLists.add(new PlayList(Integer.parseInt(genre.getIdGenre()), genre.getLinkImage(), genre.getName(), 1));
+                }
+                categoryPlaylists.add(new CategoryPlaylist(2, "Genre", playLists));
+                categoryPlaylistAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Genre>> call, Throwable t) {
 
             }
         });
