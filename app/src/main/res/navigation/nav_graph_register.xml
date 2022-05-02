@@ -53,7 +53,11 @@
         android:id="@+id/enterName"
         android:name="com.example.space.register.EnterName"
         android:label="@string/Name"
-        tools:layout="@layout/fragment_enter_name" />
+        tools:layout="@layout/fragment_enter_name" >
+        <action
+            android:id="@+id/action_enterName_to_sign_in"
+            app:destination="@id/sign_in" />
+    </fragment>
     <fragment
         android:id="@+id/method_Sign_in"
         android:name="com.example.space.login.Method_Sign_in"

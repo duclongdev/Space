@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.space.Home;
 import com.example.space.R;
@@ -193,7 +194,12 @@ public class Method_Sign_in extends Fragment {
     }
     //cập nhật lại giao diện
     private void updateUI(FirebaseUser currentUser) {
-        Intent intent=new Intent(requireActivity(),Home.class);
-        startActivity(intent);
+        if(currentUser.isEmailVerified()){
+            Intent intent=new Intent(requireActivity(),Home.class);
+            startActivity(intent);
+        }
+        else {
+            return;
+        }
     }
 }
