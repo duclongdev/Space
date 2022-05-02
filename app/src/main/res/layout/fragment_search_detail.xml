@@ -7,25 +7,30 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-        <TextView
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
+
+    <TextView
+        android:id="@+id/textsearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:text="Search"
         android:textColor="@color/white"
-        android:textSize="32sp"
-        android:textStyle="bold"
-            android:id="@+id/textsearch"
-        android:text="Search"/>
-        <androidx.appcompat.widget.SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bgsearch"
-            android:layout_margin="16dp"
-            app:queryHint="Search song"
-            app:iconifiedByDefault="false"
-            android:layout_below="@+id/textsearch"
-            android:id="@+id/search_bar"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textsearch"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bgsearch"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search song" />
     <TextView
         android:visibility="gone"
         android:id="@+id/not_find"
@@ -36,19 +41,21 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="24sp"/>
+
     <TextView
-        android:layout_below="@+id/search_bar"
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:text="Recommend song"
-        android:layout_marginBottom="16dp"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="16dp"/>
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="16dp"
         android:layout_below="@id/text1"
         android:id="@+id/l_s"
         android:layout_width="match_parent"
