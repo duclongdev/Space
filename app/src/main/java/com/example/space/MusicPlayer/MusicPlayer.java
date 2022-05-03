@@ -416,8 +416,10 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 
     public void playClick() {
         boolean is = false;
-        if (isStop == true && (mediaService.getCurrentPosition() < mediaService.getDuration() || mediaService.getCurrentPosition() < 1000)) {
-            currentindex--;
+        if (isStop == true && (mediaService.getCurrentPosition() < mediaService.getDuration() + 1000 || mediaService.getCurrentPosition() < 2000)) {
+            if(mediaService.getCurrentPosition() < 2000)
+                currentindex--;
+//            currentindex--;
 //            isStop = false;
             is = true;
             nextClick();
