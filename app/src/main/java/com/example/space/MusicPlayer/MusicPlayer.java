@@ -598,7 +598,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
     void setImage_showNotification(boolean isPlaying) {
         Glide.with(this)
                 .asBitmap()
-                .load(ListSongs.get(position).getLinkImage())
+                .load(ListSongs.get(position).getLinkImageS())
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

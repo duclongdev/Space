@@ -75,7 +75,6 @@ public class HomeScreen extends Fragment {
         requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initToolBar();
         getCategoryPlaylist();
-        getdata();
     }
 
     private void getCategoryPlaylist() {
