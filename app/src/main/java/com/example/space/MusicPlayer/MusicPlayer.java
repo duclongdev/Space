@@ -294,8 +294,6 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
             public void onFinish() {
                 isStop = true;
                 playClick();
-//                play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
-//                setImage_showNotification(true);
             }
         };
         countDownTimer.start();
@@ -418,14 +416,18 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 
     public void playClick() {
         boolean is = false;
-        if (isStop == true && mediaService.getCurrentPosition() == 0) {
+        if (isStop == true && (mediaService.getCurrentPosition() < mediaService.getDuration() || mediaService.getCurrentPosition() < 1000)) {
             currentindex--;
 //            isStop = false;
             is = true;
             nextClick();
         }
         if (mediaService.isPlaying() || is) {
-            play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+//            if(is && !mediaService.isPlaying())
+//                play.setImageResource(R.drawable.ic_baseline_pause_24);
+//            else
+                play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+
             mediaService.pause();
             seekBar.setMax(mediaService.getDuration());
             setImage_showNotification(true);
@@ -570,6 +572,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                         else
                             mediaService.showNotification(R.drawable.ic_baseline_play_arrow_24, drawable);
                         paletteGenerator(drawable);
+//                                isStop = false;
                     }
 
                     @Override

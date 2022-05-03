@@ -199,7 +199,9 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
         mediaPlayer1.start();
         OnCompleted();
         if(this.isPause)
+        {
             mediaPlayer1.pause();
+        }
 //        this.isPause = false;
     }
     public void OnPrepared(){
