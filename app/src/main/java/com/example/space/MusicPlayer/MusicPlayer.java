@@ -169,11 +169,11 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 List<More_Item> list = new ArrayList<>();
                 list.add(new More_Item("Like", R.drawable.ic_baseline_pause_24));
                 list.add(new More_Item("Hide", R.drawable.ic_baseline_shuffle_24));
-                list.add(new More_Item("Like this song", R.drawable.ic_baseline_skip_previous_24));
                 list.add(new More_Item("Sleep time"));
-                list.add(new More_Item("Add to Playlist"));
-                list.add(new More_Item("View Artists"));
-                list.add(new More_Item("Share"));
+//                list.add(new More_Item("Like this song", R.drawable.ic_baseline_skip_previous_24));
+//                list.add(new More_Item("Add to Playlist"));
+//                list.add(new More_Item("View Artists"));
+//                list.add(new More_Item("Share"));
                 myBottomSheetMoreFragment = new MyBottomSheetMoreFragment(list, new IClickItemMoreListener() {
                     @Override
                     public void Clickitem(More_Item item_object) {
@@ -559,15 +559,15 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                     GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
                             new int[]{swatch.getRgb(), darkMutedSwatch.getRgb(), darkMutedSwatch.getRgb()});
                     layout.setBackground(gradientDrawable);
-                    name.setTextColor(swatch.getTitleTextColor());
-                    author.setTextColor(swatch.getBodyTextColor());
+//                    name.setTextColor(swatch.getTitleTextColor());
+//                    author.setTextColor(swatch.getBodyTextColor());
                 } else {
 //                    layout.setBackgroundResource(R.drawable.main_bg);
                     GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
                             new int[]{0xff000000, 0xff000000});
                     layout.setBackground(gradientDrawable);
-                    name.setTextColor(swatch.getTitleTextColor());
-                    author.setTextColor(swatch.getBodyTextColor());
+//                    name.setTextColor(swatch.getTitleTextColor());
+//                    author.setTextColor(swatch.getBodyTextColor());
                 }
             }
         });

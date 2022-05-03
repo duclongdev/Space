@@ -302,10 +302,10 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
         notification
                 // Show controls on lock screen even when user hides sensitive content.
                 .setContentTitle(Songs.get(position).getTitleSong())
-                .setContentText("nac")
+                .setContentText(Songs.get(position).getName())
                 //Songs.get(position).getIdArtist()
                 .setLargeIcon(bitmap)
-                .setSubText("nguyenbakhanh")
+//                .setSubText("nguyenbakhanh")
                 .setSmallIcon(R.drawable.ic_baseline_audiotrack_24)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)

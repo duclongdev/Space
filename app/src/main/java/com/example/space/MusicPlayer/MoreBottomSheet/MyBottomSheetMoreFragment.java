@@ -60,7 +60,7 @@ public class MyBottomSheetMoreFragment extends BottomSheetDialogFragment {
                 iClickItemMoreListener.Clickitem(item_object);
             }
         });
-        setupFullHeight(bottomSheetDialog);
+//        setupFullHeight(bottomSheetDialog);
         rcv.setAdapter(item_adapter);
         return bottomSheetDialog;
     }
