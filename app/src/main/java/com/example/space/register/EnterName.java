@@ -145,7 +145,7 @@ public class EnterName extends Fragment {
                                     });
                             updateUI();
                         } else {
-
+                            progressDialog.hide();
                         }
                     }
                 });

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.space.R;
+import com.example.space.model.Song;
 import com.example.space.myInterface.IClickItemOnSongOption;
 import com.example.space.myInterface.IClickOnMoreOptionOfSongItem;
 import com.example.space.myInterface.IClickSong;
@@ -24,7 +25,7 @@ import java.util.List;
 
 public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongViewHolder> {
 
-    private List<Song> songList;
+    private List<com.example.space.model.Song> songList;
     private Fragment fragment;
     private IClickSong iClickSong;
     private IClickOnMoreOptionOfSongItem iClickOption;
@@ -35,7 +36,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongVi
         this.iClickOption = iClickOption;
     }
 
-    public void setData(List<Song> songList){
+    public void setData(List<com.example.space.model.Song> songList){
         this.songList = songList;
     }
 
@@ -50,20 +51,20 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongVi
     public void onBindViewHolder(@NonNull SongViewHolder holder, int position) {
         Song song = songList.get(position);
         if(song == null) return;
-        Glide.with(fragment).load(song.getUrl()).centerCrop().into(holder.imgSong);
-        holder.songName.setText(song.getName());
-        holder.songAuthor.setText(song.getAuthor());
+        Glide.with(fragment).load(song.getLinkImageS()).centerCrop().into(holder.imgSong);
+        holder.songName.setText(song.getTitleSong());
+        holder.songAuthor.setText(song.getName());
         holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(),R.anim.load_list));
         holder.clickSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickSong.onCLickSong(song.getId());
+                iClickSong.onCLickSong(song);
             }
         });
         holder.moreOptionSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickOption.onClickOptionOnSongItem(song.getUrl(), song.getName(), song.getAuthor());
+                iClickOption.onClickOptionOnSongItem(song.getLinkImageS(), song.getName(), song.getName());
             }
         });
     }

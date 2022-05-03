@@ -42,6 +42,8 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_forgot_pass.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_home_screen.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_method__sign_in.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_music_player.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_playlist_screen.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_search_detail.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_search_screen.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_search_song.xml" value="0.16145833333333334" />
@@ -51,6 +53,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_search.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_song.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_theme.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/recent_item.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/menu/bottom_menu.xml" value="0.17552083333333332" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/bottom_sheet_layout.xml" value="0.207" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/playlist_img_background.xml" value="0.207" />

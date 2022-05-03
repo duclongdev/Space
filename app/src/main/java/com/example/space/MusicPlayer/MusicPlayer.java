@@ -36,12 +36,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.space.Home;
 import com.example.space.MusicPlayer.MoreBottomSheet.IClickItemMoreListener;
 import com.example.space.MusicPlayer.MoreBottomSheet.More_Item;
 import com.example.space.MusicPlayer.MoreBottomSheet.MyBottomSheetMoreFragment;
 import com.example.space.R;
 import com.example.space.Service.MediaService;
 import com.example.space.model.Song;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -76,6 +78,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_music_player, container, false);
         initViews(view);
+
 //        Intent intent = getIntent();
 //        currentindex = intent.getIntExtra("position",0);
         currentindex = getArguments().getInt("data"); // đây là thứ bạn cần :D
@@ -244,7 +247,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             mediaService.createMediaPlayer(currentindex);
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(currentindex).getTitleSong());
-//            author.setText(ListSongs.get(currentindex).getIdArtist());
+            author.setText(ListSongs.get(currentindex).getName());
             ovTime.setText(createTime(mediaService.getDuration()));
 //            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
             setImage_showNotification();
@@ -276,7 +279,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             mediaService.createMediaPlayer(currentindex);
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(currentindex).getTitleSong());
-//            author.setText(ListSongs.get(currentindex).getIdArtist());
+            author.setText(ListSongs.get(currentindex).getName());
             ovTime.setText(createTime(mediaService.getDuration()));
 //            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
             setImage_showNotification();
@@ -311,7 +314,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             mediaService.createMediaPlayer(currentindex);
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(currentindex).getTitleSong());
-//            author.setText(ListSongs.get(currentindex).getIdArtist());
+            author.setText(ListSongs.get(currentindex).getName());
             ovTime.setText(createTime(mediaService.getDuration()));
 //            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
             setImage_showNotification();
@@ -349,7 +352,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
             mediaService.createMediaPlayer(currentindex);
             seekBar.setMax(mediaService.getDuration());
             name.setText(ListSongs.get(currentindex).getTitleSong());
-//            author.setText(ListSongs.get(currentindex).getIdArtist());
+            author.setText(ListSongs.get(currentindex).getName());
 //            Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
             setImage_showNotification();
             getActivity().runOnUiThread(new Runnable() {
@@ -508,7 +511,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     void setImage_showNotification(){
         Glide.with(this)
                 .asBitmap()
-                .load(ListSongs.get(currentindex).getLinkImage())
+                .load(ListSongs.get(currentindex).getLinkImageS())
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -548,7 +551,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         name.setText(ListSongs.get(currentindex).getTitleSong());
         setImage_showNotification();
 //        mediaService.setLooping(false);
-//        author.setText(ListSongs.get(currentindex).getIdArtist());
+        author.setText(ListSongs.get(currentindex).getName());
 //        Glide.with(this).load(ListSongs.get(currentindex).getLinkImage()).into(imageView);
 //        mediaService.OnCompleted();
 //        mediaService.OnPrepared();

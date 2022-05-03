@@ -25,4 +25,12 @@ public interface Dataservice {
     Call<List<Artist>> getArtist();
     @GET("genre.php")
     Call<List<Genre>> getGenre();
+    @GET("songGenre.php")
+    Call<List<Song>>getSongGenre(@Query("genre") String genre);
+    @GET("songArtist.php")
+    Call<List<Song>>getSongArtist(@Query("artist") String artist);
+    @GET("songTheme.php")
+    Call<List<Song>>getSongTheme(@Query("theme") String theme);
+    @GET("songBanner.php")
+    Call<List<Song>>getSongBanner(@Query("banner") String banner);
 }
