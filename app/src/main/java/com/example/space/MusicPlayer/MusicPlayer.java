@@ -216,43 +216,43 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("5");
+                TimePickerClick("5", bottomSheetDialog);
             }
         });
         btn10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("10");
+                TimePickerClick("10", bottomSheetDialog);
             }
         });
         btn15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("15");
+                TimePickerClick("15", bottomSheetDialog);
             }
         });
         btn30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("30");
+                TimePickerClick("30", bottomSheetDialog);
             }
         });
         btn1h.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("1");
+                TimePickerClick("1", bottomSheetDialog);
             }
         });
         btnEOT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("End");
+                TimePickerClick("End", bottomSheetDialog);
             }
         });
 
     }
 
-    private void TimePickerClick(String time) {
+    private void TimePickerClick(String time, BottomSheetDialog bottomSheetDialog) {
         switch (time) {
             case "5":
                 SetSleep(10000);
@@ -272,8 +272,8 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
             case "End":
                 SetSleep(0);
                 break;
-
         }
+        bottomSheetDialog.dismiss();
     }
 
     private void SetSleep(long time) {
@@ -292,8 +292,8 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 
             @Override
             public void onFinish() {
-                playClick();
                 isStop = true;
+                playClick();
 //                play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
 //                setImage_showNotification(true);
             }
@@ -380,9 +380,9 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         mediaService.stop();
         mediaService.release();
         if (!isloop)
-            mediaService.createMediaPlayer(position);
+            mediaService.createMediaPlayer(position, false, isStop);
         else {
-            mediaService.createMediaPlayer(position, true);
+            mediaService.createMediaPlayer(position, true, isStop);
         }
         seekBar.setMax(mediaService.getDuration());
         name.setText(ListSongs.get(position).getTitleSong());
@@ -405,7 +405,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
     @Override
     public void nextClick() {
 //            mediaService.stop();
-        if (!isStop) {
+//        if (isStop == false) {
             mediaService.reset();
             if (currentindex < ListSongs.size() - 1)
                 currentindex++;
@@ -413,16 +413,18 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 currentindex = 0;
             }
             UpdatePlay();
-        }
+//        }
     }
 
     public void playClick() {
-        if (isStop && mediaService.getCurrentPosition() == 0) {
-            mediaService.getCurrentPosition();
+        boolean is = false;
+        if (isStop == true && mediaService.getCurrentPosition() == 0) {
             currentindex--;
-            isStop = false;
+//            isStop = false;
+            is = true;
             nextClick();
-        } else if (mediaService.isPlaying()) {
+        }
+        if (mediaService.isPlaying() || is) {
             play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
             mediaService.pause();
             seekBar.setMax(mediaService.getDuration());
@@ -454,9 +456,9 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 
                 }
             });
-
             mediaService.start();
         }
+        isStop = false;
     }
 
     private ArrayList random(int size, int min, int max) {
