@@ -59,7 +59,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 
     ImageButton prev, next, btnloop, shuffle;
     TextView curTime, ovTime, name, author;
-    FloatingActionButton play, noti, more;
+    FloatingActionButton play, more;
     SeekBar seekBar;
     ImageView favorite, imageView;
     LinearLayout layout;
@@ -86,8 +86,6 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_music_player, container, false);
         initViews(view);
-//        Intent intent = getIntent();
-//        currentindex = intent.getIntExtra("position",0);
         currentindex = getArguments().getInt("data"); // đây là thứ bạn cần :D
         getIntentMethod();
         position = listPlay.get(currentindex);
@@ -170,10 +168,6 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 list.add(new More_Item("Like", R.drawable.ic_baseline_pause_24));
                 list.add(new More_Item("Hide", R.drawable.ic_baseline_shuffle_24));
                 list.add(new More_Item("Sleep time"));
-//                list.add(new More_Item("Like this song", R.drawable.ic_baseline_skip_previous_24));
-//                list.add(new More_Item("Add to Playlist"));
-//                list.add(new More_Item("View Artists"));
-//                list.add(new More_Item("Share"));
                 myBottomSheetMoreFragment = new MyBottomSheetMoreFragment(list, new IClickItemMoreListener() {
                     @Override
                     public void Clickitem(More_Item item_object) {
@@ -204,9 +198,9 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 
     private void HideSong() {
         listHide.add(position);
-        Log.e("position",String.valueOf(listHide.get(0)));
-        Log.e("position",String.valueOf(currentindex));
-        Log.e("position",String.valueOf(position));
+        Log.e("position", String.valueOf(listHide.get(0)));
+        Log.e("position", String.valueOf(currentindex));
+        Log.e("position", String.valueOf(position));
         nextClick();
     }
 
@@ -262,26 +256,32 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
     }
 
     private void TimePickerClick(String time, BottomSheetDialog bottomSheetDialog) {
-        switch (time) {
-            case "5":
-                SetSleep(10000);
-                break;
-            case "10":
-                SetSleep(600000);
-                break;
-            case "15":
-                SetSleep(900000);
-                break;
-            case "30":
-                SetSleep(1800000);
-                break;
-            case "1":
-                SetSleep(3600000);
-                break;
-            case "End":
-                SetSleep(0);
-                break;
-        }
+        int time1;
+        if(time != "End")
+            time1 = Integer.parseInt(time);
+        else time1 = 0;
+
+        SetSleep(time1*60000);
+//        switch (time) {
+//            case "5":
+//                SetSleep(10000);
+//                break;
+//            case "10":
+//                SetSleep(600000);
+//                break;
+//            case "15":
+//                SetSleep(900000);
+//                break;
+//            case "30":
+//                SetSleep(1800000);
+//                break;
+//            case "1":
+//                SetSleep(3600000);
+//                break;
+//            case "End":
+//                SetSleep(0);
+//                break;
+//        }
         Toast.makeText(getContext(), "Your sleep timer is set", Toast.LENGTH_SHORT);
         bottomSheetDialog.dismiss();
     }
@@ -372,23 +372,19 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         };
         playThread.start();
     }
+
     public void playClick() {
         boolean is = false;
         if (isStop == true && (mediaService.getCurrentPosition() < mediaService.getDuration() + 1000 || mediaService.getCurrentPosition() < 2000)) {
             if (mediaService.getCurrentPosition() < 1000)
                 currentindex--;
-//            currentindex--;
-//            isStop = false;
             is = true;
             if (!isloop)
                 nextClick();
         }
         if (mediaService.isPlaying() || is) {
-//            if(is && !mediaService.isPlaying())
-//                play.setImageResource(R.drawable.ic_baseline_pause_24);
-//            else
             play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
-
+            mediaService.showNotification(R.drawable.ic_baseline_play_arrow_24);
             mediaService.pause();
             seekBar.setMax(mediaService.getDuration());
             setImage_showNotification(true);
@@ -407,6 +403,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
             play.setImageResource(R.drawable.ic_baseline_pause_24);
             seekBar.setMax(mediaService.getDuration());
             setImage_showNotification(false);
+            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -416,18 +413,42 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                         curTime.setText(createTime(mCurrentPosition));
                     }
                     handler.postDelayed(this, 1000);
-
                 }
             });
+
             mediaService.start();
         }
         isStop = false;
     }
 
     public void prevClick() {
-//        mediaService.reset();
         reduceCurrentIndex();
         UpdatePlay(false);
+    }
+
+    @Override
+    public void nextClick() {
+        increaseCurrentIndex();
+        UpdatePlay(true);
+    }
+
+    private void getPosition(boolean isNext) {
+        position = listPlay.get(currentindex);
+        while (isHide()) {
+            if (isNext) {
+                increaseCurrentIndex();
+            } else {
+                reduceCurrentIndex();
+            }
+            position = listPlay.get(currentindex);
+        }
+        position = listPlay.get(currentindex);
+    }
+
+    private boolean isHide() {
+        if (listHide.contains(position))
+            return true;
+        return false;
     }
 
     private void reduceCurrentIndex() {
@@ -438,37 +459,12 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         }
     }
 
-    @Override
-    public void nextClick() {
-        increaseCurrentIndex();
-        UpdatePlay(true);
-    }
-    private void increaseCurrentIndex(){
+    private void increaseCurrentIndex() {
         if (currentindex < ListSongs.size() - 1)
             currentindex++;
         else {
             currentindex = 0;
         }
-    };
-
-    private void getPosition(boolean isNext) {
-        position = listPlay.get(currentindex);
-        while(isHide()){
-            if(isNext) {
-                increaseCurrentIndex();
-            }
-            else{
-                reduceCurrentIndex();
-            }
-            position = listPlay.get(currentindex);
-        }
-        position = listPlay.get(currentindex);
-    }
-
-    private boolean isHide() {
-        if(listHide.contains(position))
-            return true;
-        return false;
     }
 
     private void UpdatePlay(boolean isNext) {
@@ -485,7 +481,9 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         name.setText(ListSongs.get(position).getTitleSong());
         ovTime.setText(createTime(mediaService.getDuration()));
         play.setImageResource(R.drawable.ic_baseline_pause_24);
-        setImage_showNotification(true);
+        author.setText(ListSongs.get(position).getName());
+        setImage_showNotification(false);
+        mediaService.showNotification(R.drawable.ic_baseline_pause_24);
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -498,7 +496,6 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
             }
         });
     }
-
 
     private ArrayList random(int size, int min, int max) {
         ArrayList numbers = new ArrayList();
@@ -513,22 +510,6 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         }
         Log.e("random", String.valueOf(numbers));
         return numbers;
-    }
-
-    private void getIntentMethod() {
-        ListSongs = mangsong;
-        listPlay = new ArrayList<>();
-        for (int i = 0; i < ListSongs.size(); i++) {
-            listPlay.add(i);
-        }
-        position = listPlay.get(currentindex);
-        if (mediaService != null) {
-            mediaService.stop();
-            mediaService.release();
-        }
-        Intent intent = new Intent(getActivity(), MediaService.class);
-        intent.putExtra("servicePosition", position);
-        getActivity().startService(intent);
     }
 
     void initViews(View view) {
@@ -548,6 +529,22 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         layout = view.findViewById(R.id.linearlayout);
     }
 
+    private void getIntentMethod() {
+        ListSongs = mangsong;
+        listPlay = new ArrayList<>();
+        for (int i = 0; i < ListSongs.size(); i++) {
+            listPlay.add(i);
+        }
+        position = listPlay.get(currentindex);
+        if (mediaService != null) {
+            mediaService.stop();
+            mediaService.release();
+        }
+        Intent intent = new Intent(getActivity(), MediaService.class);
+        intent.putExtra("servicePosition", position);
+        getActivity().startService(intent);
+    }
+
     public void createPaletteSync(Bitmap bitmap) {
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
@@ -555,19 +552,13 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 Palette.Swatch swatch = palette.getDominantSwatch();
                 Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
                 if (swatch != null) {
-//                    layout.setBackgroundResource(R.drawable.main_bg);
                     GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
                             new int[]{swatch.getRgb(), darkMutedSwatch.getRgb(), darkMutedSwatch.getRgb()});
                     layout.setBackground(gradientDrawable);
-//                    name.setTextColor(swatch.getTitleTextColor());
-//                    author.setTextColor(swatch.getBodyTextColor());
                 } else {
-//                    layout.setBackgroundResource(R.drawable.main_bg);
                     GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
                             new int[]{0xff000000, 0xff000000});
                     layout.setBackground(gradientDrawable);
-//                    name.setTextColor(swatch.getTitleTextColor());
-//                    author.setTextColor(swatch.getBodyTextColor());
                 }
             }
         });
@@ -592,7 +583,6 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 //        }else{
 //            layout.setBackgroundColor(Color.WHITE);
 //        }
-
     }
 
     void setImage_showNotification(boolean isPlaying) {
@@ -605,9 +595,9 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                         imageView.setImageBitmap(resource);
                         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
                         if (!isPlaying)
-                            mediaService.showNotification(R.drawable.ic_baseline_pause_24, drawable);
+                            mediaService.showNotification(R.drawable.ic_baseline_pause_24);
                         else
-                            mediaService.showNotification(R.drawable.ic_baseline_play_arrow_24, drawable);
+                            mediaService.showNotification(R.drawable.ic_baseline_play_arrow_24);
                         paletteGenerator(drawable);
 //                                isStop = false;
                     }
@@ -616,6 +606,25 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                     public void onLoadCleared(@Nullable Drawable placeholder) {
                     }
                 });
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+        MediaService.myBinder binder = (MediaService.myBinder) iBinder;
+        mediaService = binder.getService();
+        mediaService.setCallback((ActionPlaying) this);
+        seekBar.setMax(mediaService.getDuration());
+        ovTime.setText(createTime(mediaService.getDuration()));
+        name.setText(ListSongs.get(position).getTitleSong());
+        author.setText(ListSongs.get(position).getName());
+        setImage_showNotification(false);
+        mediaService.showNotification(R.drawable.ic_baseline_pause_24);
+
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+        mediaService = null;
     }
 
     public String createTime(int millis) {
@@ -630,22 +639,5 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 .append(String.format("%02d", seconds));
 
         return buf.toString();
-    }
-
-
-    @Override
-    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        MediaService.myBinder binder = (MediaService.myBinder) iBinder;
-        mediaService = binder.getService();
-        mediaService.setCallback((ActionPlaying) this);
-        seekBar.setMax(mediaService.getDuration());
-        ovTime.setText(createTime(mediaService.getDuration()));
-        name.setText(ListSongs.get(position).getTitleSong());
-        setImage_showNotification(false);
-    }
-
-    @Override
-    public void onServiceDisconnected(ComponentName componentName) {
-        mediaService = null;
     }
 }

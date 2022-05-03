@@ -20,6 +20,7 @@ import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,6 +50,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
     ActionPlaying actionPlaying;
     MediaSessionCompat mediaSessionCompat;
     boolean isPause = false;
+    ImageView imageView;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -194,7 +196,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
     @Override
     public void onPrepared(MediaPlayer mediaPlayer1) {
 //        Bitmap bitmap = getBitmapFromURL(mangsong.get(position).getLinkImage());
-//        showNotification(R.drawable.ic_baseline_pause_24);
+        showNotification(R.drawable.ic_baseline_pause_24);
         Log.e("ngy", "ngu");
         mediaPlayer1.start();
         OnCompleted();
@@ -245,47 +247,47 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
 ////            }
 //        }
     }
-    public void showNotification(int play_pause){
-//        Log.e("noti", "noti");
-//        mediaSessionCompat = new MediaSessionCompat(getBaseContext(), "My Audio");
-//        Intent intent = new Intent(this, MainActivity.class);
-//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, 0);
-//        Intent preIntent = new Intent(this, NotificationReciver.class).setAction(ACTION_PREV);
-//        PendingIntent prePendingIntent = PendingIntent.getBroadcast(this, 0, preIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        Intent playIntent = new Intent(this, NotificationReciver.class).setAction(ACTION_PLAY);
-//        PendingIntent playPendingIntent = PendingIntent.getBroadcast(this, 0, playIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        Intent nextIntent = new Intent(this, NotificationReciver.class).setAction(ACTION_NEXT);
-//        PendingIntent nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-////        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.justin_bieber);
-//        Bitmap bitmap = getBitmapFromURL(mangsong.get(position).getLinkImage());
-//        NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_ID);
-//                notification
-//                // Show controls on lock screen even when user hides sensitive content.
-//                .setContentTitle(Songs.get(position).getTitleSong())
-//                .setContentText(Songs.get(position).getIdArtist())
-//                .setLargeIcon(bitmap)
-//                .setSubText("nguyenbakhanh")
-//                .setSmallIcon(R.drawable.ic_baseline_audiotrack_24)
-//                .setAutoCancel(true)
-//                .setOnlyAlertOnce(true)
-//                // Add media control buttons that invoke intents in your media service
-//                .addAction(R.drawable.ic_baseline_skip_previous_24, "Previous", prePendingIntent) // #0
-//                .addAction(play_pause, "Pause", playPendingIntent)  // #1
-//                .addAction(R.drawable.ic_baseline_skip_next_24, "Next", nextPendingIntent)     // #2
-//                // Apply the media style template
-//                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
-////                        .setMediaSession(mediaSessionCompat.getSessionToken())
-//                        .setShowActionsInCompactView(1 /* #1: pause button */)
-//                        .setShowCancelButton(true)
-//                        .setCancelButtonIntent(MediaButtonReceiver.buildMediaButtonPendingIntent(getBaseContext(),
-//                                PlaybackStateCompat.ACTION_STOP)))
-//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//    public void showNotification(int play_pause){
+////        Log.e("noti", "noti");
+////        mediaSessionCompat = new MediaSessionCompat(getBaseContext(), "My Audio");
+////        Intent intent = new Intent(this, MainActivity.class);
+////        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, 0);
+////        Intent preIntent = new Intent(this, NotificationReciver.class).setAction(ACTION_PREV);
+////        PendingIntent prePendingIntent = PendingIntent.getBroadcast(this, 0, preIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+////        Intent playIntent = new Intent(this, NotificationReciver.class).setAction(ACTION_PLAY);
+////        PendingIntent playPendingIntent = PendingIntent.getBroadcast(this, 0, playIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+////        Intent nextIntent = new Intent(this, NotificationReciver.class).setAction(ACTION_NEXT);
+////        PendingIntent nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//////        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.justin_bieber);
+////        Bitmap bitmap = getBitmapFromURL(mangsong.get(position).getLinkImage());
+////        NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_ID);
+////                notification
+////                // Show controls on lock screen even when user hides sensitive content.
+////                .setContentTitle(Songs.get(position).getTitleSong())
+////                .setContentText(Songs.get(position).getIdArtist())
+////                .setLargeIcon(bitmap)
+////                .setSubText("nguyenbakhanh")
+////                .setSmallIcon(R.drawable.ic_baseline_audiotrack_24)
+////                .setAutoCancel(true)
 ////                .setOnlyAlertOnce(true)
-//                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-//                .build();
-//        startForeground(6,notification.build());
-    }
-    public void showNotification(int play_pause, BitmapDrawable drawable){
+////                // Add media control buttons that invoke intents in your media service
+////                .addAction(R.drawable.ic_baseline_skip_previous_24, "Previous", prePendingIntent) // #0
+////                .addAction(play_pause, "Pause", playPendingIntent)  // #1
+////                .addAction(R.drawable.ic_baseline_skip_next_24, "Next", nextPendingIntent)     // #2
+////                // Apply the media style template
+////                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+//////                        .setMediaSession(mediaSessionCompat.getSessionToken())
+////                        .setShowActionsInCompactView(1 /* #1: pause button */)
+////                        .setShowCancelButton(true)
+////                        .setCancelButtonIntent(MediaButtonReceiver.buildMediaButtonPendingIntent(getBaseContext(),
+////                                PlaybackStateCompat.ACTION_STOP)))
+////                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//////                .setOnlyAlertOnce(true)
+////                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+////                .build();
+////        startForeground(6,notification.build());
+//    }
+    public void showNotification(int play_pause){
         Log.e("noti", "noti");
         mediaSessionCompat = new MediaSessionCompat(getBaseContext(), "My Audio");
         Intent intent = new Intent(this, MainActivity.class);
@@ -297,7 +299,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
         Intent nextIntent = new Intent(this, NotificationReciver.class).setAction(ACTION_NEXT);
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 //        BitmapDrawable drawable  = (BitmapDrawable) drawable1;
-        Bitmap bitmap = drawable.getBitmap();
+        Bitmap bitmap = getBitmapFromURL(Songs.get(position).getLinkImageS());
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_ID);
         notification
                 // Show controls on lock screen even when user hides sensitive content.
@@ -308,7 +310,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
 //                .setSubText("nguyenbakhanh")
                 .setSmallIcon(R.drawable.ic_baseline_audiotrack_24)
                 .setAutoCancel(true)
-                .setOnlyAlertOnce(true)
+//                .setOnlyAlertOnce(true)
                 // Add media control buttons that invoke intents in your media service
                 .addAction(R.drawable.ic_baseline_skip_previous_24, "Previous", prePendingIntent) // #0
                 .addAction(play_pause, "Pause", playPendingIntent)  // #1
@@ -321,7 +323,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
                         .setCancelButtonIntent(MediaButtonReceiver.buildMediaButtonPendingIntent(getBaseContext(),
                                 PlaybackStateCompat.ACTION_STOP)))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//                .setOnlyAlertOnce(true)
+                .setOnlyAlertOnce(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .build();
         startForeground(11,notification.build());
@@ -335,7 +337,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        bitmap[0] = resource;
+                        bitmap[0]=resource;
                     }
 
                     @Override
