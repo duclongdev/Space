@@ -157,7 +157,7 @@ public class Sign_in extends Fragment {
                                 Toast.makeText(requireActivity(),"Please verify your email !",Toast.LENGTH_LONG).show();
                             }
                         } else {
-
+                            Toast.makeText(requireActivity(),"Your email or password is wrong !",Toast.LENGTH_LONG).show();
                         }
                     }
                 });

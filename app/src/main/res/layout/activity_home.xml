@@ -14,7 +14,7 @@
         app:menu="@menu/bottom_menu"
         android:backgroundTint="#F69E7B"
         android:background="#212121"
-        app:itemIconTint="@color/color_bottombar"
+        app:itemIconTint="@color/custom"
         app:itemTextColor="@color/black"
         app:itemIconSize="30dp"
         app:itemRippleColor="@color/white"

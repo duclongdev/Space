@@ -20,6 +20,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_launcher_background.xml" value="0.184" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_search.xml" value="0.136" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_search_fill.xml" value="0.136" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ripple_effect.xml" value="0.152" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/activity_detail.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/activity_forgot_pass_screen.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/activity_forgotpass.xml" value="0.17552083333333332" />
@@ -54,7 +55,10 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_song.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_theme.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/recent_item.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/song_item.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/menu/bottom_menu.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.152" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.152" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/bottom_sheet_layout.xml" value="0.207" />
         <entry key="..\:/doan/Space/app/src/main/res/drawable/playlist_img_background.xml" value="0.207" />
         <entry key="..\:/doan/Space/app/src/main/res/layout/activity_forgotpass.xml" value="0.25" />
