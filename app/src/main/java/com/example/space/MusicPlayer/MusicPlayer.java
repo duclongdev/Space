@@ -27,12 +27,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -43,6 +45,8 @@ import com.example.space.MusicPlayer.MoreBottomSheet.MyBottomSheetMoreFragment;
 import com.example.space.R;
 import com.example.space.Service.MediaService;
 import com.example.space.model.Song;
+import com.google.android.material.badge.BadgeUtils;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -51,7 +55,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConnection {
+public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConnection {
 
     ImageButton prev, next, btnloop, shuffle;
     TextView curTime, ovTime, name, author;
@@ -69,8 +73,10 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     MediaService mediaService;
     ArrayList<Integer> listPlay;
     boolean isloop = false;
-    boolean isPlaying = true;
+    boolean isStop = false;
     private CountDownTimer countDownTimer;
+    MyBottomSheetMoreFragment myBottomSheetMoreFragment;
+
     public MusicPlayer() {
         // Required empty public constructor
     }
@@ -118,12 +124,11 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         btnloop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!mediaService.isLooping()){
+                if (!mediaService.isLooping()) {
                     btnloop.setImageResource(R.drawable.ic_baseline_repeat_black_24);
                     mediaService.setLooping(true);
                     isloop = true;
-                }
-                else {
+                } else {
                     btnloop.setImageResource(R.drawable.ic_baseline_repeat_24);
                     mediaService.setLooping(false);
                     isloop = false;
@@ -134,17 +139,15 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         shuffle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(shuffle.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_baseline_shuffle_24).getConstantState())
-                {
+                if (shuffle.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_baseline_shuffle_24).getConstantState()) {
                     shuffle.setImageResource(R.drawable.ic_baseline_shuffle_black_24);
-                    listPlay = random(ListSongs.size(), 0, ListSongs.size()-1);
+                    listPlay = random(ListSongs.size(), 0, ListSongs.size() - 1);
                     currentindex = listPlay.indexOf(position);
-                }
-                else{
+                } else {
                     currentindex = position;
                     shuffle.setImageResource(R.drawable.ic_baseline_shuffle_24);
                     listPlay.clear();
-                    for(int i = 0; i < ListSongs.size(); i++){
+                    for (int i = 0; i < ListSongs.size(); i++) {
                         listPlay.add(i);
                     }
                 }
@@ -153,9 +156,9 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(favorite.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_heart_outline).getConstantState())
+                if (favorite.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_heart_outline).getConstantState())
                     favorite.setImageResource(R.drawable.ic_heart_red);
-                else{
+                else {
                     favorite.setImageResource(R.drawable.ic_heart_outline);
                 }
             }
@@ -171,7 +174,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 list.add(new More_Item("Add to Playlist"));
                 list.add(new More_Item("View Artists"));
                 list.add(new More_Item("Share"));
-                MyBottomSheetMoreFragment myBottomSheetMoreFragment = new MyBottomSheetMoreFragment(list,  new IClickItemMoreListener() {
+                myBottomSheetMoreFragment = new MyBottomSheetMoreFragment(list, new IClickItemMoreListener() {
                     @Override
                     public void Clickitem(More_Item item_object) {
                         SolveBottomSheet(item_object);
@@ -184,26 +187,118 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     }
 
     private void SolveBottomSheet(More_Item item_object) {
-        switch (item_object.getTitle()){
+        switch (item_object.getTitle()) {
             case "Like":
+                Toast.makeText(getContext(), "Like", Toast.LENGTH_SHORT).show();
                 break;
-            case "Hide" :
+            case "Hide":
+                Toast.makeText(getContext(), "Hide", Toast.LENGTH_SHORT).show();
                 break;
             case "Sleep time":
-                countDownTimer = new CountDownTimer(10000, 1000) {
-                    @Override
-                    public void onTick(long l) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        playClick();
-                    }
-                };
-                countDownTimer.start();
+                myBottomSheetMoreFragment.dismiss();
+                OpenTimePicker();
                 break;
         }
+    }
+
+    private void OpenTimePicker() {
+        View view = getLayoutInflater().inflate(R.layout.time_sleep_picker, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+        LinearLayout btn5, btn10, btn15, btn30, btn1h, btnEOT;
+        btn5 = view.findViewById(R.id.m5);
+        btn10 = view.findViewById(R.id.m10);
+        btn15 = view.findViewById(R.id.m15);
+        btn30 = view.findViewById(R.id.m30);
+        btn1h = view.findViewById(R.id.h1);
+        btnEOT = view.findViewById(R.id.endOfTrack);
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerClick("5");
+            }
+        });
+        btn10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerClick("10");
+            }
+        });
+        btn15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerClick("15");
+            }
+        });
+        btn30.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerClick("30");
+            }
+        });
+        btn1h.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerClick("1");
+            }
+        });
+        btnEOT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerClick("End");
+            }
+        });
+
+    }
+
+    private void TimePickerClick(String time) {
+        switch (time) {
+            case "5":
+                SetSleep(10000);
+                break;
+            case "10":
+                SetSleep(600000);
+                break;
+            case "15":
+                SetSleep(900000);
+                break;
+            case "30":
+                SetSleep(1800000);
+                break;
+            case "1":
+                SetSleep(3600000);
+                break;
+            case "End":
+                SetSleep(0);
+                break;
+
+        }
+    }
+
+    private void SetSleep(long time) {
+        long time1;
+        if (time != 0)
+            time1 = time;
+        else
+            time1 = mediaService.getDuration() - mediaService.getCurrentPosition();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+        countDownTimer = new CountDownTimer(time1, 1000) {
+            @Override
+            public void onTick(long l) {
+                Log.e("timer", String.valueOf(l));
+            }
+
+            @Override
+            public void onFinish() {
+                playClick();
+                isStop = true;
+//                play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+//                setImage_showNotification(true);
+            }
+        };
+        countDownTimer.start();
     }
 
     @Override
@@ -271,12 +366,12 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     }
 
     public void prevClick() {
-            if (currentindex > 0)
-                currentindex--;
-            else {
-                currentindex = ListSongs.size() - 1;
-            }
-            UpdatePlay();
+        if (currentindex > 0)
+            currentindex--;
+        else {
+            currentindex = ListSongs.size() - 1;
+        }
+        UpdatePlay();
     }
 
     private void UpdatePlay() {
@@ -284,7 +379,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         seekBar.setProgress(0);
         mediaService.stop();
         mediaService.release();
-        if(!isloop)
+        if (!isloop)
             mediaService.createMediaPlayer(position);
         else {
             mediaService.createMediaPlayer(position, true);
@@ -310,6 +405,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     @Override
     public void nextClick() {
 //            mediaService.stop();
+        if (!isStop) {
             mediaService.reset();
             if (currentindex < ListSongs.size() - 1)
                 currentindex++;
@@ -317,10 +413,16 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 currentindex = 0;
             }
             UpdatePlay();
+        }
     }
 
     public void playClick() {
-        if (mediaService.isPlaying()) {
+        if (isStop && mediaService.getCurrentPosition() == 0) {
+            mediaService.getCurrentPosition();
+            currentindex--;
+            isStop = false;
+            nextClick();
+        } else if (mediaService.isPlaying()) {
             play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
             mediaService.pause();
             seekBar.setMax(mediaService.getDuration());
@@ -375,8 +477,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
     private void getIntentMethod() {
         ListSongs = mangsong;
         listPlay = new ArrayList<>();
-        for(int i = 0; i < ListSongs.size(); i++)
-        {
+        for (int i = 0; i < ListSongs.size(); i++) {
             listPlay.add(i);
         }
         position = listPlay.get(currentindex);
@@ -405,6 +506,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
         more = view.findViewById(R.id.btnMore);
         layout = view.findViewById(R.id.linearlayout);
     }
+
     public void createPaletteSync(Bitmap bitmap) {
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
@@ -414,7 +516,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                 if (swatch != null) {
 //                    layout.setBackgroundResource(R.drawable.main_bg);
                     GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
-                            new int[]{ swatch.getRgb(), darkMutedSwatch.getRgb(),darkMutedSwatch.getRgb()});
+                            new int[]{swatch.getRgb(), darkMutedSwatch.getRgb(), darkMutedSwatch.getRgb()});
                     layout.setBackground(gradientDrawable);
                     name.setTextColor(swatch.getTitleTextColor());
                     author.setTextColor(swatch.getBodyTextColor());
@@ -431,6 +533,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
 //        Palette palette = Palette.from(bitmap).generate();
 //        return palette;
     }
+
     private void paletteGenerator(BitmapDrawable drawable) {
         Bitmap bitmap = drawable.getBitmap();
         createPaletteSync(bitmap);
@@ -450,7 +553,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
 //        }
 
     }
-    void setImage_showNotification(boolean isPlaying){
+
+    void setImage_showNotification(boolean isPlaying) {
         Glide.with(this)
                 .asBitmap()
                 .load(ListSongs.get(position).getLinkImage())
@@ -458,8 +562,8 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         imageView.setImageBitmap(resource);
-                        BitmapDrawable drawable  = (BitmapDrawable) imageView.getDrawable();
-                        if(!isPlaying)
+                        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+                        if (!isPlaying)
                             mediaService.showNotification(R.drawable.ic_baseline_pause_24, drawable);
                         else
                             mediaService.showNotification(R.drawable.ic_baseline_play_arrow_24, drawable);
@@ -471,6 +575,7 @@ public class MusicPlayer extends Fragment  implements ActionPlaying, ServiceConn
                     }
                 });
     }
+
     public String createTime(int millis) {
         StringBuffer buf = new StringBuffer();
 //        int hours = (int) (millis / (1000 * 60 * 60));
