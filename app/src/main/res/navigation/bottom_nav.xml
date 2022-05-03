@@ -17,6 +17,9 @@
                 app:destination="@id/playlistScreen"
                 app:popUpTo="@id/playlistScreen"
                 app:popUpToInclusive="true" />
+            <action
+                android:id="@+id/action_homeScreen_to_musicPlayer2"
+                app:destination="@id/musicPlayer2" />
         </fragment>
         <fragment
             android:id="@+id/playlistScreen"
@@ -24,33 +27,31 @@
             android:label="fragment_playlist_screen"
             tools:layout="@layout/fragment_playlist_screen" >
             <action
-                android:id="@+id/action_playlistScreen_self"
-                app:destination="@id/playlistScreen"
-                app:popUpTo="@id/playlistScreen"
-                app:popUpToInclusive="true" />
+                android:id="@+id/action_playlistScreen_to_musicPlayer2"
+                app:destination="@id/musicPlayer2" />
         </fragment>
+        <fragment
+            android:id="@+id/musicPlayer2"
+            android:name="com.example.space.MusicPlayer.MusicPlayer"
+            android:label="activity_music_player"
+            tools:layout="@layout/activity_music_player" />
     </navigation>
     <navigation android:id="@+id/navigation4"
-        app:startDestination="@id/searchScreen">
-        <fragment
-            android:id="@+id/searchScreen"
-            android:name="com.example.space.search.SearchScreen"
-            android:label="fragment_search_screen"
-            tools:layout="@layout/fragment_search_screen" >
-            <action
-                android:id="@+id/action_searchScreen_to_detailTheme"
-                app:destination="@id/detailTheme" />
-        </fragment>
+        app:startDestination="@id/searchDetail2">
         <fragment
             android:id="@+id/searchDetail2"
             android:name="com.example.space.search.searchDetail"
             android:label="fragment_search_detail"
-            tools:layout="@layout/fragment_search_detail" />
+            tools:layout="@layout/fragment_search_detail" >
+            <action
+                android:id="@+id/action_searchDetail2_to_musicPlayer"
+                app:destination="@id/musicPlayer" />
+        </fragment>
         <fragment
-            android:id="@+id/detailTheme"
-            android:name="com.example.space.detailTheme"
-            android:label="fragment_detail_theme"
-            tools:layout="@layout/fragment_detail_theme" />
+            android:id="@+id/musicPlayer"
+            android:name="com.example.space.MusicPlayer.MusicPlayer"
+            android:label="activity_music_player"
+            tools:layout="@layout/activity_music_player" />
     </navigation>
     <navigation android:id="@+id/navigation5"
         app:startDestination="@id/favoriteScreen">

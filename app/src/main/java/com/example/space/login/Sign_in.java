@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.space.Home;
 import com.example.space.R;
@@ -146,19 +147,23 @@ public class Sign_in extends Fragment {
                 .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.hide();
                         if (task.isSuccessful()) {
-                            progressDialog.hide();
-                            FirebaseUser currentUser = mAuth.getCurrentUser();
-                            updateUI(currentUser);
+                            if(FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
+                                Intent intent=new Intent(requireActivity(),Home.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(requireActivity(),"Please verify your email !",Toast.LENGTH_LONG).show();
+                            }
                         } else {
-                            progressDialog.hide();
+                            Toast.makeText(requireActivity(),"Your email or password is wrong !",Toast.LENGTH_LONG).show();
                         }
                     }
                 });
     }
     //cập nhật lại giao diện
     private void updateUI(FirebaseUser currentUser) {
-        Intent intent=new Intent(requireActivity(),Home.class);
-        startActivity(intent);
+
     }
 }

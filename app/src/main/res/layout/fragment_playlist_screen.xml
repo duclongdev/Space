@@ -83,6 +83,7 @@
                 android:textColor="@color/grey"
                 android:textSize="@dimen/text_size"
                 android:gravity="center"
+                android:id="@+id/count_song"
                 android:text="12 bài hát - bởi Space"/>
             <TextView
                 android:layout_width="match_parent"

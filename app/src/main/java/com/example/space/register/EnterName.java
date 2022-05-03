@@ -18,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.space.Home;
 import com.example.space.R;
+import com.example.space.login.Sign_in;
 import com.example.space.model.RegisterViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -132,16 +134,24 @@ public class EnterName extends Fragment {
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).setValue(users);
                             progressDialog.hide();
                             FirebaseUser currentUser = mAuth.getCurrentUser();
-                            updateUI(currentUser);
+                            currentUser.sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(requireActivity(),"User registered successfully. Please verify email !",Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                            updateUI();
                         } else {
-
+                            progressDialog.hide();
                         }
                     }
                 });
     }
 
-    private void updateUI(FirebaseUser user) {
-        Intent intent=new Intent(requireActivity(), Home.class);
-        startActivity(intent);
+    private void updateUI() {
+        navController.navigate(R.id.action_enterName_to_sign_in);
     }
 }

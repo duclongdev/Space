@@ -43,7 +43,7 @@ public class AdvViewPageAdapter extends RecyclerView.Adapter<AdvViewPageAdapter.
         holder.clickSlide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickAdvSlideShow.onClickAdvItem(1);
+                iClickAdvSlideShow.onClickAdvItem(adv);
             }
         });
     }
