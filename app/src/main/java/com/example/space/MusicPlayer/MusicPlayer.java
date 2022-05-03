@@ -71,7 +71,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
     static ArrayList<Song> ListSongs = new ArrayList<>();
     private Thread playThread, prevThread, nextThread;
     MediaService mediaService;
-    ArrayList<Integer> listPlay;
+    ArrayList<Integer> listPlay, listHide = new ArrayList<>();
     boolean isloop = false;
     boolean isStop = false;
     private CountDownTimer countDownTimer;
@@ -192,6 +192,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 Toast.makeText(getContext(), "Like", Toast.LENGTH_SHORT).show();
                 break;
             case "Hide":
+                HideSong();
                 Toast.makeText(getContext(), "Hide", Toast.LENGTH_SHORT).show();
                 break;
             case "Sleep time":
@@ -199,6 +200,14 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 OpenTimePicker();
                 break;
         }
+    }
+
+    private void HideSong() {
+        listHide.add(position);
+        Log.e("position",String.valueOf(listHide.get(0)));
+        Log.e("position",String.valueOf(currentindex));
+        Log.e("position",String.valueOf(position));
+        nextClick();
     }
 
     private void OpenTimePicker() {
@@ -273,6 +282,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 SetSleep(0);
                 break;
         }
+        Toast.makeText(getContext(), "Your sleep timer is set", Toast.LENGTH_SHORT);
         bottomSheetDialog.dismiss();
     }
 
@@ -362,73 +372,22 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         };
         playThread.start();
     }
-
-    public void prevClick() {
-        if (currentindex > 0)
-            currentindex--;
-        else {
-            currentindex = ListSongs.size() - 1;
-        }
-        UpdatePlay();
-    }
-
-    private void UpdatePlay() {
-        position = listPlay.get(currentindex);
-        seekBar.setProgress(0);
-        mediaService.stop();
-        mediaService.release();
-        if (!isloop)
-            mediaService.createMediaPlayer(position, false, isStop);
-        else {
-            mediaService.createMediaPlayer(position, true, isStop);
-        }
-        seekBar.setMax(mediaService.getDuration());
-        name.setText(ListSongs.get(position).getTitleSong());
-        ovTime.setText(createTime(mediaService.getDuration()));
-        play.setImageResource(R.drawable.ic_baseline_pause_24);
-        setImage_showNotification(true);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (mediaService != null) {
-                    int mCurrentPosition = mediaService.getCurrentPosition();
-                    seekBar.setProgress(mCurrentPosition);
-                    curTime.setText(createTime(mCurrentPosition));
-                }
-                handler.postDelayed(this, 1000);
-            }
-        });
-    }
-
-    @Override
-    public void nextClick() {
-//            mediaService.stop();
-//        if (isStop == false) {
-            mediaService.reset();
-            if (currentindex < ListSongs.size() - 1)
-                currentindex++;
-            else {
-                currentindex = 0;
-            }
-            UpdatePlay();
-//        }
-    }
-
     public void playClick() {
         boolean is = false;
         if (isStop == true && (mediaService.getCurrentPosition() < mediaService.getDuration() + 1000 || mediaService.getCurrentPosition() < 2000)) {
-            if(mediaService.getCurrentPosition() < 2000)
+            if (mediaService.getCurrentPosition() < 1000)
                 currentindex--;
 //            currentindex--;
 //            isStop = false;
             is = true;
-            nextClick();
+            if (!isloop)
+                nextClick();
         }
         if (mediaService.isPlaying() || is) {
 //            if(is && !mediaService.isPlaying())
 //                play.setImageResource(R.drawable.ic_baseline_pause_24);
 //            else
-                play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+            play.setImageResource(R.drawable.ic_baseline_play_arrow_24);
 
             mediaService.pause();
             seekBar.setMax(mediaService.getDuration());
@@ -464,6 +423,82 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         }
         isStop = false;
     }
+
+    public void prevClick() {
+//        mediaService.reset();
+        reduceCurrentIndex();
+        UpdatePlay(false);
+    }
+
+    private void reduceCurrentIndex() {
+        if (currentindex > 0)
+            currentindex--;
+        else {
+            currentindex = ListSongs.size() - 1;
+        }
+    }
+
+    @Override
+    public void nextClick() {
+        increaseCurrentIndex();
+        UpdatePlay(true);
+    }
+    private void increaseCurrentIndex(){
+        if (currentindex < ListSongs.size() - 1)
+            currentindex++;
+        else {
+            currentindex = 0;
+        }
+    };
+
+    private void getPosition(boolean isNext) {
+        position = listPlay.get(currentindex);
+        while(isHide()){
+            if(isNext) {
+                increaseCurrentIndex();
+            }
+            else{
+                reduceCurrentIndex();
+            }
+            position = listPlay.get(currentindex);
+        }
+        position = listPlay.get(currentindex);
+    }
+
+    private boolean isHide() {
+        if(listHide.contains(position))
+            return true;
+        return false;
+    }
+
+    private void UpdatePlay(boolean isNext) {
+        getPosition(isNext);
+        seekBar.setProgress(0);
+        mediaService.stop();
+        mediaService.release();
+        if (!isloop)
+            mediaService.createMediaPlayer(position, false, isStop);
+        else {
+            mediaService.createMediaPlayer(position, true, isStop);
+        }
+        seekBar.setMax(mediaService.getDuration());
+        name.setText(ListSongs.get(position).getTitleSong());
+        ovTime.setText(createTime(mediaService.getDuration()));
+        play.setImageResource(R.drawable.ic_baseline_pause_24);
+        setImage_showNotification(true);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mediaService != null) {
+                    int mCurrentPosition = mediaService.getCurrentPosition();
+                    seekBar.setProgress(mCurrentPosition);
+                    curTime.setText(createTime(mCurrentPosition));
+                }
+                handler.postDelayed(this, 1000);
+            }
+        });
+    }
+
 
     private ArrayList random(int size, int min, int max) {
         ArrayList numbers = new ArrayList();
