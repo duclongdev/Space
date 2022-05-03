@@ -4,7 +4,7 @@
     <dimen name="text_size_title">20sp</dimen>
     <dimen name="text_size_big_title">24sp</dimen>
     <dimen name="padding_start_home">10dp</dimen>
-    <dimen name="margin">20dp</dimen>
+    <dimen name="margin">15dp</dimen>
     <dimen name="margin_top_home">30dp</dimen>
     <dimen name="horizontal_margin">8dp</dimen>
     <dimen name="margin_end_song_item">10dp</dimen>
@@ -21,5 +21,5 @@
     <dimen name="song_item_size">50dp</dimen>
     <dimen name="division_height">0.25dp</dimen>
     <dimen name="size_playlist_img">300dp</dimen>
-    <dimen name="slide_show_size">250dp</dimen>
+    <dimen name="slide_show_size">200dp</dimen>
 </resources>

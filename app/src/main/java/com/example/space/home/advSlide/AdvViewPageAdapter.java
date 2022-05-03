@@ -39,11 +39,11 @@ public class AdvViewPageAdapter extends RecyclerView.Adapter<AdvViewPageAdapter.
         Advertisement adv = advList.get(position);
         if (adv == null)
             return;
-        Glide.with(fragment).load(adv.getUrl()).centerCrop().into(holder.advImage);
+        Glide.with(fragment).load(adv.getLinkImage()).centerCrop().into(holder.advImage);
         holder.clickSlide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickAdvSlideShow.onClickAdvItem(adv.getId());
+                iClickAdvSlideShow.onClickAdvItem(1);
             }
         });
     }

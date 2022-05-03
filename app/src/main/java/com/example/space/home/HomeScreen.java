@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.space.API.APIService;
+import com.example.space.API.Dataservice;
 import com.example.space.R;
 import com.example.space.databinding.FragmentHomeScreenBinding;
 import com.example.space.home.advSlide.AdvViewPageAdapter;
@@ -28,11 +30,16 @@ import com.example.space.home.advSlide.ZoomOutPageTransformer;
 import com.example.space.home.playLists.category.CategoryPlaylist;
 import com.example.space.home.playLists.category.CategoryPlaylistAdapter;
 import com.example.space.home.playLists.playlist.PlayList;
+import com.example.space.model.Artist;
 import com.example.space.myInterface.IClickAdvSlideShow;
 import com.example.space.myInterface.IClickPlayList;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class HomeScreen extends Fragment {
@@ -40,7 +47,7 @@ public class HomeScreen extends Fragment {
     private FragmentHomeScreenBinding binding;
     private List<Advertisement> advList;
     private CategoryPlaylistAdapter categoryPlaylistAdapter;
-
+    private Dataservice dataservice;
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
@@ -64,10 +71,11 @@ public class HomeScreen extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setSlideShow();
+        requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initToolBar();
         getCategoryPlaylist();
+        getdata();
     }
 
     private void getCategoryPlaylist() {
@@ -90,27 +98,39 @@ public class HomeScreen extends Fragment {
     }
 
     private void setSlideShow() {
-        advList = getAdvList();
-        AdvViewPageAdapter advViewPageAdapter = new AdvViewPageAdapter(advList, HomeScreen.this, new IClickAdvSlideShow() {
+        dataservice= APIService.getService();
+        Call<List<Advertisement>> call=dataservice.getBanner();
+        call.enqueue(new Callback<List<Advertisement>>() {
             @Override
-            public void onClickAdvItem(int id) {
-                Toast.makeText(getContext(), "id: " + id, Toast.LENGTH_SHORT).show();
-            }
-        });
-        binding.advertiseSlide.setAdapter(advViewPageAdapter);
-        binding.transitionIndicator.setViewPager(binding.advertiseSlide);
-        binding.advertiseSlide.setPageTransformer(new ZoomOutPageTransformer());
+            public void onResponse(Call<List<Advertisement>> call, Response<List<Advertisement>> response) {
+                advList=response.body();
+                AdvViewPageAdapter advViewPageAdapter = new AdvViewPageAdapter(advList, HomeScreen.this, new IClickAdvSlideShow() {
+                    @Override
+                    public void onClickAdvItem(int id) {
+                        Toast.makeText(getContext(), "id: " + id, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                binding.advertiseSlide.setAdapter(advViewPageAdapter);
+                binding.transitionIndicator.setViewPager(binding.advertiseSlide);
+                binding.advertiseSlide.setPageTransformer(new ZoomOutPageTransformer());
 
-        binding.advertiseSlide.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                binding.advertiseSlide.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        super.onPageSelected(position);
+                        handler.removeCallbacks(runnable);
+                        handler.postDelayed(runnable, 3000);
+                    }
+                });
+            }
+
             @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                handler.removeCallbacks(runnable);
-                handler.postDelayed(runnable, 3000);
+            public void onFailure(Call<List<Advertisement>> call, Throwable t) {
+
             }
         });
+
     }
-
 
     private void initToolBar() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar2);
@@ -183,14 +203,4 @@ public class HomeScreen extends Fragment {
         categoryList.add(new CategoryPlaylist(5, "New music every day", list1));
         return categoryList;
     }
-    private List<Advertisement> getAdvList() {
-        List<Advertisement> AdvList = new ArrayList<>();
-        AdvList.add(new Advertisement(1, "https://images.pexels.com/photos/3183132/pexels-photo-3183132.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"));
-        AdvList.add(new Advertisement(2, "https://images.pexels.com/photos/3041110/pexels-photo-3041110.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"));
-        AdvList.add(new Advertisement(3, "https://images.pexels.com/photos/1424246/pexels-photo-1424246.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"));
-        AdvList.add(new Advertisement(3, "https://images.pexels.com/photos/592077/pexels-photo-592077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"));
-        AdvList.add(new Advertisement(3, "https://images.pexels.com/photos/1198802/pexels-photo-1198802.jpeg?auto=compress&cs=tinysrgb&w=600"));
-        return AdvList;
-    }
-
 }
