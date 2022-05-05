@@ -13,6 +13,9 @@ public class Song {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("idArtist")
+    @Expose
+    private String idArtist;
     @SerializedName("idTheme")
     @Expose
     private String idTheme;
@@ -46,6 +49,14 @@ public class Song {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIdArtist() {
+        return idArtist;
+    }
+
+    public void setIdArtist(String idArtist) {
+        this.idArtist = idArtist;
     }
 
     public String getIdTheme() {

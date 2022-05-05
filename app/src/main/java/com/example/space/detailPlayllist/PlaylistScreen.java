@@ -140,25 +140,69 @@ public class PlaylistScreen extends Fragment {
             public void onCLickSong(Song song) {
                 progressDialog.show();
                 Dataservice dataservice=APIService.getService();
-                MainActivity.mangsong.clear();
-                Call<List<Song>> callSong1=dataservice.getSongGenre(song.getIdGenre());
-                callSong1.enqueue(new Callback<List<Song>>() {
-                    @Override
-                    public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                        MainActivity.mangsong.addAll(response.body());
-                        MainActivity.mangsong.remove(song);
-                        MainActivity.mangsong.add(song);
-                        Bundle bundle=new Bundle();
-                        bundle.putInt("data",MainActivity.mangsong.size()-1);
-                        progressDialog.hide();
-                        NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2,bundle);
-                    }
+                if(typePlaylist==1) {
+                    MainActivity.mangsong.clear();
+                    Call<List<Song>> callSong1=dataservice.getSongGenre(song.getIdGenre());
+                    callSong1.enqueue(new Callback<List<Song>>() {
+                        @Override
+                        public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                            MainActivity.mangsong.addAll(response.body());
+                            MainActivity.mangsong.remove(song);
+                            MainActivity.mangsong.add(song);
+                            Bundle bundle=new Bundle();
+                            bundle.putInt("data",MainActivity.mangsong.size()-1);
+                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2,bundle);
+                        }
 
-                    @Override
-                    public void onFailure(Call<List<Song>> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<List<Song>> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+                }
+                else if(typePlaylist==2) {
+                    MainActivity.mangsong.clear();
+                    Call<List<Song>> callSong1=dataservice.getSongArtist(song.getIdArtist());
+                    callSong1.enqueue(new Callback<List<Song>>() {
+                        @Override
+                        public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                            MainActivity.mangsong.addAll(response.body());
+                            MainActivity.mangsong.remove(song);
+                            MainActivity.mangsong.add(song);
+                            Bundle bundle=new Bundle();
+                            bundle.putInt("data",MainActivity.mangsong.size()-1);
+                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2,bundle);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Song>> call, Throwable t) {
+
+                        }
+                    });
+                }
+                else if(typePlaylist==3) {
+                    MainActivity.mangsong.clear();
+                    Call<List<Song>> callSong1=dataservice.getSongTheme(song.getIdTheme());
+                    callSong1.enqueue(new Callback<List<Song>>() {
+                        @Override
+                        public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                            MainActivity.mangsong.addAll(response.body());
+                            MainActivity.mangsong.remove(song);
+                            MainActivity.mangsong.add(song);
+                            Bundle bundle=new Bundle();
+                            bundle.putInt("data",MainActivity.mangsong.size()-1);
+                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2,bundle);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Song>> call, Throwable t) {
+
+                        }
+                    });
+                }
 
             }
         }, new IClickOnMoreOptionOfSongItem() {
