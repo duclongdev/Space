@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/ripple_effect"
     android:orientation="horizontal"
-   android:layout_marginTop="@dimen/margin"
+    android:layout_marginTop="@dimen/margin"
     android:layout_marginEnd="@dimen/margin_end_song_item"
     android:layout_marginStart="@dimen/margin">
     <com.makeramen.roundedimageview.RoundedImageView

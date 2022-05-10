@@ -270,10 +270,10 @@ public class PlaylistScreen extends Fragment {
 
     private void clickToOpenBotSheetOfSong(String url, String name, String author) {
         List<SongOption> songOptionList = new ArrayList<>();
-        songOptionList.add(new SongOption(0, R.drawable.icon_home, "Thêm vào danh sách yêu thích"));
-        songOptionList.add(new SongOption(0, R.drawable.icon_home, "Thêm vào playlist "));
-        songOptionList.add(new SongOption(0, R.drawable.icon_home, "Tải về"));
-        songOptionList.add(new SongOption(0, R.drawable.icon_home, "Cài làm nhạc chuông"));
+        songOptionList.add(new SongOption(0, R.drawable.icon_heart, "Thêm vào danh sách yêu thích"));
+        songOptionList.add(new SongOption(0, R.drawable.ic_baseline_playlist_add_24, "Thêm vào playlist "));
+        songOptionList.add(new SongOption(0, R.drawable.ic_baseline_cloud_download_24, "Tải về"));
+        songOptionList.add(new SongOption(0, R.drawable.ic_baseline_notifications_active_24, "Cài làm nhạc chuông"));
         BotSheetSongMoreOption botSheetSongMoreOption = new BotSheetSongMoreOption(PlaylistScreen.this,
                 url, name, author, songOptionList, new IClickItemOnSongOption() {
             @Override
@@ -299,10 +299,10 @@ public class PlaylistScreen extends Fragment {
                 return true;
             case R.id.more_option_playlist:
                 List<SongOption> songOptionList = new ArrayList<>();
-                songOptionList.add(new SongOption(0, R.drawable.icon_search, "Thêm vào danh sách yêu thích"));
-                songOptionList.add(new SongOption(0, R.drawable.icon_home, "Thêm vào playlist "));
-                songOptionList.add(new SongOption(0, R.drawable.icon_home, "Tải về"));
-                songOptionList.add(new SongOption(0, R.drawable.icon_home, "Cài làm nhạc chuông"));
+                songOptionList.add(new SongOption(0, R.drawable.icon_heart, "Thêm vào danh sách yêu thích"));
+                songOptionList.add(new SongOption(0, R.drawable.ic_baseline_playlist_add_24, "Thêm vào playlist "));
+                songOptionList.add(new SongOption(0, R.drawable.ic_baseline_cloud_download_24, "Tải về"));
+                songOptionList.add(new SongOption(0, R.drawable.ic_baseline_notifications_active_24, "Cài làm nhạc chuông"));
                clickToOpenBotSheetOfSong(urlPlaylist, namePlaylist, "hihi");
                 return true;
         }
@@ -326,7 +326,7 @@ public class PlaylistScreen extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         if (mMenu != null && (!isExpanded || mMenu.size() != 1)) {
-            mMenu.add("Play").setIcon(R.drawable.icon_home).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            mMenu.add("Play").setIcon(R.drawable.ic_baseline_play_arrow_24).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         super.onPrepareOptionsMenu(mMenu);
     }
