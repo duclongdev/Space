@@ -1,5 +1,6 @@
 package com.example.space.register;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -88,8 +91,25 @@ public class EnterName extends Fragment {
                enterNameLayout.setError("");
             }
         });
+        enterName.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction()==KeyEvent.ACTION_DOWN&&(i == KeyEvent.KEYCODE_ENTER)){
+                    updateUI();
+                    return true;
+                }
+                return false;
+            }
+        });
+        enterName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    hideKeyboard(view);
+                }
+            }
+        });
     }
-
     private void init(View view)
     {
         done_backToLogin = view.findViewById(R.id.done_backToLogin);
@@ -153,5 +173,9 @@ public class EnterName extends Fragment {
 
     private void updateUI() {
         navController.navigate(R.id.action_enterName_to_sign_in);
+    }
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
