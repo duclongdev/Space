@@ -142,7 +142,6 @@ public class HomeScreen extends Fragment {
             }
         });
         binding.advertiseSlide.setAdapter(advViewPageAdapter);
-        binding.transitionIndicator.setViewPager(binding.advertiseSlide);
         binding.advertiseSlide.setPageTransformer(new ZoomOutPageTransformer());
         binding.advertiseSlide.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -184,6 +183,7 @@ public class HomeScreen extends Fragment {
             public void onResponse(Call<List<Advertisement>> call, Response<List<Advertisement>> response) {
                 advList.addAll(response.body());
                 advViewPageAdapter.notifyDataSetChanged();
+                binding.transitionIndicator.setViewPager(binding.advertiseSlide);
             }
             @Override
             public void onFailure(Call<List<Advertisement>> call, Throwable t) {
