@@ -74,6 +74,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
     ArrayList<Integer> listPlay, listHide = new ArrayList<>();
     boolean isloop = false;
     boolean isStop = false;
+    List<More_Item> listBottomSheet;
     private CountDownTimer countDownTimer;
     MyBottomSheetMoreFragment myBottomSheetMoreFragment;
 
@@ -86,6 +87,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_music_player, container, false);
         initViews(view);
+        SetDataBottomSheet();
         currentindex = getArguments().getInt("data"); // đây là thứ bạn cần :D
         getIntentMethod();
         position = listPlay.get(currentindex);
@@ -164,11 +166,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<More_Item> list = new ArrayList<>();
-                list.add(new More_Item("Like", R.drawable.ic_baseline_pause_24));
-                list.add(new More_Item("Hide", R.drawable.ic_baseline_shuffle_24));
-                list.add(new More_Item("Sleep time"));
-                myBottomSheetMoreFragment = new MyBottomSheetMoreFragment(list, new IClickItemMoreListener() {
+                myBottomSheetMoreFragment = new MyBottomSheetMoreFragment(listBottomSheet, new IClickItemMoreListener() {
                     @Override
                     public void Clickitem(More_Item item_object) {
                         SolveBottomSheet(item_object);
@@ -180,18 +178,28 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         return view;
     }
 
+    private void SetDataBottomSheet() {
+        listBottomSheet = new ArrayList<>();
+        listBottomSheet.add(new More_Item("Like", R.drawable.ic_heart_outline));
+        listBottomSheet.add(new More_Item("Hide", R.drawable.ic_remove_circle_outline));
+        listBottomSheet.add(new More_Item("Sleep time", R.drawable.ic_moon_outline));
+    }
+
     private void SolveBottomSheet(More_Item item_object) {
         switch (item_object.getTitle()) {
             case "Like":
-                Toast.makeText(getContext(), "Like", Toast.LENGTH_SHORT).show();
+//                item_object.setTitle("Nguyen");
+                Toast.makeText(getContext(), item_object.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
             case "Hide":
-                HideSong();
-                Toast.makeText(getContext(), "Hide", Toast.LENGTH_SHORT).show();
+//                HideSong();
+                Toast.makeText(getContext(), item_object.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
             case "Sleep time":
+
+                Toast.makeText(getContext(), item_object.getTitle(), Toast.LENGTH_SHORT).show();
                 myBottomSheetMoreFragment.dismiss();
-                OpenTimePicker();
+                OpenTimePicker(item_object);
                 break;
         }
     }
@@ -204,7 +212,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         nextClick();
     }
 
-    private void OpenTimePicker() {
+    private void OpenTimePicker(More_Item item) {
         View view = getLayoutInflater().inflate(R.layout.time_sleep_picker, null);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(view);
@@ -219,43 +227,43 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("5", bottomSheetDialog);
+                TimePickerClick("5", bottomSheetDialog, item);
             }
         });
         btn10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("10", bottomSheetDialog);
+                TimePickerClick("10", bottomSheetDialog, item);
             }
         });
         btn15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("15", bottomSheetDialog);
+                TimePickerClick("15", bottomSheetDialog, item);
             }
         });
         btn30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("30", bottomSheetDialog);
+                TimePickerClick("30", bottomSheetDialog, item);
             }
         });
         btn1h.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("1", bottomSheetDialog);
+                TimePickerClick("1", bottomSheetDialog, item);
             }
         });
         btnEOT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("End", bottomSheetDialog);
+                TimePickerClick("End", bottomSheetDialog, item);
             }
         });
 
     }
 
-    private void TimePickerClick(String time, BottomSheetDialog bottomSheetDialog) {
+    private void TimePickerClick(String time, BottomSheetDialog bottomSheetDialog, More_Item item) {
         int time1;
         if(time != "End")
             time1 = Integer.parseInt(time);
@@ -282,6 +290,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 //                SetSleep(0);
 //                break;
 //        }
+        item.setImage(R.drawable.ic_moon);
         Toast.makeText(getContext(), "Your sleep timer is set", Toast.LENGTH_SHORT);
         bottomSheetDialog.dismiss();
     }

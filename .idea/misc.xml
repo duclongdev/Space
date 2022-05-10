@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/drawable/ic_moon.xml" value="0.21" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/drawable/ic_moon_outline.xml" value="0.21" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/drawable/ic_remove_circle_outline.xml" value="0.21" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/drawable/ripple_effect.xml" value="0.21" />
         <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/fragment_music_player.xml" value="0.13043478260869565" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/more_item.xml" value="0.1693840579710145" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/play_list_item.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/recent_item.xml" value="0.25" />
+        <entry key="..\:/MyWork/HK4/NMDD/Space/app/src/main/res/layout/song_item.xml" value="0.25" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.184" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/background.xml" value="0.1595" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/background_btn.xml" value="0.1595" />
