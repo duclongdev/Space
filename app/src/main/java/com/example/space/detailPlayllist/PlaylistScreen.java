@@ -45,9 +45,11 @@ import com.example.space.myInterface.IClickPlayList;
 import com.example.space.myInterface.IClickSong;
 import com.example.space.search.searchDetail;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +66,7 @@ public class PlaylistScreen extends Fragment {
     private CategoryPlaylistAdapter categoryPlaylistAdapter;
     private int idPlaylist, typePlaylist;
     private String urlPlaylist, namePlaylist;
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -131,28 +133,28 @@ public class PlaylistScreen extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.requireContext());
         binding.listSong.setLayoutManager(linearLayoutManager);
-        progressDialog=new ProgressDialog(requireActivity(),R.style.MyAlertDialogStyle);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Waiting for loading...");
-        progressDialog.show();
+//        progressDialog=new ProgressDialog(requireActivity(),R.style.MyAlertDialogStyle);
+//        progressDialog.setTitle("Loading");
+//        progressDialog.setMessage("Waiting for loading...");
+//        progressDialog.show();
         songListAdapter = new SongListAdapter(this, new IClickSong() {
             @Override
             public void onCLickSong(Song song) {
-                progressDialog.show();
-                Dataservice dataservice=APIService.getService();
-                if(typePlaylist==1) {
+//                progressDialog.show();
+                Dataservice dataservice = APIService.getService();
+                if (typePlaylist == 1) {
                     MainActivity.mangsong.clear();
-                    Call<List<Song>> callSong1=dataservice.getSongGenre(song.getIdGenre());
+                    Call<List<Song>> callSong1 = dataservice.getSongGenre(song.getIdGenre());
                     callSong1.enqueue(new Callback<List<Song>>() {
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                             MainActivity.mangsong.addAll(response.body());
                             MainActivity.mangsong.remove(song);
                             MainActivity.mangsong.add(song);
-                            Bundle bundle=new Bundle();
-                            bundle.putInt("data",MainActivity.mangsong.size()-1);
-                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2,bundle);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
+//                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
                         @Override
@@ -160,20 +162,19 @@ public class PlaylistScreen extends Fragment {
 
                         }
                     });
-                }
-                else if(typePlaylist==2) {
+                } else if (typePlaylist == 2) {
                     MainActivity.mangsong.clear();
-                    Call<List<Song>> callSong1=dataservice.getSongArtist(song.getIdArtist());
+                    Call<List<Song>> callSong1 = dataservice.getSongArtist(song.getIdArtist());
                     callSong1.enqueue(new Callback<List<Song>>() {
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                             MainActivity.mangsong.addAll(response.body());
                             MainActivity.mangsong.remove(song);
                             MainActivity.mangsong.add(song);
-                            Bundle bundle=new Bundle();
-                            bundle.putInt("data",MainActivity.mangsong.size()-1);
-                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2,bundle);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
+//                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
                         @Override
@@ -181,20 +182,19 @@ public class PlaylistScreen extends Fragment {
 
                         }
                     });
-                }
-                else if(typePlaylist==3) {
+                } else if (typePlaylist == 3) {
                     MainActivity.mangsong.clear();
-                    Call<List<Song>> callSong1=dataservice.getSongTheme(song.getIdTheme());
+                    Call<List<Song>> callSong1 = dataservice.getSongTheme(song.getIdTheme());
                     callSong1.enqueue(new Callback<List<Song>>() {
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                             MainActivity.mangsong.addAll(response.body());
                             MainActivity.mangsong.remove(song);
                             MainActivity.mangsong.add(song);
-                            Bundle bundle=new Bundle();
-                            bundle.putInt("data",MainActivity.mangsong.size()-1);
-                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2,bundle);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
+//                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
                         @Override
@@ -213,16 +213,16 @@ public class PlaylistScreen extends Fragment {
         });
         LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(this.requireContext(), R.anim.layout_animation_loadlist);
         binding.listSong.setLayoutAnimation(layoutAnimationController);
-        Dataservice dataservice= APIService.getService();
-        if(typePlaylist==1){
-            Call<List<Song>> call=dataservice.getSongGenre(String.valueOf(idPlaylist));
+        Dataservice dataservice = APIService.getService();
+        if (typePlaylist == 1) {
+            Call<List<Song>> call = dataservice.getSongGenre(String.valueOf(idPlaylist));
             call.enqueue(new Callback<List<Song>>() {
                 @Override
                 public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                    List<Song> songs=response.body();
+                    List<Song> songs = response.body();
                     songListAdapter.setData(songs);
                     binding.listSong.setAdapter(songListAdapter);
-                    progressDialog.hide();
+//                    progressDialog.hide();
                 }
 
                 @Override
@@ -230,16 +230,15 @@ public class PlaylistScreen extends Fragment {
 
                 }
             });
-        }
-        else if(typePlaylist==2){
-            Call<List<Song>> call=dataservice.getSongArtist(String.valueOf(idPlaylist));
+        } else if (typePlaylist == 2) {
+            Call<List<Song>> call = dataservice.getSongArtist(String.valueOf(idPlaylist));
             call.enqueue(new Callback<List<Song>>() {
                 @Override
                 public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                    List<Song> songs=response.body();
+                    List<Song> songs = response.body();
                     songListAdapter.setData(songs);
                     binding.listSong.setAdapter(songListAdapter);
-                    progressDialog.hide();
+//                    progressDialog.hide();
                 }
 
                 @Override
@@ -247,16 +246,15 @@ public class PlaylistScreen extends Fragment {
 
                 }
             });
-        }
-        else if(typePlaylist==3){
-            Call<List<Song>> call=dataservice.getSongTheme(String.valueOf(idPlaylist));
+        } else if (typePlaylist == 3) {
+            Call<List<Song>> call = dataservice.getSongTheme(String.valueOf(idPlaylist));
             call.enqueue(new Callback<List<Song>>() {
                 @Override
                 public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                    List<Song> songs=response.body();
+                    List<Song> songs = response.body();
                     songListAdapter.setData(songs);
                     binding.listSong.setAdapter(songListAdapter);
-                    progressDialog.hide();
+//                    progressDialog.hide();
                 }
 
                 @Override
@@ -266,7 +264,71 @@ public class PlaylistScreen extends Fragment {
             });
         }
         binding.hihi.setAnimation(AnimationUtils.loadAnimation(this.requireContext(), R.anim.scroll_list));
-    }
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dataservice dataservice = APIService.getService();
+                if (typePlaylist == 1) {
+                    MainActivity.mangsong.clear();
+                    Call<List<Song>> callSong1 = dataservice.getSongGenre(String.valueOf(idPlaylist));
+                    callSong1.enqueue(new Callback<List<Song>>() {
+                        @Override
+                        public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                            MainActivity.mangsong.addAll(response.body());
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
+//                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Song>> call, Throwable t) {
+
+                        }
+                    });
+                } else if (typePlaylist == 2) {
+                    MainActivity.mangsong.clear();
+                    Call<List<Song>> callSong1 = dataservice.getSongArtist(String.valueOf(idPlaylist));
+                    callSong1.enqueue(new Callback<List<Song>>() {
+                        @Override
+                        public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                            MainActivity.mangsong.addAll(response.body());
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
+//                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Song>> call, Throwable t) {
+
+                        }
+                    });
+                } else if (typePlaylist == 3) {
+                    MainActivity.mangsong.clear();
+                    Call<List<Song>> callSong1 = dataservice.getSongTheme(String.valueOf(idPlaylist));
+                    callSong1.enqueue(new Callback<List<Song>>() {
+                        @Override
+                        public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                            MainActivity.mangsong.addAll(response.body());
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
+//                            progressDialog.hide();
+                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Song>> call, Throwable t) {
+
+                        }
+                    });
+                }
+
+
+            }
+        });
+    };
+
 
     private void clickToOpenBotSheetOfSong(String url, String name, String author) {
         List<SongOption> songOptionList = new ArrayList<>();

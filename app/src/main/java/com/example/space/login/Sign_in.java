@@ -1,5 +1,6 @@
 package com.example.space.login;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +12,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -98,6 +101,24 @@ public class Sign_in extends Fragment {
 
             }
         });
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    hideKeyboard(view);
+                }
+            }
+        });
+        email.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction()==KeyEvent.ACTION_DOWN&&(i == KeyEvent.KEYCODE_ENTER)){
+                    password.setFocusable(true);
+                    return true;
+                }
+                return false;
+            }
+        });
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -111,6 +132,32 @@ public class Sign_in extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    hideKeyboard(view);
+                }
+            }
+        });
+        password.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction()==KeyEvent.ACTION_DOWN&&(i == KeyEvent.KEYCODE_ENTER)){
+                    if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+                        email_layout.setError("Invalid email");
+                        return true;
+                    }
+                    if(password.getText().toString().length() < 8){
+                        pass_layout.setError("At least 8 characters");
+                        return true;
+                    }
+                    SignIn(email.getText().toString().trim(),password.getText().toString().trim());
+                    return true;
+                }
+                return false;
             }
         });
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
@@ -165,5 +212,9 @@ public class Sign_in extends Fragment {
     //cập nhật lại giao diện
     private void updateUI(FirebaseUser currentUser) {
 
+    }
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
