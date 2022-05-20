@@ -1,25 +1,25 @@
 package com.example.space.MusicPlayer.MoreBottomSheet;
 
 public class More_Item {
-    String name;
+    String title;
     int image;
 
 
     public More_Item(String name, int image) {
-        this.name = name;
+        this.title = name;
         this.image = image;
     }
 
     public More_Item(String name) {
-        this.name = name;
+        this.title = name;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     public int getImage() {

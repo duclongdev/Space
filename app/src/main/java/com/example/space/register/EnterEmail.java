@@ -1,9 +1,11 @@
 package com.example.space.register;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -11,11 +13,14 @@ import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.example.space.R;
 import com.example.space.model.RegisterViewModel;
@@ -69,6 +74,24 @@ public class EnterEmail extends Fragment {
                 });
             }
         });
+        enterEmail.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction()==KeyEvent.ACTION_DOWN&&(i == KeyEvent.KEYCODE_ENTER)){
+                    checkEmail();
+                    return true;
+                }
+                return false;
+            }
+        });
+        enterEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    hideKeyboard(view);
+                }
+            }
+        });
     }
 
     private void init(View view)
@@ -98,6 +121,8 @@ public class EnterEmail extends Fragment {
             check=true;
         }
     }
-
-
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) view.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 }

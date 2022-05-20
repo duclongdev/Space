@@ -34,7 +34,7 @@ public class More_Item_Adapter extends RecyclerView.Adapter<More_Item_Adapter.It
         final More_Item item_object = list.get(position);
         if(item_object == null)
             return;
-        holder.tv.setText(item_object.getName());
+        holder.tv.setText(item_object.getTitle());
         holder.imageView.setImageResource(item_object.getImage());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
