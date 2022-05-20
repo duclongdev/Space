@@ -57,9 +57,26 @@
         app:startDestination="@id/favoriteScreen">
         <fragment
             android:id="@+id/favoriteScreen"
-            android:name="com.example.space.FavoriteScreen"
+            android:name="com.example.space.favorite.FavoriteScreen"
             android:label="fragment_favorite_screen"
-            tools:layout="@layout/fragment_favorite_screen" />
+            tools:layout="@layout/fragment_favorite_screen" >
+            <action
+                android:id="@+id/action_favoriteScreen_to_userDetail"
+                app:destination="@id/userDetail" />
+            <action
+                android:id="@+id/action_favoriteScreen_to_musicPlayer4"
+                app:destination="@id/musicPlayer4" />
+        </fragment>
+        <fragment
+            android:id="@+id/userDetail"
+            android:name="com.example.space.User.UserDetail"
+            android:label="fragment_user_detail"
+            tools:layout="@layout/fragment_user_detail" />
+        <fragment
+            android:id="@+id/musicPlayer4"
+            android:name="com.example.space.MusicPlayer.MusicPlayer"
+            android:label="activity_music_player"
+            tools:layout="@layout/activity_music_player" />
     </navigation>
     <navigation android:id="@+id/navigation6"
         app:startDestination="@id/userScreen">

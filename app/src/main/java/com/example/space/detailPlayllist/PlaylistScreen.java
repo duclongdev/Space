@@ -103,15 +103,6 @@ public class PlaylistScreen extends Fragment {
 
 
     private void initToolBarAnimation() {
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mtp);
-//        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-//            @Override
-//            public void onGenerated(@Nullable Palette palette) {
-//                int myColor = palette.getVibrantColor(getResources().getColor(R.color.background));
-//                binding.collapsingToolbarLayout.setContentScrimColor(myColor);
-//                binding.collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.teal_700));
-//            }
-//        });
         binding.appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
 
             @Override
@@ -128,7 +119,6 @@ public class PlaylistScreen extends Fragment {
 
     private void initRcyView() {
         binding.listSong.setHasFixedSize(true);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.requireContext());
         binding.listSong.setLayoutManager(linearLayoutManager);
         progressDialog=new ProgressDialog(requireActivity(),R.style.MyAlertDialogStyle);
@@ -317,7 +307,6 @@ public class PlaylistScreen extends Fragment {
         typePlaylist = getArguments().getInt("type_playlist");
         namePlaylist = getArguments().getString("name_playlist");
         urlPlaylist = getArguments().getString("url_playlist");
-
         binding.detailPLTitle.setText(namePlaylist);
         binding.collapsingToolbarLayout.setTitle(namePlaylist);
         Glide.with(PlaylistScreen.this).load(urlPlaylist).centerCrop().into(binding.detailPLImg);
