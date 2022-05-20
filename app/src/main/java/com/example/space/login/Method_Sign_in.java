@@ -22,6 +22,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -95,6 +96,7 @@ public class Method_Sign_in extends Fragment {
             }
         });
         //đăng nhập bằng facebook
+        FacebookSdk.sdkInitialize(requireActivity());
         mCallbackManager = CallbackManager.Factory.create();
         btn_fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +133,7 @@ public class Method_Sign_in extends Fragment {
 
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
     }
-    private void handleFacebookAccessToken(AccessToken token) {
+    private void handleFacebookAccessToken(@NonNull AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
@@ -194,7 +196,7 @@ public class Method_Sign_in extends Fragment {
     }
     //cập nhật lại giao diện
     private void updateUI(FirebaseUser currentUser) {
-        if(currentUser.isEmailVerified()){
+        if(currentUser!=null){
             Intent intent=new Intent(requireActivity(),Home.class);
             startActivity(intent);
         }

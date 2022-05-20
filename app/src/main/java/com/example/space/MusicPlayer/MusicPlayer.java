@@ -18,6 +18,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.palette.graphics.Palette;
 
 import android.os.CountDownTimer;
@@ -44,6 +45,7 @@ import com.example.space.MusicPlayer.MoreBottomSheet.More_Item;
 import com.example.space.MusicPlayer.MoreBottomSheet.MyBottomSheetMoreFragment;
 import com.example.space.R;
 import com.example.space.Service.MediaService;
+import com.example.space.detailPlayllist.PlaylistScreen;
 import com.example.space.model.Song;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -59,7 +61,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
 
     ImageButton prev, next, btnloop, shuffle;
     TextView curTime, ovTime, name, author;
-    FloatingActionButton play, more;
+    FloatingActionButton play, more, back;
     SeekBar seekBar;
     ImageView favorite, imageView;
     LinearLayout layout;
@@ -173,6 +175,12 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                     }
                 }, imageView.getDrawable(), name.getText().toString(), author.getText().toString());
                 myBottomSheetMoreFragment.show(getActivity().getSupportFragmentManager(), myBottomSheetMoreFragment.getTag());
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(MusicPlayer.this).popBackStack();
             }
         });
         return view;
@@ -536,6 +544,7 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
         imageView = view.findViewById(R.id.image);
         more = view.findViewById(R.id.btnMore);
         layout = view.findViewById(R.id.linearlayout);
+        back=view.findViewById(R.id.btn_mp_back);
     }
 
     private void getIntentMethod() {

@@ -33,4 +33,6 @@ public interface Dataservice {
     Call<List<Song>>getSongTheme(@Query("theme") String theme);
     @GET("songBanner.php")
     Call<List<Song>>getSongBanner(@Query("banner") String banner);
+    @GET("userFavorite.php")
+    Call<List<Song>>getSongFavorite(@Query("idUser") String idUser);
 }
