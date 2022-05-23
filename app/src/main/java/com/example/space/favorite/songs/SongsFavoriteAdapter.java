@@ -53,7 +53,6 @@ public class SongsFavoriteAdapter extends RecyclerView.Adapter<SongsFavoriteAdap
         Glide.with(fragment).load(song.getLinkImageS()).centerCrop().into(holder.songImg);
         holder.songName.setText(song.getTitleSong());
         holder.artistName.setText(song.getName());
-        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(),R.anim.load_list));
         holder.clickSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
