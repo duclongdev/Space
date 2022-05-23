@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,10 +18,13 @@ import android.widget.LinearLayout;
 
 import com.example.space.API.APIService;
 import com.example.space.API.Dataservice;
+import com.example.space.MainActivity;
 import com.example.space.R;
 import com.example.space.databinding.FragmentFavoriteScreenBinding;
 import com.example.space.favorite.songs.SongsFavoriteAdapter;
+import com.example.space.home.HomeScreen;
 import com.example.space.model.Song;
+import com.example.space.myInterface.IClickFavoriteSong;
 import com.example.space.myInterface.IClickSong;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -52,7 +56,44 @@ public class FavoriteScreen extends Fragment {
         songsFavoriteAdapter = new SongsFavoriteAdapter(FavoriteScreen.this, new IClickSong() {
             @Override
             public void onCLickSong(Song song) {
+                Dataservice dataservice = APIService.getService();
+                MainActivity.mangsong.clear();
+                Call<List<Song>> callSong = dataservice.getSongGenre(song.getIdGenre());
+                callSong.enqueue(new Callback<List<Song>>() {
+                    @Override
+                    public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                        List<Song> songs = response.body();
+                        MainActivity.mangsong.remove(songs.get(0));
+                        MainActivity.mangsong.add(songs.get(0));
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("data", MainActivity.mangsong.size() - 1);
+                        NavHostFragment.findNavController(FavoriteScreen.this).navigate(R.id.action_favoriteScreen_to_musicPlayer4, bundle);
+                    }
 
+                    @Override
+                    public void onFailure(Call<List<Song>> call, Throwable t) {
+
+                    }
+                });
+            }
+        }, new IClickFavoriteSong() {
+            @Override
+            public void onCLickFavoriteSong(Song song) {
+                Dataservice dataservice=APIService.getService();
+                Call<String> call=dataservice.removeFavorite(FirebaseAuth.getInstance().getCurrentUser().getUid(),song.getIdSong());
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(response.body().equals("thanhcong")){
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                    }
+                });
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);

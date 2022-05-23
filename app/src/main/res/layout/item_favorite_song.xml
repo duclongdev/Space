@@ -39,12 +39,13 @@
             android:text="Sơn tùng mtp"
             android:textColor="@color/grey" />
     </LinearLayout>
+
     <ImageButton
         android:id="@+id/love_fvr"
-        android:background="@color/background"
-        android:layout_gravity="center"
-        android:layout_marginEnd="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="10dp"
+        android:background="@color/background"
         android:src="@drawable/ic_heart_red" />
 </LinearLayout>

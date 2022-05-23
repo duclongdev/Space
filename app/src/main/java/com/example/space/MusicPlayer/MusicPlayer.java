@@ -40,6 +40,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.space.API.APIRetrofitClient;
+import com.example.space.API.APIService;
+import com.example.space.API.Dataservice;
 import com.example.space.MusicPlayer.MoreBottomSheet.IClickItemMoreListener;
 import com.example.space.MusicPlayer.MoreBottomSheet.More_Item;
 import com.example.space.MusicPlayer.MoreBottomSheet.MyBottomSheetMoreFragment;
@@ -50,11 +53,16 @@ import com.example.space.model.Song;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConnection {
@@ -79,7 +87,6 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
     List<More_Item> listBottomSheet;
     private CountDownTimer countDownTimer;
     MyBottomSheetMoreFragment myBottomSheetMoreFragment;
-
     public MusicPlayer() {
         // Required empty public constructor
     }
@@ -155,13 +162,63 @@ public class MusicPlayer extends Fragment implements ActionPlaying, ServiceConne
                 }
             }
         });
+        Dataservice dataservice= APIService.getService();
+        Call<String> check=dataservice.checkFavorite(FirebaseAuth.getInstance().getCurrentUser().getUid(),ListSongs.get(position).getIdSong());
+        check.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.body().equals("co")){
+                    favorite.setImageResource(R.drawable.ic_heart_red);
+                }else{
+                    favorite.setImageResource(R.drawable.ic_heart_outline);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (favorite.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.ic_heart_outline).getConstantState())
-                    favorite.setImageResource(R.drawable.ic_heart_red);
+                {
+                    String idFavorite=FirebaseAuth.getInstance().getCurrentUser().getUid()+ListSongs.get(position).getIdSong();
+                    Dataservice dataservice= APIService.getService();
+                    Call<String> check=dataservice.addFavorite(idFavorite,FirebaseAuth.getInstance().getCurrentUser().getUid(),ListSongs.get(position).getIdSong());
+                    check.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(response.body().equals("thanhcong")){
+                                favorite.setImageResource(R.drawable.ic_heart_red);
+                            }else{
+                                favorite.setImageResource(R.drawable.ic_heart_outline);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
+                }
                 else {
-                    favorite.setImageResource(R.drawable.ic_heart_outline);
+                    Dataservice dataservice= APIService.getService();
+                    Call<String> check=dataservice.removeFavorite(FirebaseAuth.getInstance().getCurrentUser().getUid(),ListSongs.get(position).getIdSong());
+                    check.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(response.body().equals("thanhcong")){
+                                favorite.setImageResource(R.drawable.ic_heart_outline);
+                            }else{
+                                favorite.setImageResource(R.drawable.ic_heart_red);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
                 }
             }
         });

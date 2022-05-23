@@ -36,7 +36,7 @@ public class Home extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if(navDestination.getId()==R.id.musicPlayer2||navDestination.getId()==R.id.musicPlayer){
+                if(navDestination.getId()==R.id.musicPlayer2||navDestination.getId()==R.id.musicPlayer||navDestination.getId()==R.id.musicPlayer4){
                     navView.setVisibility(View.GONE);
                 }
                 else{

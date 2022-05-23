@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.space.Home;
 import com.example.space.R;
+import com.example.space.register.User;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -38,6 +39,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
@@ -182,6 +184,8 @@ public class Method_Sign_in extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                            User users=new User(mAuth.getCurrentUser().getDisplayName(),"",mAuth.getCurrentUser().getEmail());
+                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).setValue(users);
                             updateUI(user);
                             progressDialog.hide();
                         } else {

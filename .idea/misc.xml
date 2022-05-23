@@ -19,6 +19,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_baseline_chevron_right_24.xml" value="0.136" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.136" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_baseline_song.xml" value="0.1295" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_heart_red.xml" value="0.152" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_launcher_background.xml" value="0.184" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_search.xml" value="0.136" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/drawable/ic_search_fill.xml" value="0.136" />
@@ -52,6 +53,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_sign_in.xml" value="0.29278887923544744" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/fragment_user_screen.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_artist.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_favorite_song.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_list_search.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_search.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Space/app/src/main/res/layout/item_song.xml" value="0.14666666666666667" />

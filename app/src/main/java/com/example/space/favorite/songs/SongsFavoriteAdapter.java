@@ -18,6 +18,7 @@ import com.example.space.R;
 import com.example.space.SearchAdapter.SongAdapter;
 import com.example.space.detailPlayllist.SongListAdapter;
 import com.example.space.model.Song;
+import com.example.space.myInterface.IClickFavoriteSong;
 import com.example.space.myInterface.IClickOnMoreOptionOfSongItem;
 import com.example.space.myInterface.IClickSong;
 
@@ -28,9 +29,11 @@ public class SongsFavoriteAdapter extends RecyclerView.Adapter<SongsFavoriteAdap
     private List<Song> songListFvr;
     private Fragment fragment;
     private IClickSong iClickSong;
-    public SongsFavoriteAdapter(Fragment fragment, IClickSong iClickSong) {
+    private IClickFavoriteSong iClickFavoriteSong;
+    public SongsFavoriteAdapter(Fragment fragment, IClickSong iClickSong, IClickFavoriteSong iClickFavoriteSong) {
         this.fragment = fragment;
         this.iClickSong = iClickSong;
+        this.iClickFavoriteSong= iClickFavoriteSong;
     }
 
     public void setData(List<com.example.space.model.Song> songList){
@@ -55,6 +58,14 @@ public class SongsFavoriteAdapter extends RecyclerView.Adapter<SongsFavoriteAdap
             @Override
             public void onClick(View view) {
                 iClickSong.onCLickSong(song);
+            }
+        });
+        holder.loveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickFavoriteSong.onCLickFavoriteSong(song);
+                songListFvr.remove(song);
+                notifyDataSetChanged();
             }
         });
     }
