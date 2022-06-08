@@ -1,20 +1,17 @@
 package com.example.space.User;
 
-import android.app.DatePickerDialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,24 +27,20 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.example.space.MainActivity;
 import com.example.space.R;
-import com.example.space.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class UserFragment extends Fragment {
     TextView tvname;
     FirebaseAuth auth;
-    CardView cardView;
+    CardView chooseImage;
     ImageView Avatar;
     Button btnEdit;
+    LinearLayout layout;
     public UserFragment() {
         // Required empty public constructor
     }
@@ -59,21 +52,24 @@ public class UserFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         tvname = view.findViewById(R.id.username);
         btnEdit = view.findViewById(R.id.btnEdit);
-        cardView = view.findViewById(R.id.chooseImage);
+        chooseImage = view.findViewById(R.id.chooseImage);
         Avatar = view.findViewById(R.id.avatar);
+        layout = view.findViewById(R.id.layoutUser);
         setImage(auth.getCurrentUser().getPhotoUrl().toString());
+        createPaletteSync();
         Avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ChangeAvatar();
             }
         });
-        cardView.setOnClickListener(new View.OnClickListener() {
+        chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                ImagePicker.Companion.with(getActivity())
-//                        .galleryOnly()
-//                        .createIntent();
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "title"), 3);
             }
         });
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +79,8 @@ public class UserFragment extends Fragment {
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.editProfile,EditProfile.class,null)
                         .commit();
+//                Intent intent = new Intent(getContext(), EditProfile.class);
+//                startActivity(intent);
             }
         });
         return view;
@@ -106,5 +104,51 @@ public class UserFragment extends Fragment {
                 });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 3){
+            Uri uri = data.getData();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Confirmation").setMessage("Do you want to close this app?");
+            builder.setCancelable(true);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Avatar.setImageURI(uri);
+                    setImage(uri);
+                }
+            });
+//            builder.setPositiveButtonIcon();
 
+            // Create "No" button with OnClickListener.
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+        }
+    }
+
+    private void setImage(Uri uri) {
+        FirebaseUser user  = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null)
+            return;
+        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                .setPhotoUri(uri)
+                .build();
+        user.updateProfile(profileChangeRequest)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                            Toast.makeText(requireActivity(), "completed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    private void createPaletteSync(){
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
+                            new int[]{0xff212121,0xff212121,0xff212121, 0xff5C5845});
+        layout.setBackground(gradientDrawable);
+    }
 }

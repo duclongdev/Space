@@ -62,7 +62,7 @@ public class EditProfile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.e("user", user.getPhotoUrl().toString());
+//        Log.e("user", user.getPhotoUrl().toString());
         getData(user.getUid());
         layoutName = view.findViewById(R.id.include1);
         layoutEmail = view.findViewById(R.id.include2);
@@ -200,7 +200,7 @@ public class EditProfile extends Fragment {
 
     private void getData(String uid) {
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        mDatabase.child("i1X6T6cR8hWHZXClSi3wrVYWv2t2").addValueEventListener(new ValueEventListener() {
+        mDatabase.child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user1 = snapshot.getValue(User.class);

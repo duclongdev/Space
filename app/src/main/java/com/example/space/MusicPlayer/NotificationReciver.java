@@ -11,6 +11,8 @@ public class NotificationReciver extends BroadcastReceiver {
     public  static final String ACTION_PREV = "PREVIOUS";
     public  static final String ACTION_NEXT = "NEXT";
     public  static final String ACTION_PLAY = "PLAY";
+    public  static final String ACTION_STOP = "STOP";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent intent1 = new Intent(context, MediaService.class);
@@ -28,6 +30,10 @@ public class NotificationReciver extends BroadcastReceiver {
                     break;
                 case ACTION_NEXT:
                     Toast.makeText(context, "next", Toast.LENGTH_SHORT).show();
+                    intent1.putExtra("myActionName", intent.getAction());
+                    context.startService(intent1);
+                    break;
+                case ACTION_STOP:
                     intent1.putExtra("myActionName", intent.getAction());
                     context.startService(intent1);
                     break;
