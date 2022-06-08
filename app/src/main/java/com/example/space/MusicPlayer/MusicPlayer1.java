@@ -34,6 +34,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.space.API.APIService;
+import com.example.space.API.Dataservice;
 import com.example.space.MusicPlayer.ActionPlaying;
 import com.example.space.MusicPlayer.MoreBottomSheet.IClickItemMoreListener;
 import com.example.space.MusicPlayer.MoreBottomSheet.More_Item;
@@ -44,10 +46,15 @@ import com.example.space.Service.MediaService;
 import com.example.space.model.Song;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, ServiceConnection {
     ImageButton prev, next, btnloop, shuffle;
@@ -166,12 +173,12 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
                 myBottomSheetMoreFragment.show(getSupportFragmentManager(), myBottomSheetMoreFragment.getTag());
             }
         });
-//        back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                NavHostFragment.findNavController(MusicPlayer1.this).popBackStack();
-//            }
-//        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     void initViews() {
@@ -189,7 +196,7 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         imageView = findViewById(R.id.image);
         more = findViewById(R.id.btnMore);
         layout = findViewById(R.id.linearlayout);
-//        back = findViewById(R.id.btn_mp_back);
+        back = findViewById(R.id.btn_mp_back);
     }
     private void SetDataBottomSheet() {
         listBottomSheet = new ArrayList<>();
@@ -201,7 +208,48 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
     private void SolveBottomSheet(More_Item item_object) {
         switch (item_object.getTitle()) {
             case "Like":
-//                item_object.setTitle("Nguyen");
+                if (item_object.getImage() == R.drawable.ic_heart_outline)
+                {
+                    String idFavorite=FirebaseAuth.getInstance().getCurrentUser().getUid()+ListSongs.get(position).getIdSong();
+                    Dataservice dataservice= APIService.getService();
+                    Call<String> check=dataservice.addFavorite(idFavorite,FirebaseAuth.getInstance().getCurrentUser().getUid(),ListSongs.get(position).getIdSong());
+                    check.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(response.body().equals("thanhcong")){
+                                item_object.setImage(R.drawable.ic_heart_red);
+                                myBottomSheetMoreFragment.dismiss();
+                            }else{
+                                item_object.setImage(R.drawable.ic_heart_outline);
+                                myBottomSheetMoreFragment.dismiss();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
+                }
+                else {
+                    Dataservice dataservice= APIService.getService();
+                    Call<String> check=dataservice.removeFavorite(FirebaseAuth.getInstance().getCurrentUser().getUid(),ListSongs.get(position).getIdSong());
+                    check.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(response.body().equals("thanhcong")){
+                                item_object.setImage(R.drawable.ic_heart_outline);
+                                myBottomSheetMoreFragment.dismiss();
+                            }else{
+                                item_object.setImage(R.drawable.ic_heart_red);
+                                myBottomSheetMoreFragment.dismiss();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
+                }
                 Toast.makeText(this, item_object.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
             case "Hide":

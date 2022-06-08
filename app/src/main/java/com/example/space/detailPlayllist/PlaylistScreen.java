@@ -2,6 +2,7 @@ package com.example.space.detailPlayllist;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.example.space.API.APIService;
 import com.example.space.API.Dataservice;
 import com.example.space.MainActivity;
+import com.example.space.MusicPlayer.MusicPlayer1;
 import com.example.space.R;
 import com.example.space.databinding.FragmentPlaylistScreenBinding;
 import com.example.space.model.Song;
@@ -164,7 +166,9 @@ public class PlaylistScreen extends Fragment {
                             Bundle bundle = new Bundle();
                             bundle.putInt("data", MainActivity.mangsong.size() - 1);
 //                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                            startActivity(intent,bundle);
+//                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
                         @Override
@@ -184,7 +188,9 @@ public class PlaylistScreen extends Fragment {
                             Bundle bundle = new Bundle();
                             bundle.putInt("data", MainActivity.mangsong.size() - 1);
 //                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                            startActivity(intent,bundle);
+//                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
                         @Override
@@ -268,7 +274,9 @@ public class PlaylistScreen extends Fragment {
                             Bundle bundle = new Bundle();
                             bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
 //                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                            startActivity(intent,bundle);
+//                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
                         @Override
@@ -304,7 +312,9 @@ public class PlaylistScreen extends Fragment {
                             Bundle bundle = new Bundle();
                             bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
 //                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                            startActivity(intent,bundle);
+//                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
                         @Override

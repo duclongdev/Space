@@ -9,7 +9,10 @@ import com.example.space.model.Theme;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface Dataservice {
@@ -35,4 +38,12 @@ public interface Dataservice {
     Call<List<Song>>getSongBanner(@Query("banner") String banner);
     @GET("userFavorite.php")
     Call<List<Song>>getSongFavorite(@Query("idUser") String idUser);
+    @GET("checkFavorite.php")
+    Call<String>checkFavorite(@Query("idUser") String idUser,@Query("idSong") String idSong);
+    @FormUrlEncoded
+    @POST("addFavorite.php")
+    Call<String>addFavorite(@Field("idFavorite") String idFavorite, @Field("idUser") String idUser, @Field("idSong") String idSong);
+    @FormUrlEncoded
+    @POST("removeFavorite.php")
+    Call<String>removeFavorite(@Field("idUser") String idUser,@Field("idSong") String idSong);
 }
