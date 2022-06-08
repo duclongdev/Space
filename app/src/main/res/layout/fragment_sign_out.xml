@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="15dp"
+    tools:context=".User.SignOut">
+
+    <LinearLayout
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="13dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:text="Version"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0.0.0.1"
+            android:textColor="#ccc" />
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/term_condition"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginBottom="13dp"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="3dp"-->
+<!--            android:text="Terms and Conditions"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="All the stuff you need to know"-->
+<!--            android:textColor="#ccc" />-->
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/policy"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="13dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:text="Privacy Policy"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Important for both of us"
+            android:textColor="#ccc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/suport"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="13dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:text="Support"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get help from us and community"
+            android:textColor="#ccc" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="13dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log out"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="3dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You are logged"
+            android:textColor="#ccc"
+            />
+    </LinearLayout>
+
+<!--    <Button-->
+<!--        android:id="@+id/SignOut"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint="@color/custom"-->
+<!--        android:text="Sign out" />-->
+
+</LinearLayout>

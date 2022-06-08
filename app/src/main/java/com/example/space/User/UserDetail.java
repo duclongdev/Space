@@ -1,5 +1,6 @@
 package com.example.space.User;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -63,4 +64,6 @@ public class UserDetail extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_detail, container, false);
     }
+
+
 }

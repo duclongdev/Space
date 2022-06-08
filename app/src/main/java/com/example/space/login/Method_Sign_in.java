@@ -26,6 +26,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -98,12 +99,36 @@ public class Method_Sign_in extends Fragment {
             }
         });
         //đăng nhập bằng facebook
+        LoginButton loginButton = v.findViewById(R.id.login_button);
         FacebookSdk.sdkInitialize(requireActivity());
+        loginButton.setReadPermissions("email", "public_profile");
         mCallbackManager = CallbackManager.Factory.create();
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                handleFacebookAccessToken(loginResult.getAccessToken());
+
+            }
+
+            @Override
+            public void onCancel() {
+
+
+
+            }
+
+            @Override
+            public void onError(@NonNull FacebookException e) {
+
+
+            }
+        });
+//        mCallbackManager = CallbackManager.Factory.create();
         btn_fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginManager.getInstance().logInWithReadPermissions(requireActivity(), Arrays.asList("public_profile"));
+                loginButton.performClick();
             }
         });
         btn_gg.setOnClickListener(new View.OnClickListener() {

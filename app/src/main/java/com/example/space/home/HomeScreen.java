@@ -2,6 +2,7 @@ package com.example.space.home;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.example.space.API.APIService;
 import com.example.space.API.Dataservice;
 import com.example.space.MainActivity;
+import com.example.space.MusicPlayer.MusicPlayer1;
 import com.example.space.R;
 import com.example.space.databinding.FragmentHomeScreenBinding;
 import com.example.space.detailPlayllist.PlaylistScreen;
@@ -131,7 +133,9 @@ public class HomeScreen extends Fragment {
                         MainActivity.mangsong.add(songs.get(0));
                         Bundle bundle=new Bundle();
                         bundle.putInt("data",MainActivity.mangsong.size()-1);
-                        NavHostFragment.findNavController(HomeScreen.this).navigate(R.id.action_homeScreen_to_musicPlayer2,bundle);
+                        Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                        startActivity(intent,bundle);
+//                        NavHostFragment.findNavController(HomeScreen.this).navigate(R.id.action_homeScreen_to_musicPlayer2,bundle);
                     }
 
                     @Override

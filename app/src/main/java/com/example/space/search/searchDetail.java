@@ -1,14 +1,12 @@
 package com.example.space.search;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,20 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.space.API.APIService;
 import com.example.space.API.Dataservice;
 import com.example.space.MainActivity;
+import com.example.space.MusicPlayer.MusicPlayer1;
 import com.example.space.R;
-import com.example.space.SearchAdapter.GenreAdapter;
 import com.example.space.SearchAdapter.SongAdapter;
-import com.example.space.SearchAdapter.ThemeAdapter;
-import com.example.space.model.Genre;
 import com.example.space.model.Song;
-import com.example.space.model.Theme;
 import com.example.space.myInterface.IClickSearch;
 
 import java.util.ArrayList;
@@ -71,9 +64,12 @@ public class searchDetail extends Fragment {
                 songAdapter=new SongAdapter(searchDetail.this, songs, new IClickSearch() {
                     @Override
                     public void onClickSearch(Song song,int index) {
-                        Bundle bundle=new Bundle();
-                        bundle.putInt("data",index);
-                        NavHostFragment.findNavController(searchDetail.this).navigate(R.id.action_searchDetail2_to_musicPlayer,bundle);
+//                        Bundle bundle=new Bundle();
+//                        bundle.putInt("data",index);
+                        Intent intent = new Intent(getContext(), MusicPlayer1.class);
+                        intent.putExtra("data", index);
+                        startActivity(intent);
+//                        NavHostFragment.findNavController(searchDetail.this).navigate(R.id.action_searchDetail2_to_musicPlayer,bundle);
                     }
                 });
                 LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_loadlist);
