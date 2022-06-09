@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                >
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -84,7 +84,7 @@
                 android:textSize="@dimen/text_size"
                 android:gravity="center"
                 android:id="@+id/count_song"
-                android:text="12 bài hát - bởi Space"/>
+                android:text="Bài hát - bởi Space"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

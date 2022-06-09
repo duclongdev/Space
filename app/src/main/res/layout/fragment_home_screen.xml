@@ -40,23 +40,6 @@
                     android:textColor="@color/grey"
                     android:textSize="@dimen/text_size" />
             </LinearLayout>
-            <ImageButton
-                android:id="@+id/current"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:scaleType="centerCrop"
-                android:layout_alignParentEnd="true"
-                android:background="@color/background"
-                android:src="@drawable/history" />
-
-            <ImageButton
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:layout_toLeftOf="@id/current"
-                android:background="@color/background"
-                android:layout_marginEnd="@dimen/margin"
-                android:scaleType="centerCrop"
-                android:src="@drawable/setting" />
         </RelativeLayout>
 
         <RelativeLayout

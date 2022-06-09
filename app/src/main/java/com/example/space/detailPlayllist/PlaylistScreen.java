@@ -366,17 +366,6 @@ public class PlaylistScreen extends Fragment {
             case android.R.id.home:
                 requireActivity().finish();
                 return true;
-            case R.id.more_option_playlist:
-                List<SongOption> songOptionList = new ArrayList<>();
-                songOptionList.add(new SongOption(0, R.drawable.icon_heart, "Thêm vào danh sách yêu thích"));
-                songOptionList.add(new SongOption(0, R.drawable.ic_baseline_playlist_add_24, "Thêm vào playlist "));
-                songOptionList.add(new SongOption(0, R.drawable.ic_baseline_cloud_download_24, "Tải về"));
-                songOptionList.add(new SongOption(0, R.drawable.ic_baseline_notifications_active_24, "Cài làm nhạc chuông"));
-               clickToOpenBotSheetOfSong(urlPlaylist, namePlaylist, "hihi");
-                return true;
-        }
-        if(item.getTitle().equals("Play")){
-            Toast.makeText(requireContext(), "hihi", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -391,13 +380,7 @@ public class PlaylistScreen extends Fragment {
         Glide.with(PlaylistScreen.this).load(urlPlaylist).centerCrop().into(binding.detailPLImg);
     }
 
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        if (mMenu != null && (!isExpanded || mMenu.size() != 1)) {
-            mMenu.add("Play").setIcon(R.drawable.ic_baseline_play_arrow_24).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
-        super.onPrepareOptionsMenu(mMenu);
-    }
+
 
 
     @Override
