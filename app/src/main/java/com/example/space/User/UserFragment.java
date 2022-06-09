@@ -29,11 +29,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.space.R;
+import com.example.space.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 
@@ -44,6 +50,9 @@ public class UserFragment extends Fragment {
     ImageView Avatar;
     Button btnEdit;
     LinearLayout layout;
+    DatabaseReference mDatabase;
+    public static User user1;
+
     public UserFragment() {
         // Required empty public constructor
     }
@@ -57,6 +66,7 @@ public class UserFragment extends Fragment {
         btnEdit = view.findViewById(R.id.btnEdit);
         chooseImage = view.findViewById(R.id.chooseImage);
         Avatar = view.findViewById(R.id.avatar);
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         layout = view.findViewById(R.id.layoutUser);
         try {
             setImage(auth.getCurrentUser().getPhotoUrl().toString());
@@ -64,7 +74,7 @@ public class UserFragment extends Fragment {
             Log.e("Avatar", "No avatar");
         }
 
-        tvname.setText(auth.getCurrentUser().getDisplayName());
+        getName();
         createPaletteSync();
         Avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +103,26 @@ public class UserFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void getName() {
+//        if(auth.getCurrentUser().getDisplayName() != "") {
+//            tvname.setText(auth.getCurrentUser().getDisplayName());
+//        }
+//        else{
+            mDatabase.child(auth.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    user1 = snapshot.getValue(User.class);
+                    tvname.setText(user1.getName());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+//        }
     }
 
     private void ChangeAvatar() {

@@ -1,5 +1,8 @@
 package com.example.space.User;
 
+
+import static com.example.space.User.UserFragment.user1;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -53,11 +56,8 @@ public class EditProfile extends Fragment {
     ImageButton calendar;
     Button btnEdit, btnSave;
     DatabaseReference mDatabase;
-    User user1;
-    Boolean EnoughAge;
-    String name = "";
-    String email = "";
-    Uri photoUrl;
+//    User user1;
+    Boolean EnoughAge = true;
     DatePickerDialog datePickerDialog;
 
     @Override
@@ -66,7 +66,6 @@ public class EditProfile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         user = FirebaseAuth.getInstance().getCurrentUser();
-//        Log.e("user", user.getPhotoUrl().toString());
         getData(user.getUid());
         layoutName = view.findViewById(R.id.include1);
         layoutEmail = view.findViewById(R.id.include2);
@@ -101,12 +100,6 @@ public class EditProfile extends Fragment {
             }
         });
         if (user != null) {
-            // Name, email address, and profile photo Url
-
-            Log.e("uid", user.getUid());
-            //get data
-//            photoUrl = user.getPhotoUrl();
-            //
             TextView tvNametype, tvEmailType, tvBirthType;
             ImageView icEmail, icBirth;
             //initview
@@ -137,7 +130,7 @@ public class EditProfile extends Fragment {
 //            this.tvname.setText(tvname);
 
             // Check if user's email is verified
-            boolean emailVerified = user.isEmailVerified();
+//            boolean emailVerified = user.isEmailVerified();
         }
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,15 +177,29 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View view) {
                 String birth = tvBirth.getText().toString();
-                String[] arrOfStr = birth.split(" / ", -2);
-                for (String i : arrOfStr
-                     ) {
-
-                    Log.e("Birth", i);
+                int mYear;// current year
+                int mMonth; // current month
+                int mDay; // current day
+                if(!birth.matches("")){
+                    String[] arrOfStr = birth.split(" / ", -2);
+                    mYear = Integer.valueOf(arrOfStr[2]);
+                    mMonth = Integer.valueOf(arrOfStr[1]);
+                    mDay = Integer.valueOf(arrOfStr[0]);
                 }
-                int mYear = Integer.valueOf(arrOfStr[2]);// current year
-                int mMonth = Integer.valueOf(arrOfStr[1]) - 1; // current month
-                int mDay = Integer.valueOf(arrOfStr[0]); // current day
+                else{
+                     mYear = Calendar.getInstance().get(Calendar.YEAR);
+                     mMonth = Calendar.getInstance().get(Calendar.MONTH);
+                     mDay = Calendar.getInstance().get(Calendar.DATE);
+                }
+
+//                for (String i : arrOfStr
+//                     ) {
+//
+//                    Log.e("Birth", i);
+//                }
+//                int mYear = Integer.valueOf(arrOfStr[2]);// current year
+//                int mMonth = Integer.valueOf(arrOfStr[1]) - 1; // current month
+//                int mDay = Integer.valueOf(arrOfStr[0]); // current day
                 datePickerDialog = new DatePickerDialog(getActivity(),
                         new DatePickerDialog.OnDateSetListener() {
 
