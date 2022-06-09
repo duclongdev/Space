@@ -275,13 +275,17 @@ public class PlaylistScreen extends Fragment {
                     callSong1.enqueue(new Callback<List<Song>>() {
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                            MainActivity.mangsong.addAll(response.body());
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
-//                            progressDialog.hide();
-                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
-                            startActivity(intent,bundle);
+//                            MainActivity.mangsong.addAll(response.body());
+//                            Bundle bundle = new Bundle();
+//                            bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
+////                            progressDialog.hide();
+//                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+//                            startActivity(intent,bundle);
 //                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                            MainActivity.mangsong.addAll(response.body());
+                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                            intent.putExtra("data",new Random().nextInt(MainActivity.mangsong.size() - 1));
+                            startActivity(intent);
                         }
 
                         @Override
