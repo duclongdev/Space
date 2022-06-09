@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.example.space.MainActivity;
 import com.example.space.R;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -61,6 +62,7 @@ public class SignOut extends Fragment {
     private void SignOut() {
         auth = FirebaseAuth.getInstance();
         auth.signOut();
+        LoginManager.getInstance().logOut();
         Intent main = new Intent(getActivity(), MainActivity.class);
         main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(main);

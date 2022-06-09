@@ -131,10 +131,11 @@ public class HomeScreen extends Fragment {
                         List<Song> songs=response.body();
                         MainActivity.mangsong.remove(songs.get(0));
                         MainActivity.mangsong.add(songs.get(0));
-                        Bundle bundle=new Bundle();
-                        bundle.putInt("data",MainActivity.mangsong.size()-1);
+//                        Bundle bundle=new Bundle();
+//                        bundle.putInt("data",MainActivity.mangsong.size()-1);
                         Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
-                        startActivity(intent,bundle);
+                        intent.putExtra("data",MainActivity.mangsong.size() - 1);
+                        startActivity(intent);
 //                        NavHostFragment.findNavController(HomeScreen.this).navigate(R.id.action_homeScreen_to_musicPlayer2,bundle);
                     }
 

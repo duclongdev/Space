@@ -84,7 +84,6 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_music_player1);
         initViews();
-        SetDataBottomSheet();
         Intent intent = getIntent();
         currentindex = intent.getIntExtra("data", 0); // đây là thứ bạn cần :D
         getIntentMethod();
@@ -119,6 +118,27 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
                 handler.postDelayed(this, 1000);
             }
         });
+        Dataservice dataservice= APIService.getService();
+        Call<String> check=dataservice.checkFavorite(FirebaseAuth.getInstance().getCurrentUser().getUid(),ListSongs.get(position).getIdSong());
+        check.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.body().equals("co")){
+//                    listBottomSheet.add(new More_Item("Like", R.drawable.ic_heart_red));
+                    SetDataBottomSheet(R.drawable.ic_heart_red);
+                }else{
+
+//                    listBottomSheet.add(new More_Item("Like", R.drawable.ic_heart_outline));
+                    SetDataBottomSheet(R.drawable.ic_heart_outline);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+//        SetDataBottomSheet();
         btnloop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,9 +218,9 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         layout = findViewById(R.id.linearlayout);
         back = findViewById(R.id.btn_mp_back);
     }
-    private void SetDataBottomSheet() {
+    private void SetDataBottomSheet(int image) {
         listBottomSheet = new ArrayList<>();
-        listBottomSheet.add(new More_Item("Like", R.drawable.ic_heart_outline));
+        listBottomSheet.add(new More_Item("Like", image));
         listBottomSheet.add(new More_Item("Hide", R.drawable.ic_remove_circle_outline));
         listBottomSheet.add(new More_Item("Sleep time", R.drawable.ic_moon_outline));
     }

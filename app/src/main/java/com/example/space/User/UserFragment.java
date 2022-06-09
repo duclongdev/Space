@@ -56,6 +56,7 @@ public class UserFragment extends Fragment {
         Avatar = view.findViewById(R.id.avatar);
         layout = view.findViewById(R.id.layoutUser);
         setImage(auth.getCurrentUser().getPhotoUrl().toString());
+        tvname.setText(auth.getCurrentUser().getDisplayName());
         createPaletteSync();
         Avatar.setOnClickListener(new View.OnClickListener() {
             @Override

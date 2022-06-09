@@ -1,5 +1,6 @@
 package com.example.space.favorite;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,9 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.space.API.APIService;
 import com.example.space.API.Dataservice;
 import com.example.space.MainActivity;
+import com.example.space.MusicPlayer.MusicPlayer1;
 import com.example.space.R;
 import com.example.space.databinding.FragmentFavoriteScreenBinding;
 import com.example.space.favorite.songs.SongsFavoriteAdapter;
@@ -27,6 +30,7 @@ import com.example.space.model.Song;
 import com.example.space.myInterface.IClickFavoriteSong;
 import com.example.space.myInterface.IClickSong;
 import com.google.firebase.auth.FirebaseAuth;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 
@@ -40,7 +44,6 @@ public class FavoriteScreen extends Fragment {
     private String UId;
     private FragmentFavoriteScreenBinding binding;
     private SongsFavoriteAdapter songsFavoriteAdapter;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class FavoriteScreen extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         UId = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
-
+        Glide.with(requireActivity()).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).into(binding.avaFavorite);
         songsFavoriteAdapter = new SongsFavoriteAdapter(FavoriteScreen.this, new IClickSong() {
             @Override
             public void onCLickSong(Song song) {
@@ -63,11 +66,14 @@ public class FavoriteScreen extends Fragment {
                     @Override
                     public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                         List<Song> songs = response.body();
-                        MainActivity.mangsong.remove(songs.get(0));
-                        MainActivity.mangsong.add(songs.get(0));
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("data", MainActivity.mangsong.size() - 1);
-                        NavHostFragment.findNavController(FavoriteScreen.this).navigate(R.id.action_favoriteScreen_to_musicPlayer4, bundle);
+                        MainActivity.mangsong.addAll(songs);
+                        MainActivity.mangsong.remove(song);
+                        MainActivity.mangsong.add(song);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putInt("data", MainActivity.mangsong.size() - 1);
+                        Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                        intent.putExtra("data",MainActivity.mangsong.size() - 1);
+                        startActivity(intent);
                     }
 
                     @Override

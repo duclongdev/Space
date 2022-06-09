@@ -143,10 +143,13 @@ public class PlaylistScreen extends Fragment {
                             MainActivity.mangsong.addAll(response.body());
                             MainActivity.mangsong.remove(song);
                             MainActivity.mangsong.add(song);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
+//                            Bundle bundle = new Bundle();
+                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+//                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
+                            intent.putExtra("data",MainActivity.mangsong.size() - 1);
+                            startActivity(intent);
 //                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+//                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
                         @Override
@@ -163,11 +166,13 @@ public class PlaylistScreen extends Fragment {
                             MainActivity.mangsong.addAll(response.body());
                             MainActivity.mangsong.remove(song);
                             MainActivity.mangsong.add(song);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
+//                            Bundle bundle = new Bundle();
+//                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
 //                            progressDialog.hide();
                             Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
-                            startActivity(intent,bundle);
+                            intent.putExtra("data",MainActivity.mangsong.size() - 1);
+                            startActivity(intent);
+//                            startActivity(intent,bundle);
 //                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
@@ -185,11 +190,13 @@ public class PlaylistScreen extends Fragment {
                             MainActivity.mangsong.addAll(response.body());
                             MainActivity.mangsong.remove(song);
                             MainActivity.mangsong.add(song);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
+//                            Bundle bundle = new Bundle();
+//                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
 //                            progressDialog.hide();
                             Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
-                            startActivity(intent,bundle);
+                            intent.putExtra("data",MainActivity.mangsong.size() - 1);
+                            startActivity(intent);
+//                            startActivity(intent,bundle);
 //                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 

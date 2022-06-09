@@ -20,12 +20,13 @@
             android:layout_width="30sp"
             app:riv_corner_radius="20dp"
             android:layout_height="30sp"
-            android:src="@drawable/mtv_avt"/>
+            android:id="@+id/ava_favorite"
+            />
         <TextView
             android:paddingStart="@dimen/margin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="Your Library"
+            android:text="Your favorite"
             android:layout_weight="1"
             android:textSize="24sp"
             android:textColor="@color/white"

@@ -192,7 +192,7 @@ public class Method_Sign_in extends Fragment {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null)
+        if(currentUser!=null&&currentUser.isEmailVerified())
         {
             updateUI(currentUser);
         }
@@ -225,7 +225,7 @@ public class Method_Sign_in extends Fragment {
     }
     //cập nhật lại giao diện
     private void updateUI(FirebaseUser currentUser) {
-        if(currentUser!=null){
+        if(currentUser!=null&&currentUser.isEmailVerified()){
             Intent intent=new Intent(requireActivity(),Home.class);
             startActivity(intent);
         }

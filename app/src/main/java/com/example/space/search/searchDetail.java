@@ -107,10 +107,13 @@ public class searchDetail extends Fragment {
                                             MainActivity.mangsong.addAll(response.body());
                                             MainActivity.mangsong.remove(song);
                                             MainActivity.mangsong.add(song);
-                                            Bundle bundle=new Bundle();
-                                            bundle.putInt("data",MainActivity.mangsong.size()-1);
+//                                            Bundle bundle=new Bundle();
+//                                            bundle.putInt("data",MainActivity.mangsong.size()-1);
                                             progressDialog.hide();
-                                            NavHostFragment.findNavController(searchDetail.this).navigate(R.id.action_searchDetail2_to_musicPlayer,bundle);
+                                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                                            intent.putExtra("data",MainActivity.mangsong.size() - 1);
+                                            startActivity(intent);
+//                                            NavHostFragment.findNavController(searchDetail.this).navigate(R.id.action_searchDetail2_to_musicPlayer,bundle);
                                         }
 
                                         @Override
