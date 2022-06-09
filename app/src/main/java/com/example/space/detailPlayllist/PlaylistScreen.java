@@ -3,10 +3,12 @@ package com.example.space.detailPlayllist;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -138,14 +141,13 @@ public class PlaylistScreen extends Fragment {
                     MainActivity.mangsong.clear();
                     Call<List<Song>> callSong1 = dataservice.getSongGenre(song.getIdGenre());
                     callSong1.enqueue(new Callback<List<Song>>() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                             MainActivity.mangsong.addAll(response.body());
-                            MainActivity.mangsong.remove(song);
+                            MainActivity.mangsong.removeIf(n->(n.getTitleSong().equals(song.getTitleSong())));
                             MainActivity.mangsong.add(song);
-//                            Bundle bundle = new Bundle();
                             Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
-//                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
                             intent.putExtra("data",MainActivity.mangsong.size() - 1);
                             startActivity(intent);
 //                            progressDialog.hide();
@@ -161,14 +163,12 @@ public class PlaylistScreen extends Fragment {
                     MainActivity.mangsong.clear();
                     Call<List<Song>> callSong1 = dataservice.getSongArtist(song.getIdArtist());
                     callSong1.enqueue(new Callback<List<Song>>() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                             MainActivity.mangsong.addAll(response.body());
-                            MainActivity.mangsong.remove(song);
+                            MainActivity.mangsong.removeIf(n->(n.getTitleSong().equals(song.getTitleSong())));
                             MainActivity.mangsong.add(song);
-//                            Bundle bundle = new Bundle();
-//                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
-//                            progressDialog.hide();
                             Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
                             intent.putExtra("data",MainActivity.mangsong.size() - 1);
                             startActivity(intent);
@@ -185,14 +185,12 @@ public class PlaylistScreen extends Fragment {
                     MainActivity.mangsong.clear();
                     Call<List<Song>> callSong1 = dataservice.getSongTheme(song.getIdTheme());
                     callSong1.enqueue(new Callback<List<Song>>() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                             MainActivity.mangsong.addAll(response.body());
-                            MainActivity.mangsong.remove(song);
+                            MainActivity.mangsong.removeIf(n->(n.getTitleSong().equals(song.getTitleSong())));
                             MainActivity.mangsong.add(song);
-//                            Bundle bundle = new Bundle();
-//                            bundle.putInt("data", MainActivity.mangsong.size() - 1);
-//                            progressDialog.hide();
                             Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
                             intent.putExtra("data",MainActivity.mangsong.size() - 1);
                             startActivity(intent);

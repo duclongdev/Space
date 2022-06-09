@@ -1,10 +1,12 @@
 package com.example.space.favorite;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -63,11 +65,12 @@ public class FavoriteScreen extends Fragment {
                 MainActivity.mangsong.clear();
                 Call<List<Song>> callSong = dataservice.getSongGenre(song.getIdGenre());
                 callSong.enqueue(new Callback<List<Song>>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                         List<Song> songs = response.body();
-                        MainActivity.mangsong.addAll(songs);
-                        MainActivity.mangsong.remove(song);
+                        MainActivity.mangsong.addAll(response.body());
+                        MainActivity.mangsong.removeIf(n->(n.getTitleSong().equals(song.getTitleSong())));
                         MainActivity.mangsong.add(song);
 //                        Bundle bundle = new Bundle();
 //                        bundle.putInt("data", MainActivity.mangsong.size() - 1);

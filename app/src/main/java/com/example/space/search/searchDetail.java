@@ -2,8 +2,10 @@ package com.example.space.search;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -102,10 +104,11 @@ public class searchDetail extends Fragment {
                                     MainActivity.mangsong.clear();
                                     Call<List<Song>> callSong1=dataservice.getSongGenre(song.getIdGenre());
                                     callSong1.enqueue(new Callback<List<Song>>() {
+                                        @RequiresApi(api = Build.VERSION_CODES.N)
                                         @Override
                                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                                             MainActivity.mangsong.addAll(response.body());
-                                            MainActivity.mangsong.remove(song);
+                                            MainActivity.mangsong.removeIf(n->(n.getTitleSong().equals(song.getTitleSong())));
                                             MainActivity.mangsong.add(song);
 //                                            Bundle bundle=new Bundle();
 //                                            bundle.putInt("data",MainActivity.mangsong.size()-1);
