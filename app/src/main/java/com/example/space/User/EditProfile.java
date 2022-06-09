@@ -43,6 +43,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class EditProfile extends Fragment {
     FirebaseUser user;
     EditText tvName, tvEmail, tvBirth;
@@ -51,6 +54,7 @@ public class EditProfile extends Fragment {
     Button btnEdit, btnSave;
     DatabaseReference mDatabase;
     User user1;
+    Boolean EnoughAge;
     String name = "";
     String email = "";
     Uri photoUrl;
@@ -142,15 +146,21 @@ public class EditProfile extends Fragment {
 //                calendar.setEnabled(false);
 //                tvEmail.setEnabled(false);
 //                tvName.setEnabled(false);
-                user1.setName(tvName.getText().toString());
-                user1.setAge(tvBirth.getText().toString());
-                user1.setEmail(tvEmail.getText().toString());
-                mDatabase.child("i1X6T6cR8hWHZXClSi3wrVYWv2t2").updateChildren(user1.toMap(), new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT);
-                    }
-                });
+                if(EnoughAge){
+                    user1.setName(tvName.getText().toString());
+                    user1.setAge(tvBirth.getText().toString());
+                    user1.setEmail(tvEmail.getText().toString());
+                    mDatabase.child(user.getUid()).updateChildren(user1.toMap(), new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                            Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(getActivity(), "Recheck your age", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +184,12 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View view) {
                 String birth = tvBirth.getText().toString();
-                String[] arrOfStr = birth.split("/", -2);
+                String[] arrOfStr = birth.split(" / ", -2);
+                for (String i : arrOfStr
+                     ) {
+
+                    Log.e("Birth", i);
+                }
                 int mYear = Integer.valueOf(arrOfStr[2]);// current year
                 int mMonth = Integer.valueOf(arrOfStr[1]) - 1; // current month
                 int mDay = Integer.valueOf(arrOfStr[0]); // current day
@@ -185,8 +200,15 @@ public class EditProfile extends Fragment {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                                tvBirth.setText(dayOfMonth + "/"
-                                        + (monthOfYear + 1) + "/" + year);
+                                int yearNow = Calendar.getInstance().get(Calendar.YEAR);
+                                tvBirth.setText(dayOfMonth + " / "
+                                        + (monthOfYear + 1) + " / " + year);
+                                if(yearNow - year > 12){
+                                    EnoughAge = true;
+                                }
+                                else {
+                                    EnoughAge = false;
+                                }
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();

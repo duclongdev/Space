@@ -316,19 +316,14 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
         PendingIntent stopPendingIntent = PendingIntent.getBroadcast(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 //        BitmapDrawable drawable  = (BitmapDrawable) drawable1;
         Bitmap bitmap = getBitmapFromURL(Songs.get(position).getLinkImageS(), layout);
-//        if(layout != null)
-//            createPaletteSync(bitmap, layout);
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_ID);
         notification
-                // Show controls on lock screen even when user hides sensitive content.
                 .setContentTitle(Songs.get(position).getTitleSong())
                 .setContentText(Songs.get(position).getName())
-                //Songs.get(position).getIdArtist()
                 .setLargeIcon(bitmap)
 //                .setSubText("nguyenbakhanh")
                 .setSmallIcon(R.drawable.ic_baseline_audiotrack_24)
                 .setAutoCancel(true)
-//                .setOnlyAlertOnce(true)
                 // Add media control buttons that invoke intents in your media service
                 .addAction(R.drawable.ic_baseline_skip_previous_24, "Previous", prePendingIntent) // #0
                 .addAction(play_pause, "Pause", playPendingIntent)  // #1
@@ -343,6 +338,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
                                 PlaybackStateCompat.ACTION_STOP)))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setOnlyAlertOnce(true)
+                .setSilent(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .build();
         startForeground(11, notification.build());

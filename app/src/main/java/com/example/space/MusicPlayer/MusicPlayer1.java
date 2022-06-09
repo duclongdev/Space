@@ -40,7 +40,6 @@ import com.example.space.MusicPlayer.ActionPlaying;
 import com.example.space.MusicPlayer.MoreBottomSheet.IClickItemMoreListener;
 import com.example.space.MusicPlayer.MoreBottomSheet.More_Item;
 import com.example.space.MusicPlayer.MoreBottomSheet.MyBottomSheetMoreFragment;
-import com.example.space.MusicPlayer.MusicPlayer;
 import com.example.space.R;
 import com.example.space.Service.MediaService;
 import com.example.space.model.Song;
@@ -87,6 +86,7 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         Intent intent = getIntent();
         currentindex = intent.getIntExtra("data", 0); // đây là thứ bạn cần :D
         getIntentMethod();
+
         position = listPlay.get(currentindex);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

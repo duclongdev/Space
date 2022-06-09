@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.io.IOException;
+
 public class UserFragment extends Fragment {
     TextView tvname;
     FirebaseAuth auth;
@@ -55,7 +58,12 @@ public class UserFragment extends Fragment {
         chooseImage = view.findViewById(R.id.chooseImage);
         Avatar = view.findViewById(R.id.avatar);
         layout = view.findViewById(R.id.layoutUser);
-        setImage(auth.getCurrentUser().getPhotoUrl().toString());
+        try {
+            setImage(auth.getCurrentUser().getPhotoUrl().toString());
+        }catch (Exception e){
+            Log.e("Avatar", "No avatar");
+        }
+
         tvname.setText(auth.getCurrentUser().getDisplayName());
         createPaletteSync();
         Avatar.setOnClickListener(new View.OnClickListener() {
