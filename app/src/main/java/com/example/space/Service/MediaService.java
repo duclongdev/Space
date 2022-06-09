@@ -98,8 +98,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
                         actionPlaying.nextClick();
                     break;
                 case ACTION_STOP:
-                    stopForeground(true);
-                    stopSelf();
+                    stopService(new Intent(getBaseContext(), MediaService.class));
                     break;
             }
         }
@@ -223,7 +222,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
         Log.e("ngy", "ngu");
         mediaPlayer1.start();
         OnCompleted();
-        if (this.isPause) {
+        if (this.isPause && mediaPlayer1 != null) {
             mediaPlayer1.pause();
         }
 //        this.isPause = false;
@@ -241,7 +240,11 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
     public void onDestroy() {
         super.onDestroy();
         Log.e("destroy", "destroy");
-        if (mediaPlayer != null) mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+//            mediaPlayer = null;
+
+        }
     }
 
     @Override

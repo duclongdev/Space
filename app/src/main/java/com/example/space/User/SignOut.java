@@ -1,8 +1,10 @@
 package com.example.space.User;
 
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,7 +16,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.space.MainActivity;
+import com.example.space.MusicPlayer.MusicPlayer1;
 import com.example.space.R;
+import com.example.space.Service.MediaService;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,6 +64,7 @@ public class SignOut extends Fragment {
     }
 
     private void SignOut() {
+        getContext().stopService(new Intent(getContext(), MediaService.class));
         auth = FirebaseAuth.getInstance();
         auth.signOut();
         LoginManager.getInstance().logOut();
