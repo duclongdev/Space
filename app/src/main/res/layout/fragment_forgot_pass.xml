@@ -64,9 +64,9 @@
         <android.widget.Button
             android:layout_marginTop="80dp"
             android:layout_gravity="center_horizontal"
-            android:layout_width="180dp"
+            android:layout_width="160dp"
             android:layout_height="50dp"
-            android:text="Password Reset"
+            android:text="Email send"
             android:background="@drawable/background_btn"
             android:textAllCaps="false"
             android:textColor="@color/white"
