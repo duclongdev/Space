@@ -40,12 +40,4 @@
             android:textColor="@color/grey" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/more_option_song"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/ripple_effect"
-        android:src="@drawable/ic_more_op" />
-
 </LinearLayout>

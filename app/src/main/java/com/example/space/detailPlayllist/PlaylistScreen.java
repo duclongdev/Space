@@ -1,7 +1,6 @@
 package com.example.space.detailPlayllist;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,15 +11,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,8 +35,6 @@ import com.example.space.MusicPlayer.MusicPlayer1;
 import com.example.space.R;
 import com.example.space.databinding.FragmentPlaylistScreenBinding;
 import com.example.space.model.Song;
-import com.example.space.detailPlayllist.bottomSheet.BotSheetSongMoreOption;
-import com.example.space.detailPlayllist.bottomSheet.SongOption;
 import com.example.space.home.playLists.category.CategoryPlaylist;
 import com.example.space.home.playLists.category.CategoryPlaylistAdapter;
 import com.example.space.home.playLists.playlist.PlayList;
@@ -48,9 +42,7 @@ import com.example.space.myInterface.IClickItemOnSongOption;
 import com.example.space.myInterface.IClickOnMoreOptionOfSongItem;
 import com.example.space.myInterface.IClickPlayList;
 import com.example.space.myInterface.IClickSong;
-import com.example.space.search.searchDetail;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +76,6 @@ public class PlaylistScreen extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         initValueForThis();
-        initToolBar();
         initRcyView();
         initToolBarAnimation();
         getSuggestPlayList();
@@ -206,11 +197,6 @@ public class PlaylistScreen extends Fragment {
                 }
 
             }
-        }, new IClickOnMoreOptionOfSongItem() {
-            @Override
-            public void onClickOptionOnSongItem(String url, String name, String author) {
-                clickToOpenBotSheetOfSong(url, name, author);
-            }
         });
         LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(this.requireContext(), R.anim.layout_animation_loadlist);
         binding.listSong.setLayoutAnimation(layoutAnimationController);
@@ -300,10 +286,9 @@ public class PlaylistScreen extends Fragment {
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                             MainActivity.mangsong.addAll(response.body());
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
-//                            progressDialog.hide();
-                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
+                            Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
+                            intent.putExtra("data",new Random().nextInt(MainActivity.mangsong.size() - 1));
+                            startActivity(intent);
                         }
 
                         @Override
@@ -318,11 +303,9 @@ public class PlaylistScreen extends Fragment {
                         @Override
                         public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                             MainActivity.mangsong.addAll(response.body());
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("data", new Random().nextInt(MainActivity.mangsong.size() - 1));
-//                            progressDialog.hide();
                             Intent intent=new Intent(requireActivity(), MusicPlayer1.class);
-                            startActivity(intent,bundle);
+                            intent.putExtra("data",new Random().nextInt(MainActivity.mangsong.size() - 1));
+                            startActivity(intent);
 //                            NavHostFragment.findNavController(PlaylistScreen.this).navigate(R.id.action_playlistScreen_to_musicPlayer2, bundle);
                         }
 
@@ -338,29 +321,6 @@ public class PlaylistScreen extends Fragment {
         });
     };
 
-
-    private void clickToOpenBotSheetOfSong(String url, String name, String author) {
-        List<SongOption> songOptionList = new ArrayList<>();
-        songOptionList.add(new SongOption(0, R.drawable.icon_heart, "Thêm vào danh sách yêu thích"));
-        songOptionList.add(new SongOption(0, R.drawable.ic_baseline_playlist_add_24, "Thêm vào playlist "));
-        songOptionList.add(new SongOption(0, R.drawable.ic_baseline_cloud_download_24, "Tải về"));
-        songOptionList.add(new SongOption(0, R.drawable.ic_baseline_notifications_active_24, "Cài làm nhạc chuông"));
-        BotSheetSongMoreOption botSheetSongMoreOption = new BotSheetSongMoreOption(PlaylistScreen.this,
-                url, name, author, songOptionList, new IClickItemOnSongOption() {
-            @Override
-            public void onClickItemOption(int id) {
-                Toast.makeText(requireContext(), "id: " + id, Toast.LENGTH_SHORT).show();
-            }
-        });
-        botSheetSongMoreOption.show(requireActivity().getSupportFragmentManager(), botSheetSongMoreOption.getTag());
-    }
-
-    private void initToolBar() {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
-        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

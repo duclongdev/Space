@@ -28,12 +28,10 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongVi
     private List<com.example.space.model.Song> songList;
     private Fragment fragment;
     private IClickSong iClickSong;
-    private IClickOnMoreOptionOfSongItem iClickOption;
 
-    public SongListAdapter(Fragment fragment, IClickSong iClickSong, IClickOnMoreOptionOfSongItem iClickOption) {
+    public SongListAdapter(Fragment fragment, IClickSong iClickSong) {
         this.fragment = fragment;
         this.iClickSong = iClickSong;
-        this.iClickOption = iClickOption;
     }
 
     public void setData(List<com.example.space.model.Song> songList){
@@ -61,12 +59,6 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongVi
                 iClickSong.onCLickSong(song);
             }
         });
-        holder.moreOptionSong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iClickOption.onClickOptionOnSongItem(song.getLinkImageS(), song.getName(), song.getName());
-            }
-        });
     }
     @Override
     public int getItemCount() {
@@ -79,14 +71,12 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongVi
         TextView songName;
         TextView songAuthor;
         LinearLayout clickSong;
-        ImageView moreOptionSong;
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);
             imgSong = itemView.findViewById(R.id.song_img);
             songName = itemView.findViewById(R.id.song_name);
             songAuthor = itemView.findViewById(R.id.song_author);
             clickSong = itemView.findViewById(R.id.click_song);
-            moreOptionSong = itemView.findViewById(R.id.more_option_song);
         }
     }
 }
