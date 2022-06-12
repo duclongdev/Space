@@ -176,7 +176,7 @@ public class UserFragment extends Fragment {
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(uri)
                 .build();
-        user.updateProfile(profileChangeRequest)
+        auth.getCurrentUser().updateProfile(profileChangeRequest)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

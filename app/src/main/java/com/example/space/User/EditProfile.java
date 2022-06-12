@@ -135,10 +135,10 @@ public class EditProfile extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                tvBirth.setEnabled(false);
-//                calendar.setEnabled(false);
-//                tvEmail.setEnabled(false);
-//                tvName.setEnabled(false);
+                if(!checkEmail()){
+                    Toast.makeText(getActivity(), "Recheck your email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(EnoughAge){
                     user1.setName(tvName.getText().toString());
                     user1.setAge(tvBirth.getText().toString());
@@ -159,13 +159,6 @@ public class EditProfile extends Fragment {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                    tvBirth.setEnabled(true);
-//                    tvBirth.setFocusable(false);
-//                    tvBirth.setInputType(InputType.TYPE_NULL);
-//                    tvBirth.setClickable(true);
-//                calendar.setEnabled(true);
-//                tvEmail.setEnabled(true);
-//                tvName.setEnabled(true);
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.editProfile,SignOut.class,null)
@@ -191,15 +184,6 @@ public class EditProfile extends Fragment {
                      mMonth = Calendar.getInstance().get(Calendar.MONTH);
                      mDay = Calendar.getInstance().get(Calendar.DATE);
                 }
-
-//                for (String i : arrOfStr
-//                     ) {
-//
-//                    Log.e("Birth", i);
-//                }
-//                int mYear = Integer.valueOf(arrOfStr[2]);// current year
-//                int mMonth = Integer.valueOf(arrOfStr[1]) - 1; // current month
-//                int mDay = Integer.valueOf(arrOfStr[0]); // current day
                 datePickerDialog = new DatePickerDialog(getActivity(),
                         new DatePickerDialog.OnDateSetListener() {
 
@@ -226,7 +210,16 @@ public class EditProfile extends Fragment {
         return view;
     }
 
+    private boolean checkEmail()
+    {
+        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(tvEmail.getText().toString()).matches()) {
+            return false;
+        }
+        else{
+            return true;
+        }
 
+    }
     private void getData(String uid) {
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         mDatabase.child(uid).addValueEventListener(new ValueEventListener() {

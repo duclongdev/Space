@@ -304,79 +304,94 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         btn15 = view.findViewById(R.id.m15);
         btn30 = view.findViewById(R.id.m30);
         btn1h = view.findViewById(R.id.h1);
-//        btnEOT = view.findViewById(R.id.endOfTrack);
+        btnEOT = view.findViewById(R.id.end);
+        if(countDownTimer == null)
+            btnEOT.setVisibility(View.INVISIBLE);
+        else
+            btnEOT.setVisibility(View.VISIBLE);
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("5", bottomSheetDialog, item);
+                TimePickerClick("5", bottomSheetDialog, item, btnEOT);
             }
         });
         btn10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("10", bottomSheetDialog, item);
+                TimePickerClick("10", bottomSheetDialog, item, btnEOT);
             }
         });
         btn15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("15", bottomSheetDialog, item);
+                TimePickerClick("15", bottomSheetDialog, item, btnEOT);
             }
         });
         btn30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("30", bottomSheetDialog, item);
+                TimePickerClick("30", bottomSheetDialog, item, btnEOT);
             }
         });
         btn1h.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("1", bottomSheetDialog, item);
+                TimePickerClick("1", bottomSheetDialog, item, btnEOT);
             }
         });
-//        btnEOT.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                TimePickerClick("End", bottomSheetDialog, item);
-//            }
-//        });
+        btnEOT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerClick("End", bottomSheetDialog, item, btnEOT);
+
+            }
+        });
 
     }
 
-    private void TimePickerClick(String time, BottomSheetDialog bottomSheetDialog, More_Item item) {
+    private void TimePickerClick(String time, BottomSheetDialog bottomSheetDialog, More_Item item, LinearLayout btn) {
         int time1;
         if(time != "End")
             time1 = Integer.parseInt(time);
         else time1 = 0;
-        SetSleep(time1*60000, item);
         item.setImage(R.drawable.ic_moon);
-        Toast.makeText(this, "Your sleep timer is set", Toast.LENGTH_SHORT);
+        SetSleep(time1*60000, item);
+        if(time1 != 0){
+            Toast.makeText(this, "Your sleep timer is set", Toast.LENGTH_SHORT).show();
+//            btn.setVisibility(View.INVISIBLE);
+        }
+        else{
+            Toast.makeText(this, "Your sleep timer is turned off", Toast.LENGTH_SHORT).show();
+//            btn.setVisibility(View.VISIBLE);
+        }
         bottomSheetDialog.dismiss();
     }
 
     private void SetSleep(long time, More_Item item) {
-        long time1;
-        if (time != 0)
-            time1 = time;
-        else
-            time1 = mediaService.getDuration() - mediaService.getCurrentPosition();
-        if (countDownTimer != null)
-            countDownTimer.cancel();
-        countDownTimer = new CountDownTimer(time1, 1000) {
-            @Override
-            public void onTick(long l) {
-                Log.e("timer", String.valueOf(l));
-            }
+        if (time != 0){
 
-            @Override
-            public void onFinish() {
-                isStop = true;
-                item.setImage(R.drawable.ic_moon_outline);
-                playClick();
-            }
-        };
-        countDownTimer.start();
+            if (countDownTimer != null)
+                countDownTimer.cancel();
+            countDownTimer = new CountDownTimer(time, 1000) {
+                @Override
+                public void onTick(long l) {
+                    Log.e("timer", String.valueOf(l));
+                }
+
+                @Override
+                public void onFinish() {
+                    isStop = true;
+                    countDownTimer.cancel();
+                    item.setImage(R.drawable.ic_moon_outline);
+                    playClick();
+                }
+            };
+            countDownTimer.start();
+        }
+        else {
+            countDownTimer.cancel();
+            item.setImage(R.drawable.ic_moon_outline);
+        }
     }
 
     @Override

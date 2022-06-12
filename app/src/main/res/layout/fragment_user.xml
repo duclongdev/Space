@@ -29,7 +29,6 @@
                 android:padding="8dp"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:src="@drawable/icon_user"
                 app:civ_border_color="#FFF"
                 app:civ_border_width="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/image"
@@ -91,7 +90,7 @@
 
 
         <androidx.fragment.app.FragmentContainerView
-            android:paddingTop="30dp"
+            android:paddingTop="20dp"
             android:id="@+id/editProfile"
             android:name="com.example.space.User.SignOut"
             android:layout_width="match_parent"

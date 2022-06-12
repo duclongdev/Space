@@ -95,20 +95,21 @@
             android:textColor="#fff"
             />
     </LinearLayout>
-<!--    <LinearLayout-->
-<!--        android:id="@+id/endOfTrack"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="60dp">-->
-<!--        <TextView-->
-<!--            android:paddingLeft="10dp"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="End of track"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:textSize="18sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="#fff"-->
-<!--            />-->
-<!--    </LinearLayout>-->
+    <LinearLayout
+        android:id="@+id/end"
+        android:layout_width="match_parent"
+        android:visibility="invisible"
+        android:layout_height="60dp">
+        <TextView
+            android:paddingLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Turn off timer"
+            android:layout_gravity="center_vertical"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            />
+    </LinearLayout>
 
 </LinearLayout>
