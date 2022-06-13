@@ -11,10 +11,10 @@ Team Member:
 ## Description: 
 
 Screen Flow: 
-![alt]()
+![alt](https://github.com/longdepchai173/Space/blob/main/app/img/Sodomanhinh.png)
 
 Use cases:
-![alt]()
+![alt](https://github.com/longdepchai173/Space/blob/main/app/img/UsecaseMusicApp.png)
 
 ## Development enviroment:
   - Operating system: Windows 10
