@@ -1,7 +1,7 @@
 # Music Mobile Application
 ## Introduce:
 Project Name: Space 
-![alt](https://github.com/longdepchai173/Space/blob/main/app/img/logo.png](https://github.com/longdepchai173/Space/blob/main/app/img/logo1.png)
+![alt](https://github.com/longdepchai173/Space/blob/main/app/img/logo1.png)
 Team Member:
 * Nguyen Tuan Khoi - 20521480
 * Nguyen Duc Long - 20521566
