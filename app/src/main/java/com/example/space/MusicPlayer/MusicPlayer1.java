@@ -222,7 +222,11 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         listBottomSheet = new ArrayList<>();
         listBottomSheet.add(new More_Item("Like", image));
         listBottomSheet.add(new More_Item("Hide", R.drawable.ic_remove_circle_outline));
-        listBottomSheet.add(new More_Item("Sleep time", R.drawable.ic_moon_outline));
+        if(mediaService.countDownTimer == null)
+            listBottomSheet.add(new More_Item("Sleep time", R.drawable.ic_moon_outline));
+        else{
+            listBottomSheet.add(new More_Item("Sleep time", R.drawable.ic_moon));
+        }
     }
 
     private void SolveBottomSheet(More_Item item_object) {
@@ -238,9 +242,13 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
                         public void onResponse(Call<String> call, Response<String> response) {
                             if(response.body().equals("thanhcong")){
                                 item_object.setImage(R.drawable.ic_heart_red);
+                                Toast.makeText(getApplicationContext(), "Add to Liked Songs", Toast.LENGTH_SHORT).show();
+
                                 myBottomSheetMoreFragment.dismiss();
                             }else{
                                 item_object.setImage(R.drawable.ic_heart_outline);
+                                Toast.makeText(getApplicationContext(), "Remove from Liked Songs", Toast.LENGTH_SHORT).show();
+
                                 myBottomSheetMoreFragment.dismiss();
                             }
                         }
@@ -258,9 +266,11 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
                         public void onResponse(Call<String> call, Response<String> response) {
                             if(response.body().equals("thanhcong")){
                                 item_object.setImage(R.drawable.ic_heart_outline);
+                                Toast.makeText(getApplicationContext(), "Remove from Liked Songs", Toast.LENGTH_SHORT).show();
                                 myBottomSheetMoreFragment.dismiss();
                             }else{
                                 item_object.setImage(R.drawable.ic_heart_red);
+                                Toast.makeText(getApplicationContext(), "Add to Liked Songs", Toast.LENGTH_SHORT).show();
                                 myBottomSheetMoreFragment.dismiss();
                             }
                         }
@@ -270,7 +280,7 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
                         }
                     });
                 }
-                Toast.makeText(this, item_object.getTitle(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, item_object.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
             case "Hide":
                 HideSong();
@@ -305,10 +315,10 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         btn30 = view.findViewById(R.id.m30);
         btn1h = view.findViewById(R.id.h1);
         btnEOT = view.findViewById(R.id.end);
-        if(mediaService.countDownTimer == null)
-            btnEOT.setVisibility(View.INVISIBLE);
-        else
+        if(mediaService.countDownTimer != null)
             btnEOT.setVisibility(View.VISIBLE);
+        else
+            btnEOT.setVisibility(View.INVISIBLE);
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -336,7 +346,7 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         btn1h.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerClick("1", bottomSheetDialog, item, btnEOT);
+                TimePickerClick("60", bottomSheetDialog, item, btnEOT);
             }
         });
         btnEOT.setOnClickListener(new View.OnClickListener() {
@@ -369,7 +379,6 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
 
     private void SetSleep(long time, More_Item item) {
         if (time != 0){
-
             if (mediaService.countDownTimer != null)
                 mediaService.countDownTimer.cancel();
             mediaService.countDownTimer = new CountDownTimer(time, 1000) {
@@ -380,16 +389,20 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
 
                 @Override
                 public void onFinish() {
-                    isStop = true;
+//                    isStop = true;
                     mediaService.countDownTimer.cancel();
+                    mediaService.countDownTimer = null;
+
                     item.setImage(R.drawable.ic_moon_outline);
-                    playClick();
+                    if(mediaService.isPlaying())
+                        playClick();
                 }
             };
             mediaService.countDownTimer.start();
         }
         else {
             mediaService.countDownTimer.cancel();
+            mediaService.countDownTimer = null;
             item.setImage(R.drawable.ic_moon_outline);
         }
     }
