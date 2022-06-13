@@ -17,6 +17,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -49,7 +50,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
     public static final String ACTION_NEXT = "NEXT";
     public static final String ACTION_PLAY = "PLAY";
     public  static final String ACTION_STOP = "STOP";
-
+    public CountDownTimer countDownTimer;
     MediaPlayer mediaPlayer = null;
     ArrayList<Song> Songs = new ArrayList<>();
     int position = -1;
