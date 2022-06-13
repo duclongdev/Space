@@ -74,7 +74,7 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
     boolean isloop = false;
     boolean isStop = false;
     List<More_Item> listBottomSheet;
-    private CountDownTimer countDownTimer;
+
     MyBottomSheetMoreFragment myBottomSheetMoreFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -305,7 +305,7 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
         btn30 = view.findViewById(R.id.m30);
         btn1h = view.findViewById(R.id.h1);
         btnEOT = view.findViewById(R.id.end);
-        if(countDownTimer == null)
+        if(mediaService.countDownTimer == null)
             btnEOT.setVisibility(View.INVISIBLE);
         else
             btnEOT.setVisibility(View.VISIBLE);
@@ -370,9 +370,9 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
     private void SetSleep(long time, More_Item item) {
         if (time != 0){
 
-            if (countDownTimer != null)
-                countDownTimer.cancel();
-            countDownTimer = new CountDownTimer(time, 1000) {
+            if (mediaService.countDownTimer != null)
+                mediaService.countDownTimer.cancel();
+            mediaService.countDownTimer = new CountDownTimer(time, 1000) {
                 @Override
                 public void onTick(long l) {
                     Log.e("timer", String.valueOf(l));
@@ -381,15 +381,15 @@ public class MusicPlayer1 extends AppCompatActivity implements ActionPlaying, Se
                 @Override
                 public void onFinish() {
                     isStop = true;
-                    countDownTimer.cancel();
+                    mediaService.countDownTimer.cancel();
                     item.setImage(R.drawable.ic_moon_outline);
                     playClick();
                 }
             };
-            countDownTimer.start();
+            mediaService.countDownTimer.start();
         }
         else {
-            countDownTimer.cancel();
+            mediaService.countDownTimer.cancel();
             item.setImage(R.drawable.ic_moon_outline);
         }
     }

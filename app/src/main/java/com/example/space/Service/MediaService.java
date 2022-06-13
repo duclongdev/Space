@@ -17,6 +17,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -56,6 +57,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
     ActionPlaying actionPlaying;
     MediaSessionCompat mediaSessionCompat;
     boolean isPause = false;
+    public CountDownTimer countDownTimer;
     Bitmap bitmap;
     @Override
     public void onCreate() {
