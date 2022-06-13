@@ -18,7 +18,7 @@ Use cases:
 
 ## Development enviroment:
   - Operating system: Windows 11
-  - Database management system: PhpAdmin
+  - Database management system: phpMyAdmin & Firebase
   - Technology and framework: Java & Android
   - IDE: Android Studio
  
