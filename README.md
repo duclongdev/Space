@@ -17,7 +17,7 @@ Use cases:
 ![alt](https://github.com/longdepchai173/Space/blob/main/app/img/UsecaseMusicApp.png)
 
 ## Development enviroment:
-  - Operating system: Windows 10
+  - Operating system: Windows 11
   - Database management system: PhpAdmin
   - Technology and framework: Java & Android
   - IDE: Android Studio
