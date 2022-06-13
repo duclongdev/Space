@@ -57,6 +57,7 @@ public class MediaService extends Service implements MediaPlayer.OnCompletionLis
     ActionPlaying actionPlaying;
     MediaSessionCompat mediaSessionCompat;
     boolean isPause = false;
+    public CountDownTimer countDownTimer;
     Bitmap bitmap;
     @Override
     public void onCreate() {

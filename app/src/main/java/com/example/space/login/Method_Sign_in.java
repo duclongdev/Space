@@ -64,7 +64,6 @@ public class Method_Sign_in extends Fragment {
     private LinearLayout btn_gg;
     private LinearLayout btn_fb;
     private boolean isFb;
-
     @Override
     public void onResume() {
         super.onResume();
@@ -92,7 +91,7 @@ public class Method_Sign_in extends Fragment {
         btn_fb=v.findViewById(R.id.btn_fb);
         mAuth = FirebaseAuth.getInstance();
         //sự kiện nút đăng ký
-
+        isFb=true;
         btn_SI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +113,7 @@ public class Method_Sign_in extends Fragment {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+
                 handleFacebookAccessToken(loginResult.getAccessToken());
 
             }
@@ -174,7 +174,7 @@ public class Method_Sign_in extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            isFb = true;
+                            isFb=true;
                             FirebaseUser user = mAuth.getCurrentUser();
                             checkExist(user);
                             updateUI(user);
@@ -254,7 +254,7 @@ public class Method_Sign_in extends Fragment {
     }
     //cập nhật lại giao diện
     private void updateUI(FirebaseUser currentUser) {
-        if(currentUser!=null&&(currentUser.isEmailVerified() || isFb)){
+        if(currentUser!=null&&(currentUser.isEmailVerified()||isFb)){
             Intent intent=new Intent(requireActivity(),Home.class);
             startActivity(intent);
         }

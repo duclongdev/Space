@@ -35,6 +35,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 public class EnterName extends Fragment {
     private ProgressDialog progressDialog;
     Button done_backToLogin;
@@ -69,8 +72,8 @@ public class EnterName extends Fragment {
         done_backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkEnterName();
                 model.getName().setValue(enterName.getText().toString());
+                if(checkEnterName())
                 createAccount(email,password);
             }
         });
@@ -118,12 +121,19 @@ public class EnterName extends Fragment {
         navController = Navigation.findNavController(view);
     }
 
-    private void checkEnterName()
+    private boolean checkEnterName()
     {
         if(enterName.getText().length() <= 2)
         {
             enterNameLayout.setError("Please enter your real name");
+            return false;
         }
+        else if(!checkName(enterName.getText().toString())){
+            enterNameLayout.setError("Please enter your real name");
+            return false;
+        }
+        else
+            return true;
     }
     @Override
     public void onStart() {
@@ -170,7 +180,11 @@ public class EnterName extends Fragment {
                     }
                 });
     }
-
+    public static String removeAccent(String s) { String temp = Normalizer.normalize(s, Normalizer.Form.NFD); Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); temp = pattern.matcher(temp).replaceAll("");
+        return temp.replaceAll("đ", "d"); }
+    public static boolean checkName( String name ) {
+        return removeAccent(name).matches( "^[a-zA-Z ]{2,}$" );
+    }
     private void updateUI() {
         navController.navigate(R.id.action_enterName_to_sign_in);
     }
